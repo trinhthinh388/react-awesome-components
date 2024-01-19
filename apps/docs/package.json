@@ -1,5 +1,5 @@
 {
-  "name": "@acme/docs",
+  "name": "@react-awesome-components/docs",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -10,18 +10,19 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
   },
   "dependencies": {
-    "@acme/core": "*",
-    "@acme/utils": "*",
+    "@react-awesome/utils": "*",
     "next": "^14.0.4",
+    "nextra": "^2.13.2",
+    "nextra-theme-docs": "^2.13.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@acme/tsconfig": "*",
+    "@react-awesome/eslint-config": "*",
+    "@react-awesome/tsconfig": "*",
     "@types/node": "^20.10.6",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",
-    "@acme/eslint-config": "*",
     "typescript": "^5.3.3"
   }
 }
