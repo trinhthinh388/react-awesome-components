@@ -10,7 +10,8 @@
     "version-packages": "changeset version",
     "release": "turbo build --filter=docs^... && changeset publish",
     "docs": "yarn workspace @react-awesome/docs",
-    "phone-input": "yarn workspace @react-awesome/phone-input"
+    "phone-input": "yarn workspace @react-awesome/phone-input",
+    "eslint": "yarn workspace @react-awesome/eslint-config"
   },
   "devDependencies": {
     "@react-awesome/eslint-config": "*",

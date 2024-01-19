@@ -1,0 +1,25 @@
+{
+  "index": {
+    "type": "page",
+    "title": "React Awesome Components",
+    "display": "hidden",
+    "theme": {
+      "layout": "raw"
+    }
+  },
+  "docs": {
+    "type": "page",
+    "title": "Documentation"
+  },
+  "playground": {
+    "type": "page",
+    "title": "Playground"
+  },
+  "404": {
+    "type": "page",
+    "theme": {
+      "timestamp": false,
+      "typesetting": "article"
+    }
+  }
+}

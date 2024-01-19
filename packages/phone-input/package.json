@@ -29,6 +29,7 @@
     "access": "public"
   },
   "dependencies": {
-    "libphonenumber-js": "^1.10.53"
+    "libphonenumber-js": "^1.10.53",
+    "@react-awesome/hooks": "*"
   }
 }

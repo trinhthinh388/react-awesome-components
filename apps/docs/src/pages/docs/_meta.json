@@ -1,0 +1,16 @@
+{
+  "index": "Introduction",
+  "-- Components": {
+    "type": "separator",
+    "title": "Components"
+  },
+  "phone-input": "",
+  "-- More": {
+    "type": "separator",
+    "title": "More"
+  },
+  "about-link": {
+    "title": "About",
+    "href": "/about"
+  }
+}
