@@ -11,7 +11,7 @@ Visit [https://loremipsum.com/docs](https://loremipsum.com/docs) to view the ful
 We're excited to see the community adopt React Awesome Components, raise issues, and provide feedback.
 Whether it's a feature request, bug report, or a project to showcase, please get involved!
 
-- [GitHub Discussions](https://github.com/trinhthinh388/react-awesome-components/discussions)
+- [GitHub Issues](https://github.com/trinhthinh388/react-awesome-components/issues)
 
 ## Contributing
 
