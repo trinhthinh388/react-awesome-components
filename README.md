@@ -1,73 +1,26 @@
-# Turborepo Design System starter with Changesets
+## Getting Started
 
-This is an official React design system starter powered by Turborepo. Versioning and package publishing is handled by [Changesets](https://github.com/changesets/changesets) and fully automated with GitHub Actions.
+Visit <a aria-label="react awesome introduction" href="https://foo.com/introduction">https://loremipsum.com/introduction</a> to get started with React Awesome Components.
 
-## Using this example
+## Documentation
 
-Run the following command:
+Visit [https://loremipsum.com/docs](https://loremipsum.com/docs) to view the full documentation.
 
-```sh
-npx create-turbo@latest -e with-changesets
-```
+### Community
 
-## What's inside?
+We're excited to see the community adopt React Awesome Components, raise issues, and provide feedback.
+Whether it's a feature request, bug report, or a project to showcase, please get involved!
 
-This Turborepo includes the following:
+- [GitHub Discussions](https://github.com/trinhthinh388/react-awesome-components/discussions)
 
-### Apps and Packages
+## Contributing
 
-- `docs`: A placeholder documentation site powered by [Next.js](https://nextjs.org/)
-- `@acme/core`: core React components
-- `@acme/utils`: shared React utilities
-- `@acme/tsconfig`: shared `tsconfig.json`s used throughout the monorepo
-- `@acme/eslint-config`: ESLint preset
+Contributions are always welcome!
 
-Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
+See [CONTRIBUTING.md](https://github.com/trinhthinh388/react-awesome-components/blob/master/CONTRIBUTING.md) for ways to get started.
 
-### Utilities
+Please adhere to this project's [CODE_OF_CONDUCT](https://github.com/trinhthinh388/react-awesome-components/blob/master/CODE_OF_CONDUCT.md).
 
-This Turborepo has some additional tools already setup for you:
+## License
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Useful commands
-
-- `yarn build` - Build all packages and the docs site
-- `yarn dev` - Develop all packages and the docs site
-- `yarn lint` - Lint all packages
-- `yarn changeset` - Generate a changeset
-- `yarn clean` - Clean up all `node_modules` and `dist` folders (runs each package's clean script)
-
-### Changing the npm organization scope
-
-The npm organization scope for this design system starter is `@acme`. To change this, it's a bit manual at the moment, but you'll need to do the following:
-
-- Rename folders in `packages/*` to replace `acme` with your desired scope
-- Search and replace `acme` with your desired scope
-- Re-run `yarn install`
-
-## Versioning and Publishing packages
-
-Package publishing has been configured using [Changesets](https://github.com/changesets/changesets). Please review their [documentation](https://github.com/changesets/changesets#documentation) to familiarize yourself with the workflow.
-
-This example comes with automated npm releases setup in a [GitHub Action](https://github.com/changesets/action). To get this working, you will need to create an `NPM_TOKEN` and `GITHUB_TOKEN` in your repository settings. You should also install the [Changesets bot](https://github.com/apps/changeset-bot) on your GitHub repository as well.
-
-For more information about this automation, refer to the official [changesets documentation](https://github.com/changesets/changesets/blob/main/docs/automating-changesets.md)
-
-### npm
-
-If you want to publish package to the public npm registry and make them publicly available, this is already setup.
-
-To publish packages to a private npm organization scope, **remove** the following from each of the `package.json`'s
-
-```diff
-- "publishConfig": {
--  "access": "public"
-- },
-```
-
-### GitHub Package Registry
-
-See [Working with the npm registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#publishing-a-package-using-publishconfig-in-the-packagejson-file)
+[MIT](https://choosealicense.com/licenses/mit/)
