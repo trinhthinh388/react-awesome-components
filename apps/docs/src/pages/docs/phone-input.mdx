@@ -6,6 +6,8 @@ title: PhoneInput
 
 **PhoneInput** is a highly customizable component with auto formatting and validating phone number.
 
+**PhoneInput** is a very basic component which doesn't come with any styles by default.
+
 ## Install
 
 To start using **React Awesome Phone Input**, you need to install the `@react-awesome/phone-input` library. In your project directory, run
@@ -32,16 +34,13 @@ import { PhoneInput } from '@reasome/components';
 ```
 
 import { PhoneInput } from '@react-awesome/phone-input';
-import { Container } from '../../components/Container'
-import { Preview } from '../../components/Preview'
+import { Container } from '../../components/Container';
+import { Preview } from '../../components/Preview';
+
+import '@react-awesome/phone-input/dist/style.css';
  
 ## Usage
 
 <Container>
-  <Preview
-    code={'<PhoneInput />'}
-    scope={{
-      PhoneInput,
-    }}
-  />
+  <Preview />
 </Container>

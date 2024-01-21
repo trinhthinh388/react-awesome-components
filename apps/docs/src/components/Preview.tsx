@@ -1,5 +1,4 @@
-import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
-import { themes } from 'prism-react-renderer';
+import { Sandpack } from '@codesandbox/sandpack-react';
 
 export const Preview = ({
   code,
@@ -8,13 +7,23 @@ export const Preview = ({
   code: string;
   scope: Record<string, unknown>;
 }) => (
-  <LiveProvider code={code} scope={scope}>
-    <div className="border p-3 rounded-lg mb-2">
-      <LivePreview />
-    </div>
-    <LiveError />
-    <div className="rounded-lg overflow-hidden">
-      <LiveEditor theme={themes.okaidia} />
-    </div>
-  </LiveProvider>
+  <Sandpack
+    template="react"
+    files={{
+      '/App.js': `
+      import React from 'react';
+      import { PhoneInput } from '@react-awesome/phone-input'
+      function App() {
+        const [country, setCountry] = React.useState("US");
+        
+        return (
+          <PhoneInput
+            placeholder="Enter your phone number"
+            defaultCountry={country}
+          />
+        );
+      }
+      export default App;`,
+    }}
+  />
 );

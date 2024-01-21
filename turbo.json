@@ -15,6 +15,12 @@
       "cache": false,
       "persistent": true
     },
+    "@react-awesome/docs#deploy": {
+      "dependsOn": [
+        "@react-awesome/hooks#dev",
+        "@react-awesome/phone-input#dev"
+      ]
+    },
     "clean": {
       "cache": false
     }

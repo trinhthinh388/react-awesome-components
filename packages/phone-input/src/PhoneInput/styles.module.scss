@@ -1,0 +1,67 @@
+.countrySelect {
+  position: relative;
+  .selectBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .selectOpen {
+    transform: rotate(180deg);
+  }
+
+  .flag {
+    width: 1.75rem;
+  }
+
+  .chevronDown {
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    border-top: 0.25rem solid #777;
+    transition: 0.1s ease-out;
+    margin: 0 0.25rem;
+  }
+
+  .selectList {
+    position: absolute;
+    background-color: #fff;
+    top: 1rem;
+    left: -0.75rem;
+    width: 20.75rem;
+    height: 18.75rem;
+    overflow: auto;
+    z-index: 2;
+    margin-top: 0.5rem;
+  }
+
+  .selectOpt {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .country {
+      margin-left: 0.5rem;
+    }
+
+    .phoneCode {
+      margin-left: 0.25rem;
+      color: rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+
+.input {
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

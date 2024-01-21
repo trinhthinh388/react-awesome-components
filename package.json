@@ -11,14 +11,19 @@
     "release": "turbo build --filter=docs^... && changeset publish",
     "docs": "yarn workspace @react-awesome/docs",
     "phone-input": "yarn workspace @react-awesome/phone-input",
+    "hooks": "yarn workspace @react-awesome/hooks",
     "eslint": "yarn workspace @react-awesome/eslint-config"
   },
   "devDependencies": {
-    "@react-awesome/eslint-config": "*",
     "@changesets/cli": "^2.27.1",
+    "@react-awesome/eslint-config": "*",
+    "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.56.0",
     "prettier": "^3.1.1",
-    "turbo": "latest"
+    "turbo": "latest",
+    "vite": "^5.0.12",
+    "vite-plugin-css-injected-by-js": "^3.3.1",
+    "vite-plugin-dts": "^3.7.1"
   },
   "engines": {
     "node": ">=18"

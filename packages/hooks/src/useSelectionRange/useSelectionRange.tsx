@@ -1,7 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
-export const useInputCursor = (inputEl: HTMLInputElement | null) => {
-  const pos = useRef<{ start: number | null; end: number | null }>({
+export const useSelectionRange = (inputEl: HTMLInputElement | null) => {
+  const [caretPos, setPos] = useState<{
+    start: number | null;
+    end: number | null;
+  }>({
     start: 0,
     end: 0,
   });
@@ -12,11 +15,10 @@ export const useInputCursor = (inputEl: HTMLInputElement | null) => {
     const track = (e: KeyboardEvent | MouseEvent) => {
       setTimeout(() => {
         if (e.target instanceof HTMLInputElement) {
-          pos.current = {
+          setPos({
             start: e.target.selectionStart,
             end: e.target.selectionEnd,
-          };
-          console.log(pos.current);
+          });
         }
       }, 0);
     };
@@ -32,5 +34,5 @@ export const useInputCursor = (inputEl: HTMLInputElement | null) => {
     };
   }, [inputEl]);
 
-  return pos.current;
+  return caretPos;
 };
