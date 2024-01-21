@@ -1,4 +1,5 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import { getCountries, CountryCode } from 'libphonenumber-js';
 
 const DEFAULT_ALLOW_CHARACTERS = /^[+0-9][0-9]*$/;
 
@@ -8,79 +9,48 @@ export type UsePhoneInput = {
    */
   value?: string;
   /**
+   * @description Supported countries
+   */
+  countries?: CountryCode[];
+  /**
    * @description onChange handler
    */
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 };
 
-export const usePhoneInput = ({ value }: UsePhoneInput = {}) => {
+export const usePhoneInput = ({ value, countries }: UsePhoneInput = {}) => {
   const [innerValue, setInnerValue] = useState<string>('');
-  const keyPressed = useRef<Record<string, boolean>>({});
-  const _v = useRef<string>('');
 
+  const options = useMemo(() => {
+    const _c = getCountries();
+    if (!Array.isArray(countries)) return _c;
+
+    return _c.filter((c) => countries.includes(c));
+  }, [countries]);
+
+  /**
+   * Event Handlers
+   */
   const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    _v.current = e.target.value;
-    setInnerValue(e.target.value);
+    if (DEFAULT_ALLOW_CHARACTERS.test(e.target.value) || e.target.value === '')
+      setInnerValue(e.target.value);
   }, []);
 
-  const onKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
-    // Autofill behaviour
-    if (!e.key || e.key === 'Unidentified') return;
-
-    keyPressed.current[e.key] = true;
-
-    let keys = [];
-    for (const [key, isPressed] of Object.entries(keyPressed.current)) {
-      if (isPressed) keys.push(key);
-    }
-
-    const startPos = e.currentTarget.selectionStart || 0;
-    const endPos = e.currentTarget.selectionEnd || _v.current.length;
-
-    console.log(startPos, endPos);
-
-    const _value = `${_v.current.slice(0, startPos + 1)}${e.key}${_v.current.slice(startPos + 1, endPos)}`;
-
-    console.log(_value);
-
-    const combination = keys.join('');
-
-    const isDel = e.key === 'Backspace';
-    const isSelectAll = combination === 'Controla';
-    const isUndo = combination === 'Controlz';
-    const isRedo = combination === 'ControlShiftZ';
-    const isMovingCursor = combination.includes('Arrow');
-
-    if (
-      isMovingCursor ||
-      isRedo ||
-      isUndo ||
-      isDel ||
-      isSelectAll ||
-      DEFAULT_ALLOW_CHARACTERS.test(_value)
-    ) {
-      return;
-    }
-
-    e.preventDefault();
-  }, []);
-
-  const onKeyUp = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
-    keyPressed.current[e.key] = false;
-  }, []);
-
-  const register = useCallback(() => {
-    return {
-      value: value || innerValue,
-      onChange,
-      onKeyDown,
-      onKeyUp,
-      type: 'tel',
-      autocomplete: 'tel',
-    };
-  }, [innerValue, onChange, onKeyDown, onKeyUp, value]);
+  const register = useCallback(
+    (name?: string) => {
+      return {
+        name,
+        value: value || innerValue,
+        onChange,
+        type: 'tel',
+        autocomplete: 'tel',
+      };
+    },
+    [innerValue, onChange, value]
+  );
 
   return {
     register,
+    options,
   };
 };

@@ -15,5 +15,5 @@ module.exports = withNextra({
   eslint: {
     // ESLint behaves weirdly in this monorepo.
     ignoreDuringBuilds: true
-  },
+  }
 })

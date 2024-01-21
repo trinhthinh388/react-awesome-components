@@ -1,5 +1,4 @@
-import { usePrevious } from '@react-awesome/hooks';
-import { useCallback, useRef, useState } from 'react';
+import Flag from 'react-flagpack';
 import { usePhoneInput } from './usePhoneInput';
 
 export type PhoneInputProps = {
@@ -11,9 +10,20 @@ export type PhoneInputProps = {
 
 export const PhoneInput = ({
   inputComponent: Input = 'input',
-  value,
+  name,
 }: PhoneInputProps) => {
-  const { register } = usePhoneInput();
+  const { register, options } = usePhoneInput();
 
-  return <Input {...register()} />;
+  return (
+    <div>
+      <select name={name}>
+        {options.map((opt) => (
+          <option value={opt}>
+            <Flag code={opt} />
+          </option>
+        ))}
+      </select>
+      <Input {...register(name)} />
+    </div>
+  );
 };
