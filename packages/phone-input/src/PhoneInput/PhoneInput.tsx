@@ -36,7 +36,9 @@ export const PhoneInput = ({
     toggleCountrySelect,
     options,
   } = usePhoneInput({
-    onChange: (e) => console.log(e),
+    // onChange(e) {
+    //   console.log(e);
+    // },
     ...props,
   });
 

@@ -4,12 +4,13 @@ import {
   getCountries,
   CountryCode,
   getCountryCallingCode,
-  parsePhoneNumberFromString,
   formatIncompletePhoneNumber,
-  parseIncompletePhoneNumber,
   AsYouType,
 } from 'libphonenumber-js';
-import { useSelectionRange } from '@react-awesome/hooks';
+import {
+  guessCountryByIncompleteNumber,
+  formatInternational,
+} from '../helpers';
 
 const DEFAULT_ALLOW_CHARACTERS = /^[+0-9][0-9]*$/;
 
@@ -18,7 +19,6 @@ export type PhoneInputChangeEvent = {
   isPossible: boolean;
   possibleCountry?: CountryCode;
   originalValue: string;
-  formattedValue: string;
   e164Value: string;
   country: CountryCode;
   phoneCode: string;
@@ -32,7 +32,7 @@ export type UsePhoneInput = {
   /**
    * @description Supported countries
    */
-  countries?: CountryCode[];
+  supportedCountries?: CountryCode[];
   /**
    * @description Default selected country
    */
@@ -42,44 +42,44 @@ export type UsePhoneInput = {
    */
   onChange?: (ev: PhoneInputChangeEvent) => void;
   /**
-   * @description Automatically append `+` at the beginning of the input value.
-   */
-  autoAppendPlusSign?: boolean;
-  /**
    * @description Specify event to guess the country on.
    */
-  guessOn?: 'blur' | 'change';
+  guessOn?: 'blur' | 'change' | boolean;
 };
 
 export const usePhoneInput = ({
   value,
-  countries,
+  supportedCountries,
   defaultCountry,
   onChange: onPhoneChange = () => {},
-  autoAppendPlusSign = true,
   guessOn = 'change',
 }: UsePhoneInput = {}) => {
   const asYouType = React.useRef<AsYouType>(new AsYouType(defaultCountry));
   const originalValue = React.useRef<string>('');
   const [inputRef, setInputRef] = React.useState<HTMLInputElement | null>(null);
-  const [innerValue, setInnerValue] = React.useState<string>('');
-  const [isSelectOpen, setSelectOpen] = React.useState<boolean>(false);
-  const [selectedCountry, setSelectedCountry] = React.useState<CountryCode>(
-    () => {
+  const [innerValue, setInnerValue] = React.useState<
+    NonNullable<{ phone: string; country: CountryCode }>
+  >(() => {
+    const getInitialCountry = () => {
       const countryList = getCountries();
       if (defaultCountry) return defaultCountry;
       if (
         !defaultCountry &&
-        countries &&
-        Array.isArray(countries) &&
-        countries.length > 0
+        supportedCountries &&
+        Array.isArray(supportedCountries) &&
+        supportedCountries.length > 0
       )
-        return countries[0];
+        return supportedCountries[0];
 
       return countryList[0];
-    }
-  );
-  const selectionRange = useSelectionRange(inputRef);
+    };
+
+    return {
+      phone: value || '',
+      country: getInitialCountry(),
+    };
+  });
+  const [isSelectOpen, setSelectOpen] = React.useState<boolean>(false);
 
   const options = React.useMemo(() => {
     const _c = getCountries();
@@ -91,57 +91,69 @@ export const usePhoneInput = ({
         name: getCountryName(_c),
         phoneCode: getCountryCallingCode(_c),
       }));
-    if (!Array.isArray(countries)) return genCountryOpts(_c);
+    if (!Array.isArray(supportedCountries)) return genCountryOpts(_c);
 
-    return genCountryOpts(_c.filter((c) => countries.includes(c)));
-  }, [countries]);
+    return genCountryOpts(_c.filter((c) => supportedCountries.includes(c)));
+  }, [supportedCountries]);
 
+  const guessCountry = React.useCallback(
+    (value: string) => {
+      if (!guessOn) return;
+      return guessCountryByIncompleteNumber(value);
+    },
+    [guessOn]
+  );
   const openCountrySelect = React.useCallback(() => setSelectOpen(true), []);
   const closeCountrySelect = React.useCallback(() => setSelectOpen(false), []);
   const toggleCountrySelect = React.useCallback(
     (state?: boolean) => setSelectOpen(state ? state : (prev) => !prev),
     []
   );
-  const genPhoneEvent = React.useCallback(
+  const formatPhoneEvent = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>): PhoneInputChangeEvent => {
-      const _value = parseIncompletePhoneNumber(e.target.value);
-      const phone = parsePhoneNumberFromString(_value);
+      const _value = formatInternational(e.target.value);
+      const guessedCountry = guessCountry(_value);
+      const country = guessedCountry || innerValue.country;
+
       return {
         ...e,
+        target: {
+          ...e.target,
+          value: formatIncompletePhoneNumber(_value, {
+            defaultCountry: country,
+          }),
+        },
         originalValue: originalValue.current,
         isPossible: asYouType.current.isPossible(),
         isValid: asYouType.current.isValid(),
-        formattedValue: phone?.format('INTERNATIONAL') || '',
-        e164Value: phone?.format('E.164') || '',
+        e164Value: asYouType.current.getNumber()?.format('E.164') || '',
         possibleCountry: asYouType.current.country,
-        country: phone?.country || selectedCountry,
+        country,
         phoneCode:
-          phone?.countryCallingCode || getCountryCallingCode(selectedCountry),
+          asYouType.current.getCallingCode() || getCountryCallingCode(country),
       };
     },
-    [selectedCountry]
+    [guessCountry, innerValue.country]
   );
-  const appendPlusSign = React.useCallback(
-    (_value: string) => {
-      if (!autoAppendPlusSign || _value === '') return _value;
-
-      if (!_value.startsWith('+')) {
-        return `+${_value}`;
-      }
-
-      return _value;
-    },
-    [autoAppendPlusSign]
-  );
+  const [caret, setCaret] = React.useState<{ start: number; end: number }>({
+    start: 0,
+    end: 0,
+  });
 
   /**
    * Event Handlers
    */
   const onChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      e.target.value = appendPlusSign(
-        parseIncompletePhoneNumber(e.target.value)
-      );
+      const start = e.target.selectionStart || 0;
+      const end = e.target.selectionEnd || 0;
+
+      setCaret({
+        start,
+        end,
+      });
+
+      e.target.value = formatInternational(e.target.value);
 
       if (
         DEFAULT_ALLOW_CHARACTERS.test(e.target.value) ||
@@ -149,46 +161,57 @@ export const usePhoneInput = ({
       ) {
         asYouType.current.reset();
         asYouType.current.input(e.target.value);
-        originalValue.current = e.target.value;
-        setInnerValue(formatIncompletePhoneNumber(e.target.value));
-        onPhoneChange(genPhoneEvent(e));
-        return;
-      }
 
-      /**
-       * Ensure the cursor must retain when the value is not valid.
-       */
-      queueMicrotask(() => {
-        inputRef?.setSelectionRange(selectionRange.start, selectionRange.end);
-      });
+        const event = formatPhoneEvent(e);
+
+        onPhoneChange(event);
+
+        setInnerValue((prev) => ({
+          ...prev,
+          country: event.country,
+          phone: event.target.value,
+        }));
+      }
     },
-    [
-      appendPlusSign,
-      genPhoneEvent,
-      inputRef,
-      onPhoneChange,
-      selectionRange.end,
-      selectionRange.start,
-    ]
+    [formatPhoneEvent, onPhoneChange]
   );
 
   const register = React.useCallback(
-    (name?: string) => {
+    (
+      name?: string
+    ): React.DetailedHTMLProps<
+      React.InputHTMLAttributes<HTMLInputElement>,
+      HTMLInputElement
+    > => {
       return {
         ref: setInputRef,
         name,
-        value: value || innerValue,
+        value: innerValue.phone,
         onChange,
         type: 'tel',
         autoComplete: 'tel',
       };
     },
-    [innerValue, onChange, value]
+    [innerValue.phone, onChange]
   );
 
   React.useEffect(() => {
-    asYouType.current = new AsYouType(selectedCountry);
-  }, [selectedCountry]);
+    asYouType.current = new AsYouType(innerValue.country);
+  }, [innerValue.country]);
+
+  React.useEffect(() => {
+    if (!value) return;
+    if (value !== innerValue.phone) {
+      setInnerValue((prev) => ({
+        ...prev,
+        phone: value,
+      }));
+    }
+  }, [innerValue, value]);
+
+  React.useEffect(() => {
+    inputRef?.setSelectionRange(caret.start, caret.end);
+  }, [caret.end, caret.start, innerValue.phone, inputRef]);
 
   return {
     register,
@@ -197,7 +220,6 @@ export const usePhoneInput = ({
     openCountrySelect,
     closeCountrySelect,
     toggleCountrySelect,
-    selectedCountry,
-    setSelectedCountry,
+    selectedCountry: innerValue.country,
   };
 };

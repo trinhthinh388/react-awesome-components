@@ -13,7 +13,8 @@
     "build": "vite --config ../../vite.config.ts build",
     "dev": "vite --watch --config ../../vite.config.ts build",
     "lint": "eslint \"src/**/*.ts*\"",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "test": "vitest --config ../../vite.config.ts --coverage"
   },
   "devDependencies": {
     "@react-awesome/eslint-config": "*",

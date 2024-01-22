@@ -4,6 +4,7 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
+    "test": "turbo test",
     "clean": "turbo clean && rm -rf node_modules",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "changeset": "changeset",
@@ -18,12 +19,15 @@
     "@changesets/cli": "^2.27.1",
     "@react-awesome/eslint-config": "*",
     "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/coverage-istanbul": "^1.2.1",
+    "@vitest/ui": "^1.2.1",
     "eslint": "^8.56.0",
     "prettier": "^3.1.1",
     "turbo": "latest",
     "vite": "^5.0.12",
     "vite-plugin-css-injected-by-js": "^3.3.1",
-    "vite-plugin-dts": "^3.7.1"
+    "vite-plugin-dts": "^3.7.1",
+    "vitest": "^1.2.1"
   },
   "engines": {
     "node": ">=18"

@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import path from 'node:path';
 import react from '@vitejs/plugin-react';
@@ -43,6 +44,30 @@ export default defineConfig({
           preserveModules: true,
         },
       ],
+    },
+  },
+  test: {
+    environment: 'node',
+    include: [
+      /**
+       * Unit tests should only apply to helpers function only.
+       * For component testing, we should use Functional Test.
+       * Thus to avoid unnecessary tests we should use .tsx for components file only.
+       */
+      './src/**/*.spec.ts',
+    ],
+    coverage: {
+      provider: 'istanbul',
+      include: ['./src/**/*.ts'],
+      exclude: ['./src/**/*.tsx'],
+      reporter: ['text', 'json', 'html'],
+      thresholds: {
+        100: true,
+        statements: 100,
+        functions: 100,
+        lines: 100,
+        branches: 100,
+      },
     },
   },
 });
