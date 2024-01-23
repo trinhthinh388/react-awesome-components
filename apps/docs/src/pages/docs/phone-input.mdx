@@ -33,14 +33,25 @@ Import it directly from the **React Awesome Components** package.
 import { PhoneInput } from '@reasome/components';
 ```
 
-import { PhoneInput } from '@react-awesome/phone-input';
+import { DefaultPhoneInput } from '../../components/examples';
 import { Container } from '../../components/Container';
-import { Preview } from '../../components/Preview';
 
 import '@react-awesome/phone-input/dist/style.css';
  
 ## Usage
 
+### Default
+
+By default, **Phone Input** comes with a country selector.
+
 <Container>
-  <PhoneInput />
+  <DefaultPhoneInput />
 </Container>
+
+```jsx
+import { PhoneInput } from '@react-awesome/phone-input';
+
+const Example = () => {
+  return <PhoneInput />;
+};
+```

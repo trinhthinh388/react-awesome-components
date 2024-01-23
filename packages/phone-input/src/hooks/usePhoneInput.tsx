@@ -7,22 +7,23 @@ import {
   formatIncompletePhoneNumber,
   AsYouType,
 } from 'libphonenumber-js';
+import { usePreserveInputCaretPosition } from '@react-awesome/hooks';
 import {
   guessCountryByIncompleteNumber,
   formatInternational,
 } from '../helpers';
 
-const DEFAULT_ALLOW_CHARACTERS = /^[+0-9][0-9]*$/;
+const DEFAULT_ALLOW_FORMAT = /^[+0-9][0-9]*$/;
 
-export type PhoneInputChangeEvent = {
+export type PhoneInputChangeMetadata = {
   isValid: boolean;
   isPossible: boolean;
   possibleCountry?: CountryCode;
-  originalValue: string;
   e164Value: string;
   country: CountryCode;
   phoneCode: string;
-} & React.ChangeEvent<HTMLInputElement>;
+  formattedValue: string;
+};
 
 export type UsePhoneInput = {
   /**
@@ -38,9 +39,13 @@ export type UsePhoneInput = {
    */
   defaultCountry?: CountryCode;
   /**
-   * @description onChange handler
+   * @description onChange handler.
+   * The `ev` could be `undefined` when the country is just selected.
    */
-  onChange?: (ev: PhoneInputChangeEvent) => void;
+  onChange?: (
+    ev: React.ChangeEvent<HTMLInputElement> | undefined,
+    metadata: PhoneInputChangeMetadata
+  ) => void;
   /**
    * @description Specify event to guess the country on.
    */
@@ -54,8 +59,14 @@ export const usePhoneInput = ({
   onChange: onPhoneChange = () => {},
   guessOn = 'change',
 }: UsePhoneInput = {}) => {
+  /**
+   * Refs
+   */
   const asYouType = React.useRef<AsYouType>(new AsYouType(defaultCountry));
-  const originalValue = React.useRef<string>('');
+
+  /**
+   * States
+   */
   const [inputRef, setInputRef] = React.useState<HTMLInputElement | null>(null);
   const [innerValue, setInnerValue] = React.useState<
     NonNullable<{ phone: string; country: CountryCode }>
@@ -81,6 +92,13 @@ export const usePhoneInput = ({
   });
   const [isSelectOpen, setSelectOpen] = React.useState<boolean>(false);
 
+  usePreserveInputCaretPosition(inputRef, {
+    delimiters: ['+', ' ', '(', ')', '-'],
+  });
+
+  /**
+   * Memo
+   */
   const options = React.useMemo(() => {
     const _c = getCountries();
     const getCountryName = (code: CountryCode) =>
@@ -96,6 +114,9 @@ export const usePhoneInput = ({
     return genCountryOpts(_c.filter((c) => supportedCountries.includes(c)));
   }, [supportedCountries]);
 
+  /**
+   * Helpers
+   */
   const guessCountry = React.useCallback(
     (value: string) => {
       if (!guessOn) return;
@@ -109,21 +130,14 @@ export const usePhoneInput = ({
     (state?: boolean) => setSelectOpen(state ? state : (prev) => !prev),
     []
   );
-  const formatPhoneEvent = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>): PhoneInputChangeEvent => {
-      const _value = formatInternational(e.target.value);
+  const generateMetadata = React.useCallback(
+    (value: string): PhoneInputChangeMetadata => {
+      const _value = formatInternational(value);
       const guessedCountry = guessCountry(_value);
       const country = guessedCountry || innerValue.country;
+      const formattedValue = formatIncompletePhoneNumber(value, country);
 
       return {
-        ...e,
-        target: {
-          ...e.target,
-          value: formatIncompletePhoneNumber(_value, {
-            defaultCountry: country,
-          }),
-        },
-        originalValue: originalValue.current,
         isPossible: asYouType.current.isPossible(),
         isValid: asYouType.current.isValid(),
         e164Value: asYouType.current.getNumber()?.format('E.164') || '',
@@ -131,49 +145,50 @@ export const usePhoneInput = ({
         country,
         phoneCode:
           asYouType.current.getCallingCode() || getCountryCallingCode(country),
+        formattedValue,
       };
     },
     [guessCountry, innerValue.country]
   );
-  const [caret, setCaret] = React.useState<{ start: number; end: number }>({
-    start: 0,
-    end: 0,
-  });
+  const setSelectedCountry = React.useCallback(
+    (country: CountryCode) => {
+      onPhoneChange(undefined, generateMetadata(''));
+      setInnerValue((prev) => ({
+        ...prev,
+        country,
+        phone: '',
+      }));
+      closeCountrySelect();
+    },
+    [closeCountrySelect, generateMetadata, onPhoneChange]
+  );
 
   /**
    * Event Handlers
    */
   const onChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const start = e.target.selectionStart || 0;
-      const end = e.target.selectionEnd || 0;
-
-      setCaret({
-        start,
-        end,
-      });
-
+      // format raw value and assign back to the event target
       e.target.value = formatInternational(e.target.value);
 
-      if (
-        DEFAULT_ALLOW_CHARACTERS.test(e.target.value) ||
-        e.target.value === ''
-      ) {
+      if (DEFAULT_ALLOW_FORMAT.test(e.target.value) || e.target.value === '') {
         asYouType.current.reset();
         asYouType.current.input(e.target.value);
 
-        const event = formatPhoneEvent(e);
+        const metadata = generateMetadata(e.target.value);
 
-        onPhoneChange(event);
+        e.target.value = metadata.formattedValue;
+
+        onPhoneChange(e, metadata);
 
         setInnerValue((prev) => ({
           ...prev,
-          country: event.country,
-          phone: event.target.value,
+          country: metadata.country,
+          phone: metadata.formattedValue,
         }));
       }
     },
-    [formatPhoneEvent, onPhoneChange]
+    [generateMetadata, onPhoneChange]
   );
 
   const register = React.useCallback(
@@ -195,6 +210,9 @@ export const usePhoneInput = ({
     [innerValue.phone, onChange]
   );
 
+  /**
+   * Effects
+   */
   React.useEffect(() => {
     asYouType.current = new AsYouType(innerValue.country);
   }, [innerValue.country]);
@@ -207,11 +225,7 @@ export const usePhoneInput = ({
         phone: value,
       }));
     }
-  }, [innerValue, value]);
-
-  React.useEffect(() => {
-    inputRef?.setSelectionRange(caret.start, caret.end);
-  }, [caret.end, caret.start, innerValue.phone, inputRef]);
+  }, [innerValue, onPhoneChange, value]);
 
   return {
     register,
@@ -221,5 +235,6 @@ export const usePhoneInput = ({
     closeCountrySelect,
     toggleCountrySelect,
     selectedCountry: innerValue.country,
+    setSelectedCountry,
   };
 };

@@ -28,7 +28,7 @@
     top: 1rem;
     left: -0.75rem;
     width: 20.75rem;
-    height: 18.75rem;
+    max-height: 18.75rem;
     overflow: auto;
     z-index: 2;
     margin-top: 0.5rem;
@@ -39,6 +39,7 @@
     align-items: center;
     cursor: pointer;
     padding: 0.5rem 0.75rem;
+    color: #000;
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.05);

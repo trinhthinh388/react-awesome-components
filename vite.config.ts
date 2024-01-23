@@ -25,7 +25,7 @@ export default defineConfig({
       input: {
         index: 'src/index.ts',
       },
-      external: ['react', 'react-dom'],
+      external: ['react', 'react-dom', 'react/jsx-runtime'],
       output: [
         {
           dir: 'dist',

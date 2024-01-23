@@ -17,8 +17,8 @@ module.exports = {
   extends: ["eslint:recommended", "prettier", "eslint-config-turbo", "plugin:react-hooks/recommended"],
   plugins: ["only-warn"],
   globals: {
-    React: true,
     JSX: true,
+    window: true
   },
   env: {
     browser: true,

@@ -12,9 +12,12 @@ export type PhoneInputProps = {
   selectButtonClassname?: string;
   selectListClassname?: string;
   selectOptionClassname?: string;
-} & React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
+} & Omit<
+  React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >,
+  'onChange'
 > &
   UsePhoneInput;
 
@@ -27,18 +30,18 @@ export const PhoneInput = ({
   selectListClassname,
   selectOptionClassname,
   className,
+  onChange,
   ...props
 }: PhoneInputProps) => {
   const {
+    options,
     register,
     selectedCountry,
     isSelectOpen,
     toggleCountrySelect,
-    options,
+    setSelectedCountry,
   } = usePhoneInput({
-    // onChange(e) {
-    //   console.log(e);
-    // },
+    onChange,
     ...props,
   });
 
@@ -48,7 +51,11 @@ export const PhoneInput = ({
         {options.map((opt) => {
           const Flag = Flags[opt.iso2];
           return (
-            <li className={classNames(styles.selectOpt, selectOptionClassname)}>
+            <li
+              key={opt.iso2}
+              className={classNames(styles.selectOpt, selectOptionClassname)}
+              onClick={() => setSelectedCountry(opt.iso2)}
+            >
               <Flag className={styles.flag} />
               <span className={styles.country}>{opt.name}</span>
               <span className={styles.phoneCode}>{`+${opt.phoneCode}`}</span>
@@ -57,7 +64,7 @@ export const PhoneInput = ({
         })}
       </ul>
     ),
-    [options, selectListClassname, selectOptionClassname]
+    [options, selectListClassname, selectOptionClassname, setSelectedCountry]
   );
 
   const SelectedFlag = Flags[selectedCountry];
