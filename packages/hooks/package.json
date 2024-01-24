@@ -6,6 +6,9 @@
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/trinhthinh388/react-awesome-components"
+  },
   "files": [
     "dist/**"
   ],
@@ -13,7 +16,7 @@
     "build": "vite --config ../../vite.config.ts build",
     "dev": "vite --watch --config ../../vite.config.ts build",
     "lint": "eslint \"src/**/*.ts*\"",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    "clean": "rimraf .turbo && rimraf node_modules && rimraf dist"
   },
   "devDependencies": {
     "@react-awesome/eslint-config": "*",

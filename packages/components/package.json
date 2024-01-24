@@ -1,5 +1,5 @@
 {
-  "name": "@react-awesome/phone-input",
+  "name": "@react-awesome/components",
   "version": "0.0.0",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -24,7 +24,6 @@
     "@react-awesome/tsconfig": "*",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",
-    "country-flag-icons": "^1.5.9",
     "eslint": "^8.56.0",
     "react": "^18.2.0",
     "typescript": "^5.3.3"
@@ -34,7 +33,6 @@
   },
   "dependencies": {
     "@react-awesome/hooks": "0.0.0-24.1.2024-1",
-    "classnames": "^2.5.1",
-    "libphonenumber-js": "^1.10.53"
+    "@react-awesome/phone-input": "*"
   }
 }

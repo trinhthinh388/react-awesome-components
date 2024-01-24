@@ -1,32 +1,21 @@
 .countrySelect {
-  position: relative;
-  .selectBtn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .selectOpen {
-    transform: rotate(180deg);
-  }
-
-  .flag {
-    width: 1.75rem;
-  }
-
-  .chevronDown {
-    border-left: 0.25rem solid transparent;
-    border-right: 0.25rem solid transparent;
-    border-top: 0.25rem solid #777;
-    transition: 0.1s ease-out;
-    margin: 0 0.25rem;
-  }
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  color: var(--rap-phone-input-color);
+  background-color: var(--rap-phone-input-bg);
+  border-top-left-radius: var(--rap-phone-input-border-radius);
+  border-bottom-left-radius: var(--rap-phone-input-border-radius);
+  border: 1px solid var(--rap-phone-input-border-color);
+  border-right: 0;
 
   .selectList {
     position: absolute;
-    background-color: #fff;
-    top: 1rem;
-    left: -0.75rem;
+    color: var(--rap-phone-input-color);
+    background-color: var(--rap-phone-input-bg);
+    font-size: var(--rap-phone-input-font-size);
+    top: 2.1rem;
+    left: 0;
     width: 20.75rem;
     max-height: 18.75rem;
     overflow: auto;
@@ -39,7 +28,7 @@
     align-items: center;
     cursor: pointer;
     padding: 0.5rem 0.75rem;
-    color: #000;
+    color: var(--rap-phone-input-color);
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.05);
@@ -54,15 +43,42 @@
       color: rgba(0, 0, 0, 0.5);
     }
   }
+
+  .selectBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flag {
+    width: 1.75rem;
+  }
+
+  .chevronDown {
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    border-top: 0.25rem solid #777;
+    transition: 0.1s ease-out;
+    margin-left: 0.35rem;
+  }
+
+  .selectOpen {
+    transform: rotate(180deg);
+  }
 }
 
 .input {
   font-size: 0.875rem;
   padding: 0.5rem 0.75rem;
+  background-color: var(--rap-phone-input-bg);
+  color: var(--rap-phone-input-color);
+  border-top-right-radius: var(--rap-phone-input-border-radius);
+  border-bottom-right-radius: var(--rap-phone-input-border-radius);
+  border: 1px solid var(--rap-phone-input-border-color);
 }
 
 .container {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
+  display: grid;
+  grid-template-columns: 65px 1fr;
 }

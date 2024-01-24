@@ -4,9 +4,7 @@ title: PhoneInput
 
 # PhoneInput
 
-**PhoneInput** is a highly customizable component with auto formatting and validating phone number.
-
-**PhoneInput** is a very basic component which doesn't come with any styles by default.
+**PhoneInput** is a highly customizable component with auto formatting and validating the enterred phone number.
 
 ## Install
 
@@ -30,19 +28,66 @@ export const HomePage = () => <PhoneInput />;
 Import it directly from the **React Awesome Components** package.
 
 ```jsx filename="home.jsx"
-import { PhoneInput } from '@reasome/components';
+import { PhoneInput } from '@react-awesome/components';
 ```
 
-import { DefaultPhoneInput } from '../../components/examples';
+import {
+  DefaultPhoneInput,
+  SupportCountryPhoneInput,
+} from '../../components/examples';
 import { Container } from '../../components/Container';
+import { Callout } from 'nextra/components';
 
 import '@react-awesome/phone-input/dist/style.css';
- 
+
 ## Usage
 
 ### Default
 
 By default, **Phone Input** comes with a country selector.
+
+<Container>
+  <DefaultPhoneInput />
+</Container>
+
+```jsx
+import { PhoneInput } from '@react-awesome/phone-input';
+
+const Example = () => {
+  return <PhoneInput />;
+};
+```
+
+### Customizable Supported Countries
+
+By default, **Phone Input** supports all countries but you can modify this behaviour to only support some specific countries by providing `supportedCountries` property.
+
+In this example, by passing `["US", "CA", "VN"]` to the `supportedCountries`, you can only choose one of them in the country selector.
+
+<Callout type="info" emoji="ℹ️">
+  When users type in a phone number that belongs to an unsupported country, the
+  onChange event will be triggered with the current selected country.
+</Callout>
+
+<Container>
+  <SupportCountryPhoneInput />
+</Container>
+
+```jsx
+import { PhoneInput } from '@react-awesome/phone-input';
+
+const Example = () => {
+  return <PhoneInput supportedCountries={['US', 'CA', 'VN']} />;
+};
+```
+
+### Auto formating and validating with built-in caret handler
+
+**Phone Input** automatically formats and validates every character that user type.
+
+<Callout type="info" emoji="✍️">
+  Try to type a random phone number and change some characters in the middle.
+</Callout>
 
 <Container>
   <DefaultPhoneInput />

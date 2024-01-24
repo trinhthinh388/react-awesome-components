@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Flags from 'country-flag-icons/react/3x2';
 
 import styles from './styles.module.scss';
+import '../styles/global.scss';
 
 export type PhoneInputProps = {
   inputComponent?: 'input';

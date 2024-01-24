@@ -7,16 +7,17 @@
     "start": "next start ",
     "dev": "next dev -p 3002",
     "lint": "next lint",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
+    "clean": "rimraf .turbo && rimraf node_modules && rimraf .next"
   },
   "dependencies": {
-    "@react-awesome/hooks": "*",
+    "@react-awesome/hooks": "0.0.0-24.1.2024-1",
     "@react-awesome/phone-input": "*",
     "next": "^14.0.4",
     "nextra": "^2.13.2",
     "nextra-theme-docs": "^2.13.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "remark-mdx-disable-explicit-jsx": "^0.1.0"
   },
   "devDependencies": {
     "@react-awesome/eslint-config": "*",

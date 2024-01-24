@@ -4,7 +4,7 @@ import {
   PhoneInputChangeMetadata,
 } from '@react-awesome/phone-input';
 
-export const DefaultPhoneInput = () => {
+export const SupportCountryPhoneInput = () => {
   const [value, setValue] = useState<PhoneInputChangeMetadata>({
     isPossible: false,
     isValid: false,
@@ -24,6 +24,7 @@ export const DefaultPhoneInput = () => {
         }}
         value={value?.formattedValue}
         defaultCountry={value.country}
+        supportedCountries={['US', 'CA', 'VN']}
       />
 
       <h3 className="mt-3 font-bold text-xl underline underline-offset-4">

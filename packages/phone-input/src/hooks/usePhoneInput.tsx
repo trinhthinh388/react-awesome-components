@@ -11,6 +11,7 @@ import { usePreserveInputCaretPosition } from '@react-awesome/hooks';
 import {
   guessCountryByIncompleteNumber,
   formatInternational,
+  checkCountryValidity,
 } from '../helpers';
 
 const DEFAULT_ALLOW_FORMAT = /^[+0-9][0-9]*$/;
@@ -18,11 +19,14 @@ const DEFAULT_ALLOW_FORMAT = /^[+0-9][0-9]*$/;
 export type PhoneInputChangeMetadata = {
   isValid: boolean;
   isPossible: boolean;
-  possibleCountry?: CountryCode;
   e164Value: string;
   country: CountryCode;
   phoneCode: string;
   formattedValue: string;
+  /**
+   * @description Whether this country is supported by the `supportedCountries` property or not
+   */
+  isSupported: boolean;
 };
 
 export type UsePhoneInput = {
@@ -131,28 +135,36 @@ export const usePhoneInput = ({
     []
   );
   const generateMetadata = React.useCallback(
-    (value: string): PhoneInputChangeMetadata => {
+    (value: string, currentCountry: CountryCode): PhoneInputChangeMetadata => {
       const _value = formatInternational(value);
-      const guessedCountry = guessCountry(_value);
-      const country = guessedCountry || innerValue.country;
+      const guessedCountry = guessCountry(_value) || currentCountry;
+      const isSupported = checkCountryValidity(
+        guessedCountry,
+        supportedCountries
+      );
+      // If country is not supported country then return the defaultCountry or the first country in the option list.
+      const country = isSupported
+        ? guessedCountry
+        : defaultCountry || options[0].iso2;
       const formattedValue = formatIncompletePhoneNumber(value, country);
 
       return {
         isPossible: asYouType.current.isPossible(),
         isValid: asYouType.current.isValid(),
         e164Value: asYouType.current.getNumber()?.format('E.164') || '',
-        possibleCountry: asYouType.current.country,
         country,
         phoneCode:
           asYouType.current.getCallingCode() || getCountryCallingCode(country),
         formattedValue,
+        isSupported,
       };
     },
-    [guessCountry, innerValue.country]
+    [defaultCountry, guessCountry, options, supportedCountries]
   );
   const setSelectedCountry = React.useCallback(
     (country: CountryCode) => {
-      onPhoneChange(undefined, generateMetadata(''));
+      const metadata = generateMetadata('', country);
+      onPhoneChange(undefined, metadata);
       setInnerValue((prev) => ({
         ...prev,
         country,
@@ -175,7 +187,7 @@ export const usePhoneInput = ({
         asYouType.current.reset();
         asYouType.current.input(e.target.value);
 
-        const metadata = generateMetadata(e.target.value);
+        const metadata = generateMetadata(e.target.value, innerValue.country);
 
         e.target.value = metadata.formattedValue;
 
@@ -188,7 +200,7 @@ export const usePhoneInput = ({
         }));
       }
     },
-    [generateMetadata, onPhoneChange]
+    [generateMetadata, innerValue.country, onPhoneChange]
   );
 
   const register = React.useCallback(
