@@ -10,8 +10,8 @@
     "clean": "rimraf .turbo && rimraf node_modules && rimraf .next"
   },
   "dependencies": {
-    "@react-awesome/hooks": "0.0.0-init.2",
-    "@react-awesome/phone-input": "1.0.0-init.0",
+    "@react-awesome/hooks": "0.0.0-init.3",
+    "@react-awesome/phone-input": "1.0.0-init.2",
     "next": "^14.0.4",
     "nextra": "^2.13.2",
     "nextra-theme-docs": "^2.13.2",

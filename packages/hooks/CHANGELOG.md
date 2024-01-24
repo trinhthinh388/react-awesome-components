@@ -1,5 +1,13 @@
 # @react-awesome/hooks
 
+## 0.0.0-init.3
+
+### Patch Changes
+
+- Fix:
+
+  - Re-export all components and hooks
+
 ## 0.0.0-init.2
 
 ### Major Changes

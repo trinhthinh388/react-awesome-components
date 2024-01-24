@@ -247,6 +247,7 @@ export const usePhoneInput = ({
     closeCountrySelect,
     toggleCountrySelect,
     selectedCountry: innerValue.country,
+    phoneCode: getCountryCallingCode(innerValue.country),
     setSelectedCountry,
   };
 };
