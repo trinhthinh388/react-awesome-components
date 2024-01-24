@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback } from 'react';
 
 type Delimiter = string;
 type Delimiters = Delimiter[];
@@ -75,48 +75,42 @@ export const usePreserveInputCaretPosition = (
   inputEl?: HTMLElement | null,
   { delimiters = [], prefix }: UsePreserveInputCaretPositionOpts = {}
 ) => {
-  useEffect(() => {
-    if (!inputEl) return;
-    const onInput = (e: Event) => {
-      if (e.type !== 'input' || !(e.target instanceof HTMLInputElement)) return;
 
-      const ev = e as InputEvent;
-      const target = e.target;
-      const value = target.value;
-      const caretEnd = target.selectionEnd;
-      const isBackward = ev.inputType === 'deleteContentBackward';
+  const onInput = useCallback((e: React.FormEvent<HTMLInputElement>) => {
+    const ev = e;
+    const target = e.target as HTMLInputElement;
+    const value = target.value;
+    const caretEnd = target.selectionEnd;
+    const isBackward = (ev.nativeEvent as InputEvent).inputType === 'deleteContentBackward';
 
-      // If `insertText` and enter at the end of the input then do nothing
-      if (!isBackward && value.length === caretEnd) return;
+    // If `insertText` and enter at the end of the input then do nothing
+    if (!isBackward && value.length === caretEnd) return;
 
-      const preserveIdx = calculateCaretPositionWithoutDelimiters(
+    const preserveIdx = calculateCaretPositionWithoutDelimiters(
+      value,
+      caretEnd || 0,
+      delimiters
+    );
+
+    window.requestAnimationFrame(() => {
+      if (
+        stripDelimiters({
+          value,
+          delimiters,
+        }) === prefix
+      )
+        return;
+
+      const actualIdx = calculateCaretPositionWithDelimiters(
         value,
-        caretEnd || 0,
+        preserveIdx,
         delimiters
       );
+      target.setSelectionRange(actualIdx, actualIdx);
+    });
+  }, [delimiters, prefix])
 
-      window.requestAnimationFrame(() => {
-        if (
-          stripDelimiters({
-            value,
-            delimiters,
-          }) === prefix
-        )
-          return;
-
-        const actualIdx = calculateCaretPositionWithDelimiters(
-          value,
-          preserveIdx,
-          delimiters
-        );
-        target.setSelectionRange(actualIdx, actualIdx);
-      });
-    };
-
-    inputEl.addEventListener('input', onInput);
-
-    return () => {
-      inputEl.removeEventListener('input', onInput);
-    };
-  }, [delimiters, inputEl, prefix]);
+  return {
+    onInput
+  }
 };

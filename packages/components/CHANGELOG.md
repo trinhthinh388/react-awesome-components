@@ -1,5 +1,13 @@
 # @react-awesome/components
 
+## 1.0.0-init.5
+
+### Patch Changes
+
+- Updated dependencies
+  - @react-awesome/phone-input@1.0.0-init.3
+  - @react-awesome/hooks@0.0.0-init.4
+
 ## 1.0.0-init.4
 
 ### Patch Changes

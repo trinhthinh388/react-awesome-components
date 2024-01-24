@@ -96,7 +96,7 @@ export const usePhoneInput = ({
   });
   const [isSelectOpen, setSelectOpen] = React.useState<boolean>(false);
 
-  usePreserveInputCaretPosition(inputRef, {
+  const { onInput } = usePreserveInputCaretPosition(inputRef, {
     delimiters: ['+', ' ', '(', ')', '-'],
   });
 
@@ -215,11 +215,12 @@ export const usePhoneInput = ({
         name,
         value: innerValue.phone,
         onChange,
+        onInput,
         type: 'tel',
         autoComplete: 'tel',
       };
     },
-    [innerValue.phone, onChange]
+    [innerValue.phone, onChange, onInput]
   );
 
   /**
