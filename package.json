@@ -16,7 +16,7 @@
     "eslint": "yarn workspace @react-awesome/eslint-config"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.1",
+    "@changesets/cli": "2.26.2",
     "@react-awesome/eslint-config": "*",
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-istanbul": "^1.2.1",
@@ -24,6 +24,7 @@
     "eslint": "^8.56.0",
     "prettier": "^3.1.1",
     "rimraf": "^5.0.5",
+    "tty-table": "^4.2.3",
     "turbo": "latest",
     "vite": "^5.0.12",
     "vite-plugin-css-injected-by-js": "^3.3.1",
@@ -31,12 +32,17 @@
     "vitest": "^1.2.1"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=18",
+    "npm": "Please use yarn",
+    "pnpm": "Please use yarn"
   },
   "packageManager": "yarn@1.22.19",
   "workspaces": [
     "apps/*",
     "packages/*",
     "shared/*"
-  ]
+  ],
+  "resolutions": {
+    "strip-ansi": "6.0.1"
+  }
 }

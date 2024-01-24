@@ -1,0 +1,13 @@
+{
+  "mode": "pre",
+  "tag": "init",
+  "initialVersions": {
+    "@react-awesome/docs": "0.0.0",
+    "@react-awesome/components": "0.0.0",
+    "@react-awesome/hooks": "0.0.0-24.1.2024-1",
+    "@react-awesome/phone-input": "0.0.0",
+    "@react-awesome/eslint-config": "0.0.0",
+    "@react-awesome/tsconfig": "0.0.0"
+  },
+  "changesets": []
+}
