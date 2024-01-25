@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 type Delimiter = string;
 type Delimiters = Delimiter[];
@@ -67,23 +67,37 @@ export const calculateCaretPositionWithDelimiters = (
   return idx;
 };
 
+const calculateDelimiterQty = (value: string, delimiters: string[] = []) => {
+  let result = 0;
+  for (const char of value) {
+    if (delimiters.includes(char)) {
+      result++;
+    }
+  }
+
+  return result;
+};
+
 export type UsePreserveInputCaretPositionOpts = {
   delimiters?: string[];
   prefix?: string;
+  autoSubscribe?: boolean;
 };
 export const usePreserveInputCaretPosition = (
-  inputEl?: HTMLElement | null,
-  { delimiters = [], prefix }: UsePreserveInputCaretPositionOpts = {}
+  inputEl?: HTMLInputElement | null,
+  {
+    delimiters = [],
+    prefix,
+    autoSubscribe = true,
+  }: UsePreserveInputCaretPositionOpts = {}
 ) => {
-  useEffect(() => {
-    if (!inputEl) return;
-    const onInput = (e: Event) => {
-      if (e.type !== 'input' || !(e.target instanceof HTMLInputElement)) return;
-
+  const onInput = useCallback(
+    (e: Event) => {
       const ev = e as InputEvent;
-      const target = e.target;
+      const target = e.target as HTMLInputElement;
       const value = target.value;
       const caretEnd = target.selectionEnd;
+
       const isBackward = ev.inputType === 'deleteContentBackward';
 
       // If `insertText` and enter at the end of the input then do nothing
@@ -96,27 +110,43 @@ export const usePreserveInputCaretPosition = (
       );
 
       window.requestAnimationFrame(() => {
-        if (
-          stripDelimiters({
-            value,
-            delimiters,
-          }) === prefix
-        )
-          return;
+        const strippedValue = stripDelimiters({
+          value: target.value,
+          delimiters,
+        });
+        if (strippedValue === prefix) return;
 
         const actualIdx = calculateCaretPositionWithDelimiters(
           value,
           preserveIdx,
           delimiters
         );
-        target.setSelectionRange(actualIdx, actualIdx);
+
+        const delimiterQtyBeforeUpdate = calculateDelimiterQty(
+          value,
+          delimiters
+        );
+        const delimiterQtyAfterUpdate = calculateDelimiterQty(
+          target.value,
+          delimiters
+        );
+        const diff =
+          delimiterQtyAfterUpdate > delimiterQtyBeforeUpdate
+            ? delimiterQtyAfterUpdate - delimiterQtyBeforeUpdate
+            : 0;
+        target.setSelectionRange(actualIdx + diff, actualIdx + diff);
       });
-    };
+    },
+    [delimiters, prefix]
+  );
+
+  useEffect(() => {
+    if (!inputEl || !autoSubscribe) return;
 
     inputEl.addEventListener('input', onInput);
 
     return () => {
       inputEl.removeEventListener('input', onInput);
     };
-  }, [delimiters, inputEl, prefix]);
+  }, [autoSubscribe, inputEl, onInput]);
 };

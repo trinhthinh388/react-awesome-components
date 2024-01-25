@@ -25,7 +25,7 @@ export default defineConfig({
       input: {
         index: 'src/index.ts',
       },
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      external: ['react', 'react-dom', 'react/jsx-runtime', "@react-awesome/hooks", "@react-awesome/phone-input"],
       output: [
         {
           dir: 'dist',

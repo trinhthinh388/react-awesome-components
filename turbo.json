@@ -6,6 +6,12 @@
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
       "dependsOn": ["^build"]
     },
+    "@react-awesome/components#build": {
+      "dependsOn": [
+        "@react-awesome/hooks#build",
+        "@react-awesome/phone-input#build"
+      ]
+    },
     "test": {
       "outputs": ["coverage/**"],
       "dependsOn": []
