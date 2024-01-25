@@ -10,11 +10,18 @@
     "@react-awesome/tsconfig": "0.0.0"
   },
   "changesets": [
+    "five-bobcats-act",
     "five-ears-search",
+    "five-feet-allow",
     "funny-beans-applaud",
     "fuzzy-rings-happen",
+    "nice-plants-tickle",
     "old-dots-repair",
     "rich-apples-pull",
+    "sharp-rice-nail",
+    "sour-fishes-speak",
+    "tall-rings-beam",
+    "tame-experts-judge",
     "tasty-suits-repeat"
   ]
 }

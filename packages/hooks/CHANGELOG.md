@@ -1,5 +1,37 @@
 # @react-awesome/hooks
 
+## 0.0.0-init.8
+
+### Patch Changes
+
+- Fix:
+
+  - `@react-awesome/hooks` - Fix usePreserveInputCaretPosition timeout
+
+## 0.0.0-init.7
+
+### Patch Changes
+
+- Fix:
+
+  - `@react-awesome/components` & `@react-awesome/hooks` typings
+
+## 0.0.0-init.6
+
+### Patch Changes
+
+- Chore:
+
+  - Revert `@react-awesome/hooks`
+
+## 0.0.0-init.5
+
+### Patch Changes
+
+- Chore:
+
+  - `@react-awesome/hooks` - added console.log to debug
+
 ## 0.0.0-init.4
 
 ### Patch Changes

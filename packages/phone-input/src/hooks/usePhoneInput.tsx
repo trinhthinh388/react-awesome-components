@@ -54,6 +54,10 @@ export type UsePhoneInput = {
    * @description Specify event to guess the country on.
    */
   guessOn?: 'blur' | 'change' | boolean;
+  /**
+   * @description - use smart caret
+   */
+  smartCaret?: boolean
 };
 
 export const usePhoneInput = ({
@@ -62,6 +66,7 @@ export const usePhoneInput = ({
   defaultCountry,
   onChange: onPhoneChange = () => {},
   guessOn = 'change',
+  smartCaret = true
 }: UsePhoneInput = {}) => {
   /**
    * Refs
@@ -96,9 +101,12 @@ export const usePhoneInput = ({
   });
   const [isSelectOpen, setSelectOpen] = React.useState<boolean>(false);
 
-  const { onInput } = usePreserveInputCaretPosition(inputRef, {
-    delimiters: ['+', ' ', '(', ')', '-'],
-  });
+  if(smartCaret) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    usePreserveInputCaretPosition(inputRef,{
+      delimiters: ['+', ' ', '(', ')', '-'],
+    });
+  }
 
   /**
    * Memo
@@ -206,21 +214,20 @@ export const usePhoneInput = ({
   const register = React.useCallback(
     (
       name?: string
-    ): React.DetailedHTMLProps<
-      React.InputHTMLAttributes<HTMLInputElement>,
-      HTMLInputElement
-    > => {
+    ): Pick<React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >, 'ref' | 'name' | 'type' | 'autoComplete' | 'value' | 'onChange'> => {
       return {
         ref: setInputRef,
         name,
         value: innerValue.phone,
         onChange,
-        onInput,
         type: 'tel',
         autoComplete: 'tel',
       };
     },
-    [innerValue.phone, onChange, onInput]
+    [innerValue.phone, onChange]
   );
 
   /**
@@ -241,6 +248,7 @@ export const usePhoneInput = ({
   }, [innerValue, onPhoneChange, value]);
 
   return {
+    inputEl: inputRef,
     register,
     options,
     isSelectOpen,

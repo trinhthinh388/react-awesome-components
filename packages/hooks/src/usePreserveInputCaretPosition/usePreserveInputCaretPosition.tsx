@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 type Delimiter = string;
 type Delimiters = Delimiter[];
@@ -72,45 +72,58 @@ export type UsePreserveInputCaretPositionOpts = {
   prefix?: string;
 };
 export const usePreserveInputCaretPosition = (
-  inputEl?: HTMLElement | null,
+  inputEl?: HTMLInputElement | null,
   { delimiters = [], prefix }: UsePreserveInputCaretPositionOpts = {}
 ) => {
+  const onInput = useCallback(
+    (e: Event) => {
+      console.log(e);
+        const ev = e as InputEvent;
+        const target = e.target as HTMLInputElement;
+        const value = target.value;
+        const caretEnd = target.selectionEnd;
+        console.log('Value', value, 'END', caretEnd);
+        const isBackward = ev.inputType === 'deleteContentBackward';
 
-  const onInput = useCallback((e: React.FormEvent<HTMLInputElement>) => {
-    const ev = e;
-    const target = e.target as HTMLInputElement;
-    const value = target.value;
-    const caretEnd = target.selectionEnd;
-    const isBackward = (ev.nativeEvent as InputEvent).inputType === 'deleteContentBackward';
+        // If `insertText` and enter at the end of the input then do nothing
+        if (!isBackward && value.length === caretEnd) return;
 
-    // If `insertText` and enter at the end of the input then do nothing
-    if (!isBackward && value.length === caretEnd) return;
-
-    const preserveIdx = calculateCaretPositionWithoutDelimiters(
-      value,
-      caretEnd || 0,
-      delimiters
-    );
-
-    window.requestAnimationFrame(() => {
-      if (
-        stripDelimiters({
+        const preserveIdx = calculateCaretPositionWithoutDelimiters(
           value,
-          delimiters,
-        }) === prefix
-      )
-        return;
+          caretEnd || 0,
+          delimiters
+        );
 
-      const actualIdx = calculateCaretPositionWithDelimiters(
-        value,
-        preserveIdx,
-        delimiters
-      );
-      target.setSelectionRange(actualIdx, actualIdx);
-    });
-  }, [delimiters, prefix])
+        console.log('preserveIdx', preserveIdx);
 
-  return {
-    onInput
-  }
+        window.requestAnimationFrame(() => {
+          if (
+            stripDelimiters({
+              value,
+              delimiters,
+            }) === prefix
+          )
+            return;
+
+          const actualIdx = calculateCaretPositionWithDelimiters(
+            value,
+            preserveIdx,
+            delimiters
+          );
+          console.log('actualIdx', actualIdx);
+          target.setSelectionRange(actualIdx, actualIdx);
+        });
+    },
+    [delimiters, prefix]
+  );
+
+  useEffect(() => {
+    if (!inputEl) return;
+
+    inputEl.addEventListener('input', onInput);
+
+    return () => {
+      inputEl.removeEventListener('input', onInput);
+    };
+  }, [inputEl, onInput]);
 };

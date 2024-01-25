@@ -1,5 +1,58 @@
 # @react-awesome/components
 
+## 1.0.0-init.12
+
+### Patch Changes
+
+- Updated dependencies
+  - @react-awesome/hooks@0.0.0-init.8
+  - @react-awesome/phone-input@1.0.0-init.10
+
+## 1.0.0-init.11
+
+### Patch Changes
+
+- Updated dependencies
+  - @react-awesome/phone-input@1.0.0-init.9
+
+## 1.0.0-init.10
+
+### Patch Changes
+
+- Updated dependencies
+  - @react-awesome/phone-input@1.0.0-init.8
+
+## 1.0.0-init.9
+
+### Patch Changes
+
+- Updated dependencies
+  - @react-awesome/phone-input@1.0.0-init.7
+  - @react-awesome/hooks@0.0.0-init.7
+
+## 1.0.0-init.8
+
+### Patch Changes
+
+- Updated dependencies
+  - @react-awesome/phone-input@1.0.0-init.6
+  - @react-awesome/hooks@0.0.0-init.6
+
+## 1.0.0-init.7
+
+### Patch Changes
+
+- Updated dependencies
+  - @react-awesome/phone-input@1.0.0-init.5
+
+## 1.0.0-init.6
+
+### Patch Changes
+
+- Updated dependencies
+  - @react-awesome/hooks@0.0.0-init.5
+  - @react-awesome/phone-input@1.0.0-init.4
+
 ## 1.0.0-init.5
 
 ### Patch Changes

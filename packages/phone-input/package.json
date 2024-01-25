@@ -1,6 +1,6 @@
 {
   "name": "@react-awesome/phone-input",
-  "version": "1.0.0-init.3",
+  "version": "1.0.0-init.10",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -37,6 +37,6 @@
     "libphonenumber-js": "^1.10.53"
   },
   "peerDependencies": {
-    "@react-awesome/hooks": "0.0.0-init.4"
+    "@react-awesome/hooks": "0.0.0-init.8"
   }
 }

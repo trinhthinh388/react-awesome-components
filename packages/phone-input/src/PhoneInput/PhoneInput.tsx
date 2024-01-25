@@ -32,6 +32,9 @@ export const PhoneInput = ({
   selectOptionClassname,
   className,
   onChange,
+  defaultCountry,
+  supportedCountries,
+  smartCaret,
   ...props
 }: PhoneInputProps) => {
   const {
@@ -43,6 +46,9 @@ export const PhoneInput = ({
     setSelectedCountry,
   } = usePhoneInput({
     onChange,
+    defaultCountry,
+    supportedCountries,
+    smartCaret,
     ...props,
   });
 
