@@ -11,12 +11,6 @@
     "type": "page",
     "title": "Documentation"
   },
-  "playground": {
-    "type": "page",
-    "title": "Playground",
-    "href": "https://codesandbox.io/p/devbox/modern-bush-2mzr3w?file=%2Fsrc%2FApp.tsx%3A15%2C1",
-    "newWindow": true
-  },
   "404": {
     "type": "page",
     "theme": {
