@@ -2,10 +2,12 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 export default {
-  logo: <span className="font-bold text-lg">React Awesome Components</span>,
+  logo: <span className="font-bold text-lg">React Awesome</span>,
   project: {
     link: 'https://github.com/trinhthinh388/react-awesome-components',
   },
+  docsRepositoryBase:
+    'https://github.com/trinhthinh388/react-awesome-components/blob/master/apps/docs',
   useNextSeoProps() {
     const { asPath } = useRouter();
     if (asPath !== '/') {
@@ -33,7 +35,7 @@ export default {
             target="_blank"
             rel="noopener noreferrer"
             title="vercel.com homepage"
-            href="https://vercel.com?utm_source=nextra.site"
+            href="https://vercel.com?utm_source=react-awesome-components.vercel.app"
           >
             <span>Powered by</span>
             <svg height={20} viewBox="0 0 283 64" fill="none">
@@ -50,5 +52,8 @@ export default {
         </p>
       </div>
     ),
+  },
+  toc: {
+    backToTop: true,
   },
 };

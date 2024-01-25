@@ -6,7 +6,7 @@ module.exports = {
     './theme.config.tsx'
   ],
   theme: {
-    extend: {}
+    extend: {},
   },
   plugins: [],
   darkMode: 'class'
