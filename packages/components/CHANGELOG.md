@@ -1,5 +1,45 @@
 # @react-awesome/components
 
+## 1.0.0
+
+### Major Changes
+
+- 6e74fd3: Release:
+
+  - PhoneInput & usePhoneInput
+  - useIsomorphicLayoutEffect
+  - usePreserveInputCaretPosition
+  - usePrevious
+  - useSelectionRange
+
+### Patch Changes
+
+- b6ca15e: Fix:
+
+  - `@react-awesome/components` - re-exports
+
+- b6ca15e: Fix:
+
+  - `@react-awesome/components` - Fix exports
+
+- b6ca15e: Fix:
+
+  - Re-export all components and hooks
+
+- Updated dependencies [572d8d8]
+- Updated dependencies [572d8d8]
+- Updated dependencies [6e74fd3]
+- Updated dependencies [572d8d8]
+- Updated dependencies [b6ca15e]
+- Updated dependencies [a0d6146]
+- Updated dependencies [572d8d8]
+- Updated dependencies [572d8d8]
+- Updated dependencies [572d8d8]
+- Updated dependencies [572d8d8]
+- Updated dependencies [b6ca15e]
+  - @react-awesome/phone-input@1.0.0
+  - @react-awesome/hooks@0.0.0
+
 ## 1.0.0-init.12
 
 ### Patch Changes

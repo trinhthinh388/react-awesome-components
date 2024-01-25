@@ -67,63 +67,86 @@ export const calculateCaretPositionWithDelimiters = (
   return idx;
 };
 
+const calculateDelimiterQty = (value: string, delimiters: string[] = []) => {
+  let result = 0;
+  for (const char of value) {
+    if (delimiters.includes(char)) {
+      result++;
+    }
+  }
+
+  return result;
+};
+
 export type UsePreserveInputCaretPositionOpts = {
   delimiters?: string[];
   prefix?: string;
+  autoSubscribe?: boolean;
 };
 export const usePreserveInputCaretPosition = (
   inputEl?: HTMLInputElement | null,
-  { delimiters = [], prefix }: UsePreserveInputCaretPositionOpts = {}
+  {
+    delimiters = [],
+    prefix,
+    autoSubscribe = true,
+  }: UsePreserveInputCaretPositionOpts = {}
 ) => {
   const onInput = useCallback(
     (e: Event) => {
-      console.log(e);
-        const ev = e as InputEvent;
-        const target = e.target as HTMLInputElement;
-        const value = target.value;
-        const caretEnd = target.selectionEnd;
-        console.log('Value', value, 'END', caretEnd);
-        const isBackward = ev.inputType === 'deleteContentBackward';
+      const ev = e as InputEvent;
+      const target = e.target as HTMLInputElement;
+      const value = target.value;
+      const caretEnd = target.selectionEnd;
 
-        // If `insertText` and enter at the end of the input then do nothing
-        if (!isBackward && value.length === caretEnd) return;
+      const isBackward = ev.inputType === 'deleteContentBackward';
 
-        const preserveIdx = calculateCaretPositionWithoutDelimiters(
+      // If `insertText` and enter at the end of the input then do nothing
+      if (!isBackward && value.length === caretEnd) return;
+
+      const preserveIdx = calculateCaretPositionWithoutDelimiters(
+        value,
+        caretEnd || 0,
+        delimiters
+      );
+
+      window.requestAnimationFrame(() => {
+        const strippedValue = stripDelimiters({
+          value: target.value,
+          delimiters,
+        });
+        if (strippedValue === prefix) return;
+
+        const actualIdx = calculateCaretPositionWithDelimiters(
           value,
-          caretEnd || 0,
+          preserveIdx,
           delimiters
         );
 
-        console.log('preserveIdx', preserveIdx);
-
-        window.requestAnimationFrame(() => {
-          if (
-            stripDelimiters({
-              value,
-              delimiters,
-            }) === prefix
-          )
-            return;
-
-          const actualIdx = calculateCaretPositionWithDelimiters(
-            value,
-            preserveIdx,
-            delimiters
-          );
-          console.log('actualIdx', actualIdx);
-          target.setSelectionRange(actualIdx, actualIdx);
-        });
+        const delimiterQtyBeforeUpdate = calculateDelimiterQty(
+          value,
+          delimiters
+        );
+        const delimiterQtyAfterUpdate = calculateDelimiterQty(
+          target.value,
+          delimiters
+        );
+        const diff =
+          delimiterQtyAfterUpdate > delimiterQtyBeforeUpdate
+            ? delimiterQtyAfterUpdate - delimiterQtyBeforeUpdate
+            : 0;
+        target.setSelectionRange(actualIdx + diff, actualIdx + diff);
+      });
     },
     [delimiters, prefix]
   );
 
   useEffect(() => {
-    if (!inputEl) return;
+    if (!inputEl || !autoSubscribe) return;
 
     inputEl.addEventListener('input', onInput);
 
     return () => {
       inputEl.removeEventListener('input', onInput);
     };
-  }, [inputEl, onInput]);
+  }, [autoSubscribe, inputEl, onInput]);
 };

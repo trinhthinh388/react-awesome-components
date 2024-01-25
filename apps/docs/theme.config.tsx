@@ -1,9 +1,18 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 
 export default {
   logo: <span className="font-bold text-lg">React Awesome Components</span>,
   project: {
     link: 'https://github.com/trinhthinh388/react-awesome-components',
+  },
+  useNextSeoProps() {
+    const { asPath } = useRouter();
+    if (asPath !== '/') {
+      return {
+        titleTemplate: '%s – React Awesome Components',
+      };
+    }
   },
   sidebar: {
     titleComponent({ title, type }) {

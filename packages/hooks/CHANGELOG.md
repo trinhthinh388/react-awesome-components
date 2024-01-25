@@ -1,5 +1,43 @@
 # @react-awesome/hooks
 
+## 0.0.0
+
+### Major Changes
+
+- 6e74fd3: Release:
+
+  - PhoneInput & usePhoneInput
+  - useIsomorphicLayoutEffect
+  - usePreserveInputCaretPosition
+  - usePrevious
+  - useSelectionRange
+
+### Patch Changes
+
+- b6ca15e: Fix:
+
+  - Re-export all components and hooks
+
+- a0d6146: Update:
+
+  - `@react-awesome/hooks` - export onInput instead of using addEventListener
+
+- 572d8d8: Fix:
+
+  - `@react-awesome/components` & `@react-awesome/hooks` typings
+
+- 572d8d8: Chore:
+
+  - `@react-awesome/hooks` - added console.log to debug
+
+- 572d8d8: Fix:
+
+  - `@react-awesome/hooks` - Fix usePreserveInputCaretPosition timeout
+
+- 572d8d8: Chore:
+
+  - Revert `@react-awesome/hooks`
+
 ## 0.0.0-init.8
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@react-awesome/components",
-  "version": "1.0.0-init.12",
+  "version": "1.0.0",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -32,7 +32,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@react-awesome/hooks": "0.0.0-init.8",
-    "@react-awesome/phone-input": "1.0.0-init.10"
+    "@react-awesome/hooks": "0.0.0",
+    "@react-awesome/phone-input": "1.0.0"
   }
 }
