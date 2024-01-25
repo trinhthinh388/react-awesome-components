@@ -2,7 +2,7 @@
 
 A collection of useful and awesome hooks.
 
-Please refer to the [documentation](https://foo.com/docs/hooks) for more information.
+Please refer to the [documentation](https://react-awesome-components.vercel.app/docs/hooks) for more information.
 
 ## Installation
 
