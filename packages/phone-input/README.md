@@ -2,7 +2,7 @@
 
 PhoneInput is a customize input component that can parse and validate phone number.
 
-Please refer to the [documentation](https://foo.com/docs/components/phone-input) for more information.
+Please refer to the [documentation](https://react-awesome-components.vercel.app/docs/phone-input) for more information.
 
 ## Installation
 

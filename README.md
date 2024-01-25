@@ -1,10 +1,10 @@
 ## Getting Started
 
-Visit <a aria-label="react awesome introduction" href="https://foo.com/introduction">https://loremipsum.com/introduction</a> to get started with React Awesome Components.
+Visit <a aria-label="react awesome introduction" href="https://react-awesome-components.vercel.app/introduction">https://react-awesome-components.vercel.app/introduction</a> to get started with React Awesome Components.
 
 ## Documentation
 
-Visit [https://loremipsum.com/docs](https://loremipsum.com/docs) to view the full documentation.
+Visit [https://react-awesome-components.vercel.app/docs](https://react-awesome-components.vercel.app/docs) to view the full documentation.
 
 ### Community
 
