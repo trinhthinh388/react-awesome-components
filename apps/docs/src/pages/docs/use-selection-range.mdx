@@ -17,21 +17,21 @@ npm i @react-awesome/hooks
 
 ## Usage
 
-import { useRef } from 'react';
+import { useState } from 'react';
 import { Container } from '../../components/Container';
 import { useSelectionRange } from '@react-awesome/hooks';
 
 export const Example = () => {
-  const ref = useRef(null)
+  const [ref, setRef] = useState(null)
 
-const { caret } = useSelectionRange(ref.current)
+const { caret } = useSelectionRange(ref)
 
 return (
 
 <>
   <input
     className="w-full border rounded-md px-3 py-2"
-    ref={ref}
+    ref={setRef}
     placeholder="Type something..."
   />
   <ul className="mt-2">
