@@ -1,0 +1,146 @@
+---
+title: usePhoneInput
+---
+
+# usePhoneInput
+
+**usePhoneInput** is a custom hook provides full functionalities of the [**PhoneInput**](/docs/phone-input/phone-input) component to an existing input.
+
+## Install
+
+To start using **usePhoneInput**, you can install the `@react-awesome/phone-input` library or you can import it directly from `@react-awesome/components` if you have installed it before. In your project directory, run
+the following command to install the dependencies:
+
+```sh npm2yarn
+npm i @react-awesome/phone-input
+```
+
+## Usage
+
+import { useState } from 'react';
+import { Container } from '../../../components/Container';
+import { usePhoneInput } from '@react-awesome/phone-input';
+
+export const Example = () => {
+  const [value, setValue] = useState({
+    isPossible: false,
+    isValid: false,
+    e164Value: '',
+    country: 'VN',
+    phoneCode: '84',
+    formattedValue: '',
+    isSupported: true,
+  });
+  const { register } = usePhoneInput({
+    onChange: (_, m) => {
+      setValue(m);
+    }
+  });
+
+return (
+
+<div>
+  <input
+    className="w-full border rounded-md px-3 py-2"
+    placeholder="I have been upgraded with usePhoneInput 😎"
+    {...register('use-phone-input')}
+  />
+  <h3 className="mt-3 font-bold text-xl underline underline-offset-4">
+    onChange event
+  </h3>
+  <ul className="mt-2">
+    {Object.keys(value).map((key) => {
+      const v = value[key];
+      return (
+        <li key={key}>
+          <span className="font-medium">👉 {key}</span>
+          <code className="ml-2 nx-border-black nx-border-opacity-[0.04] nx-bg-opacity-[0.03] nx-bg-black nx-break-words nx-rounded-md nx-border nx-py-0.5 nx-px-[.25em] nx-text-[.9em] dark:nx-border-white/10 dark:nx-bg-white/10">
+            {v.toString()}
+          </code>
+        </li>
+      );
+    })}
+  </ul>
+</div>
+); };
+
+<Container>
+  <Example />
+</Container>
+
+```jsx
+import { usePhoneInput } from '@react-awesome/phone-input';
+
+const Example = () => {
+  const { register } = usePhoneInput();
+
+  return (
+    <input
+      placeholder="I have been upgraded with usePhoneInput 😎"
+      {...register('use-phone-input')}
+    />
+  );
+};
+```
+
+## API
+
+The `usePhoneInput` takes the following props:
+
+#### `value` (optional)
+
+Phone value
+
+- Type: `string`
+- Default: `undefined`
+
+#### `supportedCountries` (optional)
+
+Supported countries
+
+- Type: `CountryCode[]`
+- Default: `undefined`
+
+#### `defaultCountry` (optional)
+
+Default selected country
+
+- Type: `CountryCode`
+- Default: `undefined`
+
+#### `onChange` (optional)
+
+onChange handler.
+The callback's `event` could be `undefined` when the event is triggered when user select another country.
+
+- Type: `(ev: React.ChangeEvent<HTMLInputElement> | undefined, metadata: PhoneInputChangeMetadata) => void`
+- Default: `() => void 0`
+
+#### `guessOn` (optional)
+
+Specify event to trigger the guess country function.
+When `guessOn` is `true`, the behaviour is equivalent with `change`.
+
+- Type: `'blur' | 'change' | boolean`
+- Default: `change`
+
+#### `smartCaret` (optional)
+
+Use smart caret.
+
+- Type: `boolean`
+- Default: `true`
+
+## Type
+
+#### `PhoneInputChangeMetadata` Object
+
+- isValid: `boolean`
+- isPossible: `boolean`
+- e164Value: `string`
+- country: `CountryCode`
+- phoneCode: `string`
+- formattedValue: `string`
+- isSupported: `boolean`
+
+#### `CountryCode` string
