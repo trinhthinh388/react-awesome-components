@@ -1,10 +1,10 @@
 <p align="center">
   <a href="https://github.com/chakra-ui/chakra-ui">
-    <img src="./assets/logo.svg" alt="sunglasses" width="300" />
+    <img src="./assets/logo.svg" alt="sunglasses" width="128" />
   </a>
 </p>
 
-<h1 align="center">A awesome collection of React components and hooks. 😎</h1>
+<h1 align="center">React Awesome Components. 😎</h1>
 
 React Awesome Components is a collection of modern, reusable and well-tested React components that can be utilized across all of our different applications.
 
