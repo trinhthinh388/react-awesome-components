@@ -1,3 +1,13 @@
+<p align="center">
+  <a href="https://github.com/chakra-ui/chakra-ui">
+    <img src="./assets/116145.png" alt="sunglasses" width="300" />
+  </a>
+</p>
+
+<h1 align="center">A awesome collection of React components and hooks. 😎</h1>
+
+React Awesome Components is a collection of modern, reusable and well-tested React components that can be utilized across all of our different applications.
+
 ## Getting Started
 
 Visit <a aria-label="react awesome introduction" href="https://react-awesome-components.vercel.app/introduction">https://react-awesome-components.vercel.app/introduction</a> to get started with React Awesome Components.
