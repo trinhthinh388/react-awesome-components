@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-awesome/hooks": "0.0.0",
     "@react-awesome/phone-input": "1.0.0",
+    "lucide-react": "^0.315.0",
     "next": "^14.0.4",
     "nextra": "^2.13.2",
     "nextra-theme-docs": "^2.13.2",
