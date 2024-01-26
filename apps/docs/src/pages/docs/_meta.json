@@ -7,6 +7,16 @@
   "phone-input": {
     "title": "PhoneInput"
   },
+  "-- Hooks": {
+    "type": "separator",
+    "title": "Hooks"
+  },
+  "use-previous": {
+    "title": "usePrevious"
+  },
+  "use-selection-range": {
+    "title": "useSelectionRange"
+  },
   "-- More": {
     "type": "separator",
     "title": "More"

@@ -83,9 +83,9 @@ const Example = () => {
 };
 ```
 
-## API
+## Parameters
 
-The `usePhoneInput` takes the following props:
+The `usePhoneInput` takes the following parameters:
 
 #### `value` (optional)
 
@@ -131,9 +131,73 @@ Use smart caret.
 - Type: `boolean`
 - Default: `true`
 
+## API
+
+The `usePhoneInput` returns the following props:
+
+#### `inputEl`
+
+Input element.
+
+- Type: `HTMLInputElement`
+
+#### `register`
+
+Register function returns input event handlers.
+
+- Type: `PhoneInputRegister`
+
+#### `options`
+
+Country option list to render.
+
+- Type: `CountryCode[]`
+
+#### `isSelectOpen`
+
+Indicator of country selector visible state.
+
+- Type: `boolean`
+
+#### `openCountrySelect`
+
+Show the country select pane.
+
+- Type: `() => void`
+
+#### `closeCountrySelect`
+
+Hide the country select pane.
+
+- Type: `() => void`
+
+#### `toggleCountrySelect`
+
+Toggle the country select visible state.
+
+- Type: `() => void`
+
+#### `selectedCountry`
+
+The current selected country.
+
+- Type: `CountryCode`
+
+#### `phoneCode`
+
+The current selected country's calling code.
+
+- Type: `string`
+
+#### `setSelectedCountry`
+
+Set the selected country.
+
+- Type: `(country : CounntryCode) => void`
+
 ## Type
 
-#### `PhoneInputChangeMetadata` Object
+#### `PhoneInputChangeMetadata` - object
 
 - isValid: `boolean`
 - isPossible: `boolean`
@@ -143,4 +207,4 @@ Use smart caret.
 - formattedValue: `string`
 - isSupported: `boolean`
 
-#### `CountryCode` string
+#### `CountryCode` - string

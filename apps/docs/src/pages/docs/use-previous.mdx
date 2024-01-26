@@ -1,0 +1,80 @@
+---
+title: usePrevious
+---
+
+# usePrevious
+
+**usePrevious** is a hook track the previous value of a state.
+
+## Install
+
+To start using **usePrevious**, you can install the `@react-awesome/hooks` library or you can import it directly from `@react-awesome/components` if you have installed it before. In your project directory, run
+the following command to install the dependencies:
+
+```sh npm2yarn
+npm i @react-awesome/hooks
+```
+
+## Usage
+
+import { useState } from 'react';
+import { Container } from '../../components/Container';
+import { usePrevious } from '@react-awesome/components';
+
+export const Example = () => {
+  const [state, setState] = useState(0);
+
+const previous = usePrevious(state);
+
+return (
+
+<>
+  <button
+    onClick={() => setState((prev) => ++prev)}
+    className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
+  >
+    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+      Click to add
+    </span>
+  </button>
+  <ul className="mt-2">
+    <li>
+      <span className="font-medium">👉 Current Value</span>
+      <code className="ml-2 nx-border-black nx-border-opacity-[0.04] nx-bg-opacity-[0.03] nx-bg-black nx-break-words nx-rounded-md nx-border nx-py-0.5 nx-px-[.25em] nx-text-[.9em] dark:nx-border-white/10 dark:nx-bg-white/10">
+        {state.toString()}
+      </code>
+    </li>
+    <li>
+      <span className="font-medium">👉 Previous value</span>
+      <code className="ml-2 nx-border-black nx-border-opacity-[0.04] nx-bg-opacity-[0.03] nx-bg-black nx-break-words nx-rounded-md nx-border nx-py-0.5 nx-px-[.25em] nx-text-[.9em] dark:nx-border-white/10 dark:nx-bg-white/10">
+        {previous.toString()}
+      </code>
+    </li>
+  </ul>
+</>
+); };
+
+<Container>
+  <Example />
+</Container>
+
+```jsx
+import { usePrevious } from '@react-awesome/hooks';
+
+const Example = () => {
+  const [state, setState] = useState(0);
+  const previousValue = usePrevious(state);
+
+  return (
+    <button onClick={() => setState((prev) => ++prev)}>Click to add</button>
+  );
+};
+```
+
+## Parameters
+
+The `usePrevious` takes the following parameters:
+
+#### `value`
+
+- Type: `any`

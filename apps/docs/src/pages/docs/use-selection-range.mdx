@@ -1,0 +1,77 @@
+---
+title: useSelectionRange
+---
+
+# useSelectionRange
+
+**useSelectionRange** tracks the input selection range.
+
+## Install
+
+To start using **useSelectionRange**, you can install the `@react-awesome/hooks` library or you can import it directly from `@react-awesome/components` if you have installed it before. In your project directory, run
+the following command to install the dependencies:
+
+```sh npm2yarn
+npm i @react-awesome/hooks
+```
+
+## Usage
+
+import { useState, useRef } from 'react';
+import { Container } from '../../components/Container';
+import { useSelectionRange } from '@react-awesome/components';
+
+export const Example = () => {
+  const ref = useRef(null)
+
+const { caret } = useSelectionRange(ref.current)
+
+return (
+
+<>
+  <input
+    className="w-full border rounded-md px-3 py-2"
+    ref={ref}
+    placeholder="Type something..."
+  />
+  <ul className="mt-2">
+    <li>
+      <span className="font-medium">👉 Start</span>
+      <code className="ml-2 nx-border-black nx-border-opacity-[0.04] nx-bg-opacity-[0.03] nx-bg-black nx-break-words nx-rounded-md nx-border nx-py-0.5 nx-px-[.25em] nx-text-[.9em] dark:nx-border-white/10 dark:nx-bg-white/10">
+        {caret.start.toString()}
+      </code>
+    </li>
+    <li>
+      <span className="font-medium">👉 End</span>
+      <code className="ml-2 nx-border-black nx-border-opacity-[0.04] nx-bg-opacity-[0.03] nx-bg-black nx-break-words nx-rounded-md nx-border nx-py-0.5 nx-px-[.25em] nx-text-[.9em] dark:nx-border-white/10 dark:nx-bg-white/10">
+        {caret.end.toString()}
+      </code>
+    </li>
+  </ul>
+</>
+); };
+
+<Container>
+  <Example />
+</Container>
+
+```jsx
+import { useSelectionRange } from '@react-awesome/phone-input';
+
+const Example = () => {
+  const ref = useRef(null);
+  const { register } = useSelectionRange();
+
+  const { caret } = useSelectionRange(ref.current);
+
+  return <input ref={ref} placeholder="Type something..." />;
+};
+```
+
+## Parameters
+
+The `useSelectionRange` takes the following parameters:
+
+#### `inputEl`
+
+- Type: `HTMLInputElement`
