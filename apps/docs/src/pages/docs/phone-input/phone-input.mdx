@@ -8,18 +8,18 @@ title: PhoneInput
 
 ## Install
 
-To start using **React Awesome Phone Input**, you can install the `@react-awesome/phone-input` library or you can import it directly from `@react-awesome/components` if you have installed it before. In your project directory, run
+To start using **PhoneInput** component, you can install the `@react-awesome/phone-input` library or you can import it directly from `@react-awesome/components` if you have installed it before. In your project directory, run
 the following command to install the dependencies:
 
 ```sh npm2yarn
-npm i @react-awesome/components
+npm i @react-awesome/phone-input
 ```
 
 import {
   DefaultPhoneInput,
   SupportCountryPhoneInput,
-} from '../../components/examples';
-import { Container } from '../../components/Container';
+} from '../../../components/examples';
+import { Container } from '../../../components/Container';
 import { Callout } from 'nextra/components';
 
 import '@react-awesome/phone-input/dist/style.css';
@@ -84,3 +84,74 @@ const Example = () => {
   return <PhoneInput />;
 };
 ```
+
+### Without country select
+
+**Phone Input** without country select.
+
+<Container>
+  <DefaultPhoneInput showCountrySelect={false} />
+</Container>
+
+```jsx
+import { PhoneInput } from '@react-awesome/phone-input';
+
+const Example = () => {
+  return <PhoneInput showCountrySelect={false} />;
+};
+```
+
+## API
+
+**PhoneInput** components takes the following props:
+
+#### `className` (optional)
+
+Classes for the container.
+
+- Type: `string`
+- Default: `undefined`
+
+#### `inputClassname` (optional)
+
+Classes for the input.
+
+- Type: `string`
+- Default: `undefined`
+
+#### `selectClassname` (optional)
+
+Classes for the country select container.
+
+- Type: `string`
+- Default: `undefined`
+
+#### `selectButtonClassname` (optional)
+
+Classes for the country select button.
+
+- Type: `string`
+- Default: `undefined`
+
+#### `selectListClassname` (optional)
+
+Classes for the country select pane.
+
+- Type: `string`
+- Default: `undefined`
+
+#### `selectOptionClassname` (optional)
+
+Classes for each country select option.
+
+- Type: `string`
+- Default: `undefined`
+
+<Callout>
+  **PhoneInput** also takes
+  [**usePhoneInput**](/docs/phone-input/use-phone-input#api) props.
+</Callout>
+
+<Callout type="info">
+  All other props will be passed through to the input element.
+</Callout>

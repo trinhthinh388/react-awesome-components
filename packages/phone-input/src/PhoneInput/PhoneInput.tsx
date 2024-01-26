@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { UsePhoneInput, usePhoneInput } from '../hooks/usePhoneInput';
+import { useClickOutside } from '@react-awesome/hooks';
 import classNames from 'classnames';
 import Flags from 'country-flag-icons/react/3x2';
 
@@ -13,6 +14,7 @@ export type PhoneInputProps = {
   selectButtonClassname?: string;
   selectListClassname?: string;
   selectOptionClassname?: string;
+  showCountrySelect?: boolean;
 } & Omit<
   React.DetailedHTMLProps<
     React.InputHTMLAttributes<HTMLInputElement>,
@@ -35,8 +37,10 @@ export const PhoneInput = ({
   defaultCountry,
   supportedCountries,
   smartCaret,
+  showCountrySelect = true,
   ...props
 }: PhoneInputProps) => {
+  const countrySelectPane = React.useRef<HTMLDivElement>(null);
   const {
     options,
     register,
@@ -44,12 +48,17 @@ export const PhoneInput = ({
     isSelectOpen,
     toggleCountrySelect,
     setSelectedCountry,
+    closeCountrySelect,
   } = usePhoneInput({
     onChange,
     defaultCountry,
     supportedCountries,
     smartCaret,
     ...props,
+  });
+
+  useClickOutside(countrySelectPane.current, () => {
+    closeCountrySelect();
   });
 
   const Options = React.useMemo(
@@ -64,7 +73,9 @@ export const PhoneInput = ({
               onClick={() => setSelectedCountry(opt.iso2)}
             >
               <Flag className={styles.flag} />
-              <span className={styles.country}>{opt.name}</span>
+              <span suppressHydrationWarning className={styles.country}>
+                {opt.name}
+              </span>
               <span className={styles.phoneCode}>{`+${opt.phoneCode}`}</span>
             </li>
           );
@@ -77,23 +88,40 @@ export const PhoneInput = ({
   const SelectedFlag = Flags[selectedCountry];
 
   return (
-    <div className={classNames(styles.container, className)}>
-      <div className={classNames(styles.countrySelect, selectClassname)}>
-        <button
-          className={classNames(styles.selectBtn, selectButtonClassname)}
-          onClick={() => toggleCountrySelect()}
+    <div
+      className={classNames(
+        styles.container,
+        { [styles.containerWithoutCountrySelect]: !showCountrySelect },
+        className
+      )}
+    >
+      {showCountrySelect && (
+        <div
+          ref={countrySelectPane}
+          className={classNames(styles.countrySelect, selectClassname)}
         >
-          <SelectedFlag className={styles.flag} />
-          <i
-            className={classNames(styles.chevronDown, {
-              [styles.selectOpen]: isSelectOpen,
-            })}
-          />
-        </button>
-        {isSelectOpen && <Options />}
-      </div>
+          <button
+            className={classNames(styles.selectBtn, selectButtonClassname)}
+            onClick={() => toggleCountrySelect()}
+          >
+            <SelectedFlag className={styles.flag} />
+            <i
+              className={classNames(styles.chevronDown, {
+                [styles.selectOpen]: isSelectOpen,
+              })}
+            />
+          </button>
+          <div className={classNames({ [styles.hidden]: !isSelectOpen })}>
+            <Options />
+          </div>
+        </div>
+      )}
       <Input
-        className={classNames(styles.input, inputClassname)}
+        className={classNames(
+          styles.input,
+          { [styles.inputWithoutCountrySelect]: !showCountrySelect },
+          inputClassname
+        )}
         {...register(name)}
         {...props}
       />

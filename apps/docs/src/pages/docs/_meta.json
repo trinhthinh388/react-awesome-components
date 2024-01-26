@@ -4,7 +4,9 @@
     "type": "separator",
     "title": "Components"
   },
-  "phone-input": "",
+  "phone-input": {
+    "title": "PhoneInput"
+  },
   "-- More": {
     "type": "separator",
     "title": "More"

@@ -2,7 +2,7 @@
 import * as React from 'react';
 import {
   getCountries,
-  CountryCode,
+  CountryCode as CCode,
   getCountryCallingCode,
   formatIncompletePhoneNumber,
   AsYouType,
@@ -15,6 +15,8 @@ import {
 } from '../helpers';
 
 const DEFAULT_ALLOW_FORMAT = /^[+0-9][0-9]*$/;
+
+export type CountryCode = CCode;
 
 export type PhoneInputChangeMetadata = {
   isValid: boolean;
@@ -44,20 +46,20 @@ export type UsePhoneInput = {
   defaultCountry?: CountryCode;
   /**
    * @description onChange handler.
-   * The `ev` could be `undefined` when the country is just selected.
+   * The `ev` could be `undefined` when the event is triggered when user select another country.
    */
   onChange?: (
     ev: React.ChangeEvent<HTMLInputElement> | undefined,
     metadata: PhoneInputChangeMetadata
   ) => void;
   /**
-   * @description Specify event to guess the country on.
+   * @description Specify event to trigger the guess country function.
    */
   guessOn?: 'blur' | 'change' | boolean;
   /**
    * @description - use smart caret
    */
-  smartCaret?: boolean
+  smartCaret?: boolean;
 };
 
 export const usePhoneInput = ({
@@ -66,7 +68,7 @@ export const usePhoneInput = ({
   defaultCountry,
   onChange: onPhoneChange = () => {},
   guessOn = 'change',
-  smartCaret = true
+  smartCaret = true,
 }: UsePhoneInput = {}) => {
   /**
    * Refs
@@ -101,9 +103,9 @@ export const usePhoneInput = ({
   });
   const [isSelectOpen, setSelectOpen] = React.useState<boolean>(false);
 
-  if(smartCaret) {
+  if (smartCaret) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    usePreserveInputCaretPosition(inputRef,{
+    usePreserveInputCaretPosition(inputRef, {
       delimiters: ['+', ' ', '(', ')', '-'],
     });
   }
@@ -214,10 +216,13 @@ export const usePhoneInput = ({
   const register = React.useCallback(
     (
       name?: string
-    ): Pick<React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  >, 'ref' | 'name' | 'type' | 'autoComplete' | 'value' | 'onChange'> => {
+    ): Pick<
+      React.DetailedHTMLProps<
+        React.InputHTMLAttributes<HTMLInputElement>,
+        HTMLInputElement
+      >,
+      'ref' | 'name' | 'type' | 'autoComplete' | 'value' | 'onChange'
+    > => {
       return {
         ref: setInputRef,
         name,

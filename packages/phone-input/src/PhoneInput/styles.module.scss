@@ -75,10 +75,23 @@
   border-top-right-radius: var(--rap-phone-input-border-radius);
   border-bottom-right-radius: var(--rap-phone-input-border-radius);
   border: 1px solid var(--rap-phone-input-border-color);
+
+  &.inputWithoutCountrySelect {
+    border-top-left-radius: var(--rap-phone-input-border-radius);
+    border-bottom-left-radius: var(--rap-phone-input-border-radius);
+  }
 }
 
 .container {
   position: relative;
   display: grid;
   grid-template-columns: 65px 1fr;
+
+  &.containerWithoutCountrySelect {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hidden {
+  display: none;
 }
