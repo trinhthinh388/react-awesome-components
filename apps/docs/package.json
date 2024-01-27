@@ -7,8 +7,7 @@
     "start": "next start ",
     "dev": "next dev -p 3002",
     "lint": "next lint",
-    "clean": "rimraf .turbo && rimraf node_modules && rimraf .next",
-    "typecheck": "tsc --noEmit"
+    "clean": "rimraf .turbo && rimraf node_modules && rimraf .next"
   },
   "dependencies": {
     "@react-awesome/hooks": "0.0.0",
