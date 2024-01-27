@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { UsePhoneInput, usePhoneInput } from '../hooks/usePhoneInput';
-import { useClickOutside } from '@react-awesome/hooks';
-import classNames from 'classnames';
-import Flags from 'country-flag-icons/react/3x2';
+import * as React from "react";
+import { UsePhoneInput, usePhoneInput } from "../hooks/usePhoneInput";
+import { useClickOutside } from "@react-awesome/hooks";
+import classNames from "classnames";
+import Flags from "country-flag-icons/react/3x2";
 
-import styles from './styles.module.scss';
-import '../styles/global.scss';
+import styles from "./styles.module.scss";
+import "../styles/global.scss";
 
 export type PhoneInputProps = {
-  inputComponent?: 'input';
+  inputComponent?: "input";
   inputClassname?: string;
   selectClassname?: string;
   selectButtonClassname?: string;
@@ -20,12 +20,12 @@ export type PhoneInputProps = {
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
   >,
-  'onChange'
+  "onChange"
 > &
   UsePhoneInput;
 
 export const PhoneInput = ({
-  inputComponent: Input = 'input',
+  inputComponent: Input = "input",
   name,
   inputClassname,
   selectClassname,
@@ -82,7 +82,7 @@ export const PhoneInput = ({
         })}
       </ul>
     ),
-    [options, selectListClassname, selectOptionClassname, setSelectedCountry]
+    [options, selectListClassname, selectOptionClassname, setSelectedCountry],
   );
 
   const SelectedFlag = Flags[selectedCountry];
@@ -92,7 +92,7 @@ export const PhoneInput = ({
       className={classNames(
         styles.container,
         { [styles.containerWithoutCountrySelect]: !showCountrySelect },
-        className
+        className,
       )}
     >
       {showCountrySelect && (
@@ -120,7 +120,7 @@ export const PhoneInput = ({
         className={classNames(
           styles.input,
           { [styles.inputWithoutCountrySelect]: !showCountrySelect },
-          inputClassname
+          inputClassname,
         )}
         {...register(name)}
         {...props}

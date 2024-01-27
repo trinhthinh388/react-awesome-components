@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   PhoneInput,
   PhoneInputChangeMetadata,
-} from '@react-awesome/phone-input';
+} from "@react-awesome/phone-input";
 
 export const SupportCountryPhoneInput = () => {
   const [value, setValue] = useState<PhoneInputChangeMetadata>({
     isPossible: false,
     isValid: false,
-    e164Value: '',
-    country: 'VN',
-    phoneCode: '84',
-    formattedValue: '',
+    e164Value: "",
+    country: "VN",
+    phoneCode: "84",
+    formattedValue: "",
     isSupported: true,
   });
 
@@ -24,7 +24,7 @@ export const SupportCountryPhoneInput = () => {
         }}
         value={value?.formattedValue}
         defaultCountry={value.country}
-        supportedCountries={['US', 'CA', 'VN']}
+        supportedCountries={["US", "CA", "VN"]}
       />
 
       <h3 className="mt-3 font-bold text-xl underline underline-offset-4">

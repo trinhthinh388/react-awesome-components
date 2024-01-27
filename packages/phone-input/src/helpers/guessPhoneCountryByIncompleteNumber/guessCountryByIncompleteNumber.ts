@@ -1,6 +1,6 @@
-import { AsYouType, CountryCode } from 'libphonenumber-js';
-import { getPossibleCountriesByCallingCode } from '../getPossibleCountriesByCallingCode/getPossibleCountriesByCallingCode';
-import { formatInternational } from '../formatInternational/formatInternational';
+import { AsYouType, CountryCode } from "libphonenumber-js";
+import { getPossibleCountriesByCallingCode } from "../getPossibleCountriesByCallingCode/getPossibleCountriesByCallingCode";
+import { formatInternational } from "../formatInternational/formatInternational";
 
 const asYouType = new AsYouType();
 
@@ -9,7 +9,7 @@ const asYouType = new AsYouType();
  *
  */
 export const guessCountryByIncompleteNumber = (
-  value: string
+  value: string,
 ): CountryCode | undefined => {
   const internationalValue = formatInternational(value);
   const possibleCountries =

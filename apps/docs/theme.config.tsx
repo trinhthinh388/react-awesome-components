@@ -1,6 +1,6 @@
-import React from 'react';
-import { useRouter } from 'next/router';
-import { useConfig } from 'nextra-theme-docs';
+import React from "react";
+import { useRouter } from "next/router";
+import { useConfig } from "nextra-theme-docs";
 
 const logo = (
   <svg
@@ -35,21 +35,21 @@ const logo = (
 export default {
   logo,
   project: {
-    link: 'https://github.com/trinhthinh388/react-awesome-components',
+    link: "https://github.com/trinhthinh388/react-awesome-components",
   },
   docsRepositoryBase:
-    'https://github.com/trinhthinh388/react-awesome-components/blob/master/apps/docs',
+    "https://github.com/trinhthinh388/react-awesome-components/blob/master/apps/docs",
   useNextSeoProps() {
     const { asPath } = useRouter();
-    if (asPath !== '/') {
+    if (asPath !== "/") {
       return {
-        titleTemplate: '%s – React Awesome Components',
+        titleTemplate: "%s – React Awesome Components",
       };
     }
   },
   sidebar: {
     titleComponent({ title, type }) {
-      if (type === 'separator') {
+      if (type === "separator") {
         return <span className="cursor-default">{title}</span>;
       }
       return <>{title}</>;
@@ -89,7 +89,7 @@ export default {
   },
   head: function useHead() {
     const { title } = useConfig();
-    const socialCard = 'https://react-awesome-components.vercel.app/og.svg';
+    const socialCard = "https://react-awesome-components.vercel.app/og.svg";
 
     return (
       <>
@@ -119,8 +119,8 @@ export default {
           name="og:title"
           content={
             title
-              ? title + ' – React Awesome Components'
-              : 'React Awesome Components'
+              ? title + " – React Awesome Components"
+              : "React Awesome Components"
           }
         />
         <meta name="og:image" content={socialCard} />

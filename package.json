@@ -6,15 +6,18 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "test": "turbo test",
+    "typecheck": "turbo typecheck",
     "clean": "turbo clean && rimraf node_modules",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format:fix": "prettier --write \"**/*.{ts,tsx,md}\"",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "turbo build --filter=docs^... && changeset publish",
     "docs": "yarn workspace @react-awesome/docs",
     "phone-input": "yarn workspace @react-awesome/phone-input",
     "hooks": "yarn workspace @react-awesome/hooks",
-    "eslint": "yarn workspace @react-awesome/eslint-config"
+    "eslint": "yarn workspace @react-awesome/eslint-config",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@changesets/cli": "2.26.2",
@@ -25,6 +28,7 @@
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.56.0",
+    "husky": "^9.0.6",
     "prettier": "^3.1.1",
     "rimraf": "^5.0.5",
     "tty-table": "^4.2.3",

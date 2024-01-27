@@ -1,5 +1,5 @@
-import countryData from 'libphonenumber-js/metadata.min.json';
-import { formatInternational } from '../formatInternational/formatInternational';
+import countryData from "libphonenumber-js/metadata.min.json";
+import { formatInternational } from "../formatInternational/formatInternational";
 
 export const getPossibleCountriesByCallingCode = (phoneValue: string) => {
   const cleanValue = formatInternational(phoneValue);
@@ -25,6 +25,6 @@ export const getPossibleCountriesByCallingCode = (phoneValue: string) => {
       ...countriesHaveThreeChars,
       ...countriesHaveTwoChars,
       ...countriesHaveOneChars,
-    ])
+    ]),
   );
 };

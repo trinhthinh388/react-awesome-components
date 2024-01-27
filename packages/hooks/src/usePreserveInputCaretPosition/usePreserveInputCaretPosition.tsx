@@ -1,10 +1,10 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from "react";
 
 type Delimiter = string;
 type Delimiters = Delimiter[];
 
 export const getDelimiterRegexByDelimiter = (delimiter: string): RegExp =>
-  new RegExp(delimiter.replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1'), 'g');
+  new RegExp(delimiter.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), "g");
 
 export const stripDelimiters = ({
   value,
@@ -14,8 +14,8 @@ export const stripDelimiters = ({
   delimiters: Delimiters;
 }): string => {
   delimiters.forEach((current: string) => {
-    current.split('').forEach((letter) => {
-      value = value.replace(getDelimiterRegexByDelimiter(letter), '');
+    current.split("").forEach((letter) => {
+      value = value.replace(getDelimiterRegexByDelimiter(letter), "");
     });
   });
 
@@ -33,7 +33,7 @@ export const stripDelimiters = ({
 export const calculateCaretPositionWithoutDelimiters = (
   value: string,
   selectionEnd: number,
-  delimiters: Delimiters
+  delimiters: Delimiters,
 ) => {
   let idx = selectionEnd;
   for (let charIdx = 0; charIdx < selectionEnd; charIdx++) {
@@ -53,7 +53,7 @@ export const calculateCaretPositionWithoutDelimiters = (
 export const calculateCaretPositionWithDelimiters = (
   value: string,
   selectionEnd: number,
-  delimiters: Delimiters
+  delimiters: Delimiters,
 ) => {
   let idx = selectionEnd;
 
@@ -89,7 +89,7 @@ export const usePreserveInputCaretPosition = (
     delimiters = [],
     prefix,
     autoSubscribe = true,
-  }: UsePreserveInputCaretPositionOpts = {}
+  }: UsePreserveInputCaretPositionOpts = {},
 ) => {
   const onInput = useCallback(
     (e: Event) => {
@@ -98,7 +98,7 @@ export const usePreserveInputCaretPosition = (
       const value = target.value;
       const caretEnd = target.selectionEnd;
 
-      const isBackward = ev.inputType === 'deleteContentBackward';
+      const isBackward = ev.inputType === "deleteContentBackward";
 
       // If `insertText` and enter at the end of the input then do nothing
       if (!isBackward && value.length === caretEnd) return;
@@ -106,7 +106,7 @@ export const usePreserveInputCaretPosition = (
       const preserveIdx = calculateCaretPositionWithoutDelimiters(
         value,
         caretEnd || 0,
-        delimiters
+        delimiters,
       );
 
       window.requestAnimationFrame(() => {
@@ -119,16 +119,16 @@ export const usePreserveInputCaretPosition = (
         const actualIdx = calculateCaretPositionWithDelimiters(
           value,
           preserveIdx,
-          delimiters
+          delimiters,
         );
 
         const delimiterQtyBeforeUpdate = calculateDelimiterQty(
           value,
-          delimiters
+          delimiters,
         );
         const delimiterQtyAfterUpdate = calculateDelimiterQty(
           target.value,
-          delimiters
+          delimiters,
         );
         const diff =
           delimiterQtyAfterUpdate > delimiterQtyBeforeUpdate
@@ -137,16 +137,16 @@ export const usePreserveInputCaretPosition = (
         target.setSelectionRange(actualIdx + diff, actualIdx + diff);
       });
     },
-    [delimiters, prefix]
+    [delimiters, prefix],
   );
 
   useEffect(() => {
     if (!inputEl || !autoSubscribe) return;
 
-    inputEl.addEventListener('input', onInput);
+    inputEl.addEventListener("input", onInput);
 
     return () => {
-      inputEl.removeEventListener('input', onInput);
+      inputEl.removeEventListener("input", onInput);
     };
   }, [autoSubscribe, inputEl, onInput]);
 };

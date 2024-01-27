@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 export const useClickOutside = (
   el: HTMLElement | null,
-  callback?: (event: MouseEvent) => any
+  callback?: (event: MouseEvent) => any,
 ) => {
   useEffect(() => {
     if (!callback) return;
@@ -11,10 +11,10 @@ export const useClickOutside = (
         callback(e);
       }
     };
-    window.document.addEventListener('click', check);
+    window.document.addEventListener("click", check);
 
     return () => {
-      window.document.removeEventListener('click', check);
+      window.document.removeEventListener("click", check);
     };
   }, [callback, el]);
 };

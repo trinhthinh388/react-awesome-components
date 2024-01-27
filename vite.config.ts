@@ -1,13 +1,15 @@
 /// <reference types="vitest" />
-import { defineConfig } from 'vite';
-import path from 'node:path';
-import react from '@vitejs/plugin-react';
-import dts from 'vite-plugin-dts';
+import { defineConfig } from "vite";
+import path from "node:path";
+import react from "@vitejs/plugin-react";
+import dts from "vite-plugin-dts";
+
+console.log(process.cwd());
 
 export default defineConfig({
   plugins: [
     react({
-      jsxRuntime: 'automatic',
+      jsxRuntime: "automatic",
     }),
     dts({
       insertTypesEntry: true,
@@ -19,50 +21,55 @@ export default defineConfig({
      */
     minify: false,
     lib: {
-      entry: path.resolve(process.cwd(), './src/index.ts'),
+      entry: path.resolve(process.cwd(), "./src/index.ts"),
     },
     rollupOptions: {
       input: {
-        index: 'src/index.ts',
+        index: "src/index.ts",
       },
-      external: ['react', 'react-dom', 'react/jsx-runtime', "@react-awesome/hooks", "@react-awesome/phone-input"],
+      external: [
+        "react",
+        "react-dom",
+        "react/jsx-runtime",
+        "@react-awesome/hooks",
+        "@react-awesome/phone-input",
+      ],
       output: [
         {
-          dir: 'dist',
-          entryFileNames: '[name].js',
-          chunkFileNames: '[name]-[chunk].js',
-          format: 'esm',
-          exports: 'named',
+          dir: "dist",
+          entryFileNames: "[name].js",
+          chunkFileNames: "[name]-[chunk].js",
+          format: "esm",
+          exports: "named",
           preserveModules: true,
         },
         {
-          dir: 'dist',
-          entryFileNames: '[name].cjs',
-          chunkFileNames: '[name]-[chunk].cjs',
-          format: 'cjs',
-          exports: 'named',
+          dir: "dist",
+          entryFileNames: "[name].cjs",
+          chunkFileNames: "[name]-[chunk].cjs",
+          format: "cjs",
+          exports: "named",
           preserveModules: true,
         },
       ],
     },
   },
   test: {
-    environment: 'node',
+    environment: "node",
     include: [
       /**
        * Unit tests should only apply to helpers function only.
        * For component testing, we should use Functional Test.
        * Thus to avoid unnecessary tests we should use .tsx for components file only.
        */
-      './src/**/*.spec.ts',
+      "./src/**/*.spec.ts",
     ],
     coverage: {
-      provider: 'istanbul',
-      include: ['./src/**/*.ts'],
-      exclude: ['./src/**/*.tsx'],
-      reporter: ['text', 'json', 'html'],
+      provider: "istanbul",
+      include: ["**/*.ts"],
+      exclude: ["**/*.tsx"],
+      reporter: ["text", "json", "html"],
       thresholds: {
-        100: true,
         statements: 100,
         functions: 100,
         lines: 100,
