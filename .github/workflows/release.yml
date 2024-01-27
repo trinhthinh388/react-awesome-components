@@ -2,7 +2,7 @@ name: Release
 
 permissions:
   actions: write
-  contents: read
+  contents: write
 
 on:
   workflow_run:
@@ -38,7 +38,7 @@ jobs:
         with:
           publish: yarn release
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # - name: Send a Telegram notification if a publish happens
