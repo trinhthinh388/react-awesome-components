@@ -1,26 +1,26 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect } from 'react'
 
-type Delimiter = string;
-type Delimiters = Delimiter[];
+type Delimiter = string
+type Delimiters = Delimiter[]
 
 export const getDelimiterRegexByDelimiter = (delimiter: string): RegExp =>
-  new RegExp(delimiter.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), "g");
+  new RegExp(delimiter.replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1'), 'g')
 
 export const stripDelimiters = ({
   value,
   delimiters,
 }: {
-  value: string;
-  delimiters: Delimiters;
+  value: string
+  delimiters: Delimiters
 }): string => {
   delimiters.forEach((current: string) => {
-    current.split("").forEach((letter) => {
-      value = value.replace(getDelimiterRegexByDelimiter(letter), "");
-    });
-  });
+    current.split('').forEach((letter) => {
+      value = value.replace(getDelimiterRegexByDelimiter(letter), '')
+    })
+  })
 
-  return value;
-};
+  return value
+}
 
 /**
  * @description Calculate the caret position after all the delimiters have been eliminated.
@@ -35,14 +35,14 @@ export const calculateCaretPositionWithoutDelimiters = (
   selectionEnd: number,
   delimiters: Delimiters,
 ) => {
-  let idx = selectionEnd;
+  let idx = selectionEnd
   for (let charIdx = 0; charIdx < selectionEnd; charIdx++) {
     if (delimiters.includes(value[charIdx])) {
-      idx--;
+      idx--
     }
   }
-  return idx;
-};
+  return idx
+}
 
 /**
  * @description Calculate the correct caret position without removing any delimiters after the value has been modified at the previous caret position.
@@ -55,34 +55,34 @@ export const calculateCaretPositionWithDelimiters = (
   selectionEnd: number,
   delimiters: Delimiters,
 ) => {
-  let idx = selectionEnd;
+  let idx = selectionEnd
 
   for (let charIdx = 0; charIdx < value.length; charIdx++) {
     if (delimiters.includes(value[charIdx])) {
-      idx = idx + 1;
+      idx = idx + 1
     }
 
-    if (charIdx === idx - 1) break;
+    if (charIdx === idx - 1) break
   }
-  return idx;
-};
+  return idx
+}
 
 const calculateDelimiterQty = (value: string, delimiters: string[] = []) => {
-  let result = 0;
+  let result = 0
   for (const char of value) {
     if (delimiters.includes(char)) {
-      result++;
+      result++
     }
   }
 
-  return result;
-};
+  return result
+}
 
 export type UsePreserveInputCaretPositionOpts = {
-  delimiters?: string[];
-  prefix?: string;
-  autoSubscribe?: boolean;
-};
+  delimiters?: string[]
+  prefix?: string
+  autoSubscribe?: boolean
+}
 export const usePreserveInputCaretPosition = (
   inputEl?: HTMLInputElement | null,
   {
@@ -93,60 +93,60 @@ export const usePreserveInputCaretPosition = (
 ) => {
   const onInput = useCallback(
     (e: Event) => {
-      const ev = e as InputEvent;
-      const target = e.target as HTMLInputElement;
-      const value = target.value;
-      const caretEnd = target.selectionEnd;
+      const ev = e as InputEvent
+      const target = e.target as HTMLInputElement
+      const value = target.value
+      const caretEnd = target.selectionEnd
 
-      const isBackward = ev.inputType === "deleteContentBackward";
+      const isBackward = ev.inputType === 'deleteContentBackward'
 
       // If `insertText` and enter at the end of the input then do nothing
-      if (!isBackward && value.length === caretEnd) return;
+      if (!isBackward && value.length === caretEnd) return
 
       const preserveIdx = calculateCaretPositionWithoutDelimiters(
         value,
         caretEnd || 0,
         delimiters,
-      );
+      )
 
       window.requestAnimationFrame(() => {
         const strippedValue = stripDelimiters({
           value: target.value,
           delimiters,
-        });
-        if (strippedValue === prefix) return;
+        })
+        if (strippedValue === prefix) return
 
         const actualIdx = calculateCaretPositionWithDelimiters(
           value,
           preserveIdx,
           delimiters,
-        );
+        )
 
         const delimiterQtyBeforeUpdate = calculateDelimiterQty(
           value,
           delimiters,
-        );
+        )
         const delimiterQtyAfterUpdate = calculateDelimiterQty(
           target.value,
           delimiters,
-        );
+        )
         const diff =
           delimiterQtyAfterUpdate > delimiterQtyBeforeUpdate
             ? delimiterQtyAfterUpdate - delimiterQtyBeforeUpdate
-            : 0;
-        target.setSelectionRange(actualIdx + diff, actualIdx + diff);
-      });
+            : 0
+        target.setSelectionRange(actualIdx + diff, actualIdx + diff)
+      })
     },
     [delimiters, prefix],
-  );
+  )
 
   useEffect(() => {
-    if (!inputEl || !autoSubscribe) return;
+    if (!inputEl || !autoSubscribe) return
 
-    inputEl.addEventListener("input", onInput);
+    inputEl.addEventListener('input', onInput)
 
     return () => {
-      inputEl.removeEventListener("input", onInput);
-    };
-  }, [autoSubscribe, inputEl, onInput]);
-};
+      inputEl.removeEventListener('input', onInput)
+    }
+  }, [autoSubscribe, inputEl, onInput])
+}

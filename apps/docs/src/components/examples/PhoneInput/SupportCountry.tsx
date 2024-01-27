@@ -1,30 +1,30 @@
-import { useState } from "react";
+import { useState } from 'react'
 import {
   PhoneInput,
   PhoneInputChangeMetadata,
-} from "@react-awesome/phone-input";
+} from '@react-awesome/phone-input'
 
 export const SupportCountryPhoneInput = () => {
   const [value, setValue] = useState<PhoneInputChangeMetadata>({
     isPossible: false,
     isValid: false,
-    e164Value: "",
-    country: "VN",
-    phoneCode: "84",
-    formattedValue: "",
+    e164Value: '',
+    country: 'VN',
+    phoneCode: '84',
+    formattedValue: '',
     isSupported: true,
-  });
+  })
 
   return (
     <div>
       <PhoneInput
         placeholder="Enter your phone number"
         onChange={(_, m) => {
-          setValue(m);
+          setValue(m)
         }}
         value={value?.formattedValue}
         defaultCountry={value.country}
-        supportedCountries={["US", "CA", "VN"]}
+        supportedCountries={['US', 'CA', 'VN']}
       />
 
       <h3 className="mt-3 font-bold text-xl underline underline-offset-4">
@@ -32,7 +32,7 @@ export const SupportCountryPhoneInput = () => {
       </h3>
       <ul className="mt-2">
         {Object.keys(value).map((key) => {
-          const v = value[key as keyof PhoneInputChangeMetadata];
+          const v = value[key as keyof PhoneInputChangeMetadata]
           return (
             <li key={key}>
               <span className="font-medium">👉 {key}</span>
@@ -40,9 +40,9 @@ export const SupportCountryPhoneInput = () => {
                 {v.toString()}
               </code>
             </li>
-          );
+          )
         })}
       </ul>
     </div>
-  );
-};
+  )
+}
