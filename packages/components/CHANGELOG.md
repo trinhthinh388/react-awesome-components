@@ -1,5 +1,17 @@
 # @react-awesome/components
 
+## 1.0.1
+
+### Patch Changes
+
+- Bug fixes:
+
+  - `useSelectionRange` - track selection range change when using mouse.
+
+- Updated dependencies
+  - @react-awesome/hooks@0.0.1
+  - @react-awesome/phone-input@1.0.1
+
 ## 1.0.0
 
 ### Major Changes
