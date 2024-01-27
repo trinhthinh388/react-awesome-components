@@ -1,31 +1,31 @@
-import * as React from "react";
-import { UsePhoneInput, usePhoneInput } from "../hooks/usePhoneInput";
-import { useClickOutside } from "@react-awesome/hooks";
-import classNames from "classnames";
-import Flags from "country-flag-icons/react/3x2";
+import * as React from 'react'
+import { UsePhoneInput, usePhoneInput } from '../hooks/usePhoneInput'
+import { useClickOutside } from '@react-awesome/hooks'
+import classNames from 'classnames'
+import Flags from 'country-flag-icons/react/3x2'
 
-import styles from "./styles.module.scss";
-import "../styles/global.scss";
+import styles from './styles.module.scss'
+import '../styles/global.scss'
 
 export type PhoneInputProps = {
-  inputComponent?: "input";
-  inputClassname?: string;
-  selectClassname?: string;
-  selectButtonClassname?: string;
-  selectListClassname?: string;
-  selectOptionClassname?: string;
-  showCountrySelect?: boolean;
+  inputComponent?: 'input'
+  inputClassname?: string
+  selectClassname?: string
+  selectButtonClassname?: string
+  selectListClassname?: string
+  selectOptionClassname?: string
+  showCountrySelect?: boolean
 } & Omit<
   React.DetailedHTMLProps<
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
   >,
-  "onChange"
+  'onChange'
 > &
-  UsePhoneInput;
+  UsePhoneInput
 
 export const PhoneInput = ({
-  inputComponent: Input = "input",
+  inputComponent: Input = 'input',
   name,
   inputClassname,
   selectClassname,
@@ -40,7 +40,7 @@ export const PhoneInput = ({
   showCountrySelect = true,
   ...props
 }: PhoneInputProps) => {
-  const countrySelectPane = React.useRef<HTMLDivElement>(null);
+  const countrySelectPane = React.useRef<HTMLDivElement>(null)
   const {
     options,
     register,
@@ -55,17 +55,17 @@ export const PhoneInput = ({
     supportedCountries,
     smartCaret,
     ...props,
-  });
+  })
 
   useClickOutside(countrySelectPane.current, () => {
-    closeCountrySelect();
-  });
+    closeCountrySelect()
+  })
 
   const Options = React.useMemo(
     () => () => (
       <ul className={classNames(styles.selectList, selectListClassname)}>
         {options.map((opt) => {
-          const Flag = Flags[opt.iso2];
+          const Flag = Flags[opt.iso2]
           return (
             <li
               key={opt.iso2}
@@ -78,14 +78,14 @@ export const PhoneInput = ({
               </span>
               <span className={styles.phoneCode}>{`+${opt.phoneCode}`}</span>
             </li>
-          );
+          )
         })}
       </ul>
     ),
     [options, selectListClassname, selectOptionClassname, setSelectedCountry],
-  );
+  )
 
-  const SelectedFlag = Flags[selectedCountry];
+  const SelectedFlag = Flags[selectedCountry]
 
   return (
     <div
@@ -126,5 +126,5 @@ export const PhoneInput = ({
         {...props}
       />
     </div>
-  );
-};
+  )
+}
