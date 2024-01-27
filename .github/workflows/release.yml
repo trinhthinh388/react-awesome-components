@@ -5,11 +5,8 @@ permissions:
   contents: read
 
 on:
-  push:
-    branches:
-      - release
   workflow_run:
-    workflows: ['test', 'lint']
+    workflows: ['test']
     types:
       - completed
 
@@ -19,6 +16,7 @@ jobs:
   release:
     name: 🚀 Release
     runs-on: ubuntu-latest
+    environment: Release
     steps:
       - name: 🛑 Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.11.0
