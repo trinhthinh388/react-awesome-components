@@ -5,11 +5,8 @@ permissions:
   contents: read
 
 on:
-  push:
-    branches:
-      - release
   workflow_run:
-    workflows: ['test', 'lint']
+    workflows: ['test']
     types:
       - completed
 
