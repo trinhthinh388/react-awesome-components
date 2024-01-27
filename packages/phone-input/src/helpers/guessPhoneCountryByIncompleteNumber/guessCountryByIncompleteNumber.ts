@@ -1,8 +1,8 @@
-import { AsYouType, CountryCode } from "libphonenumber-js";
-import { getPossibleCountriesByCallingCode } from "../getPossibleCountriesByCallingCode/getPossibleCountriesByCallingCode";
-import { formatInternational } from "../formatInternational/formatInternational";
+import { AsYouType, CountryCode } from 'libphonenumber-js'
+import { getPossibleCountriesByCallingCode } from '../getPossibleCountriesByCallingCode/getPossibleCountriesByCallingCode'
+import { formatInternational } from '../formatInternational/formatInternational'
 
-const asYouType = new AsYouType();
+const asYouType = new AsYouType()
 
 /**
  * @description guessCountryByIncompleteNumber will guess the possible country by the provided incomplete phone number. It only cares the country calling code and ignore the rest
@@ -11,14 +11,14 @@ const asYouType = new AsYouType();
 export const guessCountryByIncompleteNumber = (
   value: string,
 ): CountryCode | undefined => {
-  const internationalValue = formatInternational(value);
+  const internationalValue = formatInternational(value)
   const possibleCountries =
-    getPossibleCountriesByCallingCode(internationalValue);
-  asYouType.reset();
-  asYouType.input(internationalValue);
-  const possibleCountry = asYouType.getCountry();
+    getPossibleCountriesByCallingCode(internationalValue)
+  asYouType.reset()
+  asYouType.input(internationalValue)
+  const possibleCountry = asYouType.getCountry()
 
-  if (!possibleCountry) return possibleCountries[0];
+  if (!possibleCountry) return possibleCountries[0]
 
-  return possibleCountry;
-};
+  return possibleCountry
+}

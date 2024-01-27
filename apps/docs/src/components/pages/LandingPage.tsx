@@ -1,14 +1,14 @@
-import Link from "next/link";
-import { ArrowRight, Code2, Rabbit, Feather, Server } from "lucide-react";
+import Link from 'next/link'
+import { ArrowRight, Code2, Rabbit, Feather, Server } from 'lucide-react'
 
 const Card = ({
   title,
   icon,
   desc,
 }: {
-  title: string;
-  icon: React.ReactNode;
-  desc: string;
+  title: string
+  icon: React.ReactNode
+  desc: string
 }) => {
   return (
     <div className="nextra-card max-w-64 nx-group nx-flex nx-flex-col nx-justify-start nx-overflow-hidden nx-rounded-lg nx-border nx-border-gray-200 nx-text-current nx-no-underline dark:nx-shadow-none hover:nx-shadow-gray-100 dark:hover:nx-shadow-none nx-shadow-gray-100 active:nx-shadow-sm active:nx-shadow-gray-200 nx-transition-all nx-duration-200 hover:nx-border-gray-300 nx-bg-transparent nx-shadow-sm dark:nx-border-neutral-800 hover:nx-bg-slate-50 hover:nx-shadow-md dark:hover:nx-border-neutral-700 dark:hover:nx-bg-neutral-900">
@@ -18,8 +18,8 @@ const Card = ({
         <span className="text-center font-normal">{desc}</span>
       </span>
     </div>
-  );
-};
+  )
+}
 
 export const LandingPage = () => {
   return (
@@ -27,10 +27,10 @@ export const LandingPage = () => {
       <div className="mx-auto max-w-[900px] px-4 sm:px-8 xl:px-0 relative z-1">
         <div className="text-center">
           <h1 className="mb-6 text-4xl font-extrabold sm:text-6xl xl:text-heading-1">
-            A collection of{" "}
+            A collection of{' '}
             <span className="bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
               Awesome
-            </span>{" "}
+            </span>{' '}
             React components and hooks.
           </h1>
           <p className="max-w-[600px] mx-auto mb-9 md:text-lg">
@@ -76,5 +76,5 @@ export const LandingPage = () => {
         </div>
       </div>
     </main>
-  );
-};
+  )
+}
