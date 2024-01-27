@@ -2,7 +2,7 @@ name: Release
 
 permissions:
   actions: write
-  contents: read
+  contents: write
 
 on:
   workflow_run:
