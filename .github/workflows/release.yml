@@ -16,6 +16,7 @@ jobs:
   release:
     name: 🚀 Release
     runs-on: ubuntu-latest
+    environment: Release
     steps:
       - name: 🛑 Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.11.0
