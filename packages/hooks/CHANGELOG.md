@@ -1,5 +1,13 @@
 # @react-awesome/hooks
 
+## 0.0.1
+
+### Patch Changes
+
+- Bug fixes:
+
+  - `useSelectionRange` - track selection range change when using mouse.
+
 ## 0.0.0
 
 ### Major Changes
