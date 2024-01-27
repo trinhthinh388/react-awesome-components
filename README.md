@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/chakra-ui/chakra-ui">
+  <a href="https://github.com/trinhthinh388/react-awesome-components">
     <img src="./assets/logo.svg" alt="sunglasses" width="128" />
   </a>
 </p>

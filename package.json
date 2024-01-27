@@ -5,7 +5,7 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "test": "turbo test",
-    "clean": "turbo clean && rm -rf node_modules",
+    "clean": "turbo clean && rimraf node_modules",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "changeset": "changeset",
     "version-packages": "changeset version",
@@ -42,8 +42,5 @@
     "packages/*",
     "shared/*"
   ],
-  "resolutions": {
-    "strip-ansi": "6.0.1"
-  },
   "version": "0.0.0"
 }
