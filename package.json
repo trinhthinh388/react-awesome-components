@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "commit": "cz",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
@@ -21,6 +22,8 @@
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-istanbul": "^1.2.1",
     "@vitest/ui": "^1.2.1",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.56.0",
     "prettier": "^3.1.1",
     "rimraf": "^5.0.5",
@@ -42,5 +45,10 @@
     "packages/*",
     "shared/*"
   ],
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  }
 }
