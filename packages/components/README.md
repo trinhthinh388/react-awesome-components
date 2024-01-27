@@ -1,6 +1,12 @@
-# @react-awesome/components
+<p align="center">
+  <a href="https://github.com/trinhthinh388/react-awesome-components">
+    <img src="http://react-awesome-components.vercel.app/logo.svg" alt="sunglasses" width="128" />
+  </a>
+</p>
 
-React Awesome Components is a collection of awesome components and hooks.
+<h1 align="center">React Awesome Components. 😎</h1>
+
+React Awesome Components is a collection of modern, reusable and well-tested React components that can be utilized across all of our different applications.
 
 Please refer to the [documentation](https://react-awesome-components.vercel.app/docs/components) for more information.
 
