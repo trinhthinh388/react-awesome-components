@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   PhoneInput,
   PhoneInputChangeMetadata,
-} from '@react-awesome/phone-input';
+} from "@react-awesome/phone-input";
 
 export const DefaultPhoneInput = (props: any) => {
   const [value, setValue] = useState<PhoneInputChangeMetadata>({
     isPossible: false,
     isValid: false,
-    e164Value: '',
-    country: 'VN',
-    phoneCode: '84',
-    formattedValue: '',
+    e164Value: "",
+    country: "VN",
+    phoneCode: "84",
+    formattedValue: "",
     isSupported: true,
   });
 

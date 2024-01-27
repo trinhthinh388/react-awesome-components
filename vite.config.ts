@@ -4,6 +4,8 @@ import path from 'node:path';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 
+console.log(process.cwd());
+
 export default defineConfig({
   plugins: [
     react({
@@ -25,7 +27,13 @@ export default defineConfig({
       input: {
         index: 'src/index.ts',
       },
-      external: ['react', 'react-dom', 'react/jsx-runtime', "@react-awesome/hooks", "@react-awesome/phone-input"],
+      external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        '@react-awesome/hooks',
+        '@react-awesome/phone-input',
+      ],
       output: [
         {
           dir: 'dist',
@@ -58,11 +66,10 @@ export default defineConfig({
     ],
     coverage: {
       provider: 'istanbul',
-      include: ['./src/**/*.ts'],
-      exclude: ['./src/**/*.tsx'],
+      include: ['**/*.ts'],
+      exclude: ['**/*.tsx'],
       reporter: ['text', 'json', 'html'],
       thresholds: {
-        100: true,
         statements: 100,
         functions: 100,
         lines: 100,

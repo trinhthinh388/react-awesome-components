@@ -1,0 +1,37 @@
+name: Test
+
+on:
+  pull_request:
+    branches:
+      - 'master'
+      - 'release'
+  push:
+    branches:
+      - 'master'
+      - 'release'
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  unit-test:
+    name: ʦ Vitest
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.11.0
+
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.17.x
+
+      - name: 📥 Download deps
+        run: yarn install --frozen-lockfile
+
+      - name: 🔎 Type check
+        run: yarn test

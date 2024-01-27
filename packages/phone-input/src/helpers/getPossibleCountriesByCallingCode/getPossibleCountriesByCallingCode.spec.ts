@@ -4,6 +4,8 @@ import { getPossibleCountriesByCallingCode } from './getPossibleCountriesByCalli
 describe('getPossibleCountriesByCallingCode', () => {
   it('Should return empty array if the value is invalid', () => {
     expect(getPossibleCountriesByCallingCode('')).toEqual([]);
+    // @ts-ignore
+    expect(getPossibleCountriesByCallingCode(undefined)).toEqual([]);
   });
 
   it('Should return empty array if no country was found', () => {

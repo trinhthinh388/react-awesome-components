@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export type UseSelectionRangeOpts = {
   initialPosition?: {
@@ -9,7 +9,7 @@ export type UseSelectionRangeOpts = {
 
 export const useSelectionRange = (
   inputEl?: HTMLElement | null,
-  { initialPosition = { start: 0, end: 0 } }: UseSelectionRangeOpts = {}
+  { initialPosition = { start: 0, end: 0 } }: UseSelectionRangeOpts = {},
 ) => {
   const [caret, setCaret] = useState<{ start: number; end: number }>({
     start: initialPosition.start,
@@ -22,9 +22,9 @@ export const useSelectionRange = (
       setTimeout(() => {
         if (e.target instanceof HTMLInputElement) {
           console.log(
-            'SELECTIOn RANGE',
+            "SELECTIOn RANGE",
             e.target.selectionStart,
-            e.target.selectionEnd
+            e.target.selectionEnd,
           );
           setCaret({
             start: e.target.selectionStart || 0,
@@ -34,10 +34,10 @@ export const useSelectionRange = (
       }, 0);
     };
 
-    inputEl.addEventListener('keydown', onKeyDown);
+    inputEl.addEventListener("keydown", onKeyDown);
 
     return () => {
-      inputEl.removeEventListener('keydown', onKeyDown);
+      inputEl.removeEventListener("keydown", onKeyDown);
     };
   }, [inputEl]);
 

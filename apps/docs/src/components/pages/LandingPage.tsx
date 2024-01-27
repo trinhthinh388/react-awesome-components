@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import { ArrowRight, Code2, Rabbit, Feather, Server } from 'lucide-react';
+import Link from "next/link";
+import { ArrowRight, Code2, Rabbit, Feather, Server } from "lucide-react";
 
 const Card = ({
   title,
@@ -27,10 +27,10 @@ export const LandingPage = () => {
       <div className="mx-auto max-w-[900px] px-4 sm:px-8 xl:px-0 relative z-1">
         <div className="text-center">
           <h1 className="mb-6 text-4xl font-extrabold sm:text-6xl xl:text-heading-1">
-            A collection of{' '}
+            A collection of{" "}
             <span className="bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
               Awesome
-            </span>{' '}
+            </span>{" "}
             React components and hooks.
           </h1>
           <p className="max-w-[600px] mx-auto mb-9 md:text-lg">

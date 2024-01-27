@@ -13,6 +13,7 @@
       ]
     },
     "test": {
+      "cache": false,
       "outputs": ["coverage/**"],
       "dependsOn": []
     },

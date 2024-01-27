@@ -1,18 +1,18 @@
 /* eslint-disable no-unused-vars */
-import * as React from 'react';
+import * as React from "react";
 import {
   getCountries,
   CountryCode as CCode,
   getCountryCallingCode,
   formatIncompletePhoneNumber,
   AsYouType,
-} from 'libphonenumber-js';
-import { usePreserveInputCaretPosition } from '@react-awesome/hooks';
+} from "libphonenumber-js";
+import { usePreserveInputCaretPosition } from "@react-awesome/hooks";
 import {
   guessCountryByIncompleteNumber,
   formatInternational,
   checkCountryValidity,
-} from '../helpers';
+} from "../helpers";
 
 const DEFAULT_ALLOW_FORMAT = /^[+0-9][0-9]*$/;
 
@@ -50,12 +50,12 @@ export type UsePhoneInput = {
    */
   onChange?: (
     ev: React.ChangeEvent<HTMLInputElement> | undefined,
-    metadata: PhoneInputChangeMetadata
+    metadata: PhoneInputChangeMetadata,
   ) => void;
   /**
    * @description Specify event to trigger the guess country function.
    */
-  guessOn?: 'blur' | 'change' | boolean;
+  guessOn?: "blur" | "change" | boolean;
   /**
    * @description - use smart caret
    */
@@ -67,7 +67,7 @@ export const usePhoneInput = ({
   supportedCountries,
   defaultCountry,
   onChange: onPhoneChange = () => {},
-  guessOn = 'change',
+  guessOn = "change",
   smartCaret = true,
 }: UsePhoneInput = {}) => {
   /**
@@ -97,7 +97,7 @@ export const usePhoneInput = ({
     };
 
     return {
-      phone: value || '',
+      phone: value || "",
       country: getInitialCountry(),
     };
   });
@@ -106,7 +106,7 @@ export const usePhoneInput = ({
   if (smartCaret) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     usePreserveInputCaretPosition(inputRef, {
-      delimiters: ['+', ' ', '(', ')', '-'],
+      delimiters: ["+", " ", "(", ")", "-"],
     });
   }
 
@@ -116,7 +116,7 @@ export const usePhoneInput = ({
   const options = React.useMemo(() => {
     const _c = getCountries();
     const getCountryName = (code: CountryCode) =>
-      new Intl.DisplayNames(['en'], { type: 'region' }).of(code);
+      new Intl.DisplayNames(["en"], { type: "region" }).of(code);
     const genCountryOpts = (_countries: CountryCode[]) =>
       _countries.map((_c) => ({
         iso2: _c,
@@ -136,13 +136,13 @@ export const usePhoneInput = ({
       if (!guessOn) return;
       return guessCountryByIncompleteNumber(value);
     },
-    [guessOn]
+    [guessOn],
   );
   const openCountrySelect = React.useCallback(() => setSelectOpen(true), []);
   const closeCountrySelect = React.useCallback(() => setSelectOpen(false), []);
   const toggleCountrySelect = React.useCallback(
     (state?: boolean) => setSelectOpen(state ? state : (prev) => !prev),
-    []
+    [],
   );
   const generateMetadata = React.useCallback(
     (value: string, currentCountry: CountryCode): PhoneInputChangeMetadata => {
@@ -150,7 +150,7 @@ export const usePhoneInput = ({
       const guessedCountry = guessCountry(_value) || currentCountry;
       const isSupported = checkCountryValidity(
         guessedCountry,
-        supportedCountries
+        supportedCountries,
       );
       // If country is not supported country then return the defaultCountry or the first country in the option list.
       const country = isSupported
@@ -161,7 +161,7 @@ export const usePhoneInput = ({
       return {
         isPossible: asYouType.current.isPossible(),
         isValid: asYouType.current.isValid(),
-        e164Value: asYouType.current.getNumber()?.format('E.164') || '',
+        e164Value: asYouType.current.getNumber()?.format("E.164") || "",
         country,
         phoneCode:
           asYouType.current.getCallingCode() || getCountryCallingCode(country),
@@ -169,20 +169,20 @@ export const usePhoneInput = ({
         isSupported,
       };
     },
-    [defaultCountry, guessCountry, options, supportedCountries]
+    [defaultCountry, guessCountry, options, supportedCountries],
   );
   const setSelectedCountry = React.useCallback(
     (country: CountryCode) => {
-      const metadata = generateMetadata('', country);
+      const metadata = generateMetadata("", country);
       onPhoneChange(undefined, metadata);
       setInnerValue((prev) => ({
         ...prev,
         country,
-        phone: '',
+        phone: "",
       }));
       closeCountrySelect();
     },
-    [closeCountrySelect, generateMetadata, onPhoneChange]
+    [closeCountrySelect, generateMetadata, onPhoneChange],
   );
 
   /**
@@ -193,7 +193,7 @@ export const usePhoneInput = ({
       // format raw value and assign back to the event target
       e.target.value = formatInternational(e.target.value);
 
-      if (DEFAULT_ALLOW_FORMAT.test(e.target.value) || e.target.value === '') {
+      if (DEFAULT_ALLOW_FORMAT.test(e.target.value) || e.target.value === "") {
         asYouType.current.reset();
         asYouType.current.input(e.target.value);
 
@@ -210,29 +210,29 @@ export const usePhoneInput = ({
         }));
       }
     },
-    [generateMetadata, innerValue.country, onPhoneChange]
+    [generateMetadata, innerValue.country, onPhoneChange],
   );
 
   const register = React.useCallback(
     (
-      name?: string
+      name?: string,
     ): Pick<
       React.DetailedHTMLProps<
         React.InputHTMLAttributes<HTMLInputElement>,
         HTMLInputElement
       >,
-      'ref' | 'name' | 'type' | 'autoComplete' | 'value' | 'onChange'
+      "ref" | "name" | "type" | "autoComplete" | "value" | "onChange"
     > => {
       return {
         ref: setInputRef,
         name,
         value: innerValue.phone,
         onChange,
-        type: 'tel',
-        autoComplete: 'tel',
+        type: "tel",
+        autoComplete: "tel",
       };
     },
-    [innerValue.phone, onChange]
+    [innerValue.phone, onChange],
   );
 
   /**
