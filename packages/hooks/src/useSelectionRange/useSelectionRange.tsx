@@ -34,7 +34,7 @@ export const useSelectionRange = (
 
     return () => {
       inputEl.removeEventListener('keydown', onKeyDown)
-      inputEl.addEventListener('click', onKeyDown)
+      inputEl.removeEventListener('click', onKeyDown)
     }
   }, [inputEl])
 
