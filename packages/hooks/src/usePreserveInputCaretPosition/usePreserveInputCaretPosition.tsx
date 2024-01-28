@@ -67,7 +67,10 @@ export const calculateCaretPositionWithDelimiters = (
   return idx
 }
 
-const calculateDelimiterQty = (value: string, delimiters: string[] = []) => {
+export const calculateDelimiterQty = (
+  value: string,
+  delimiters: string[] = [],
+) => {
   let result = 0
   for (const char of value) {
     if (delimiters.includes(char)) {
@@ -85,11 +88,7 @@ export type UsePreserveInputCaretPositionOpts = {
 }
 export const usePreserveInputCaretPosition = (
   inputEl?: HTMLInputElement | null,
-  {
-    delimiters = [],
-    prefix,
-    autoSubscribe = true,
-  }: UsePreserveInputCaretPositionOpts = {},
+  { delimiters = [], prefix }: UsePreserveInputCaretPositionOpts = {},
 ) => {
   const onInput = useCallback(
     (e: Event) => {
@@ -141,12 +140,12 @@ export const usePreserveInputCaretPosition = (
   )
 
   useEffect(() => {
-    if (!inputEl || !autoSubscribe) return
+    if (!inputEl) return
 
     inputEl.addEventListener('input', onInput)
 
     return () => {
       inputEl.removeEventListener('input', onInput)
     }
-  }, [autoSubscribe, inputEl, onInput])
+  }, [inputEl, onInput])
 }

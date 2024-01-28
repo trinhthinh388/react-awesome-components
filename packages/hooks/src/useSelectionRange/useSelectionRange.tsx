@@ -20,10 +20,16 @@ export const useSelectionRange = (
     if (!inputEl) return
     const onKeyDown = (e: KeyboardEvent | MouseEvent) => {
       setTimeout(() => {
-        if (e.target instanceof HTMLInputElement) {
+        if (
+          e.target &&
+          'selectionStart' in e.target &&
+          'selectionEnd' in e.target &&
+          typeof e.target.selectionStart === 'number' &&
+          typeof e.target.selectionEnd === 'number'
+        ) {
           setCaret({
-            start: e.target.selectionStart || 0,
-            end: e.target.selectionEnd || 0,
+            start: e.target.selectionStart,
+            end: e.target.selectionEnd,
           })
         }
       }, 0)

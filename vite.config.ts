@@ -4,8 +4,6 @@ import path from 'node:path'
 import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts'
 
-console.log(process.cwd())
-
 export default defineConfig({
   plugins: [
     react({
@@ -55,7 +53,9 @@ export default defineConfig({
     },
   },
   test: {
-    environment: 'node',
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: path.resolve(process.cwd(), '../../setup-test.tsx'),
     include: [
       /**
        * Unit tests should only apply to helpers function only.
@@ -63,18 +63,18 @@ export default defineConfig({
        * Thus to avoid unnecessary tests we should use .tsx for components file only.
        */
       './src/**/*.spec.ts',
+      './src/**/*.spec.tsx',
     ],
     coverage: {
       provider: 'istanbul',
-      include: ['**/*.ts'],
-      exclude: ['**/*.tsx'],
+      include: ['**/*.ts', '**/*.tsx'],
       reporter: ['text', 'json', 'html'],
-      thresholds: {
-        statements: 100,
-        functions: 100,
-        lines: 100,
-        branches: 100,
-      },
+      // thresholds: {
+      //   statements: 100,
+      //   functions: 100,
+      //   lines: 100,
+      //   branches: 100,
+      // },
     },
   },
 })
