@@ -18,11 +18,11 @@ npm i @react-awesome/phone-input
 import {
   DefaultPhoneInput,
   SupportCountryPhoneInput,
-} from '../../../components/examples';
-import { Container } from '../../../components/Container';
-import { Callout } from 'nextra/components';
+} from '../../../components/examples'
+import { Container } from '../../../components/Container'
+import { Callout } from 'nextra/components'
 
-import '@react-awesome/phone-input/dist/style.css';
+import '@react-awesome/phone-input/dist/style.css'
 
 ## Usage
 
@@ -35,11 +35,12 @@ By default, **Phone Input** comes with a country selector.
 </Container>
 
 ```jsx
-import { PhoneInput } from '@react-awesome/phone-input';
+import { PhoneInput } from '@react-awesome/phone-input'
+import '@react-awesome/phone-input/dist/style.css'
 
 const Example = () => {
-  return <PhoneInput />;
-};
+  return <PhoneInput />
+}
 ```
 
 ### Customizable Supported Countries
@@ -58,11 +59,12 @@ In this example, by passing `["US", "CA", "VN"]` to the `supportedCountries`, yo
 </Container>
 
 ```jsx
-import { PhoneInput } from '@react-awesome/phone-input';
+import { PhoneInput } from '@react-awesome/phone-input'
+import '@react-awesome/phone-input/dist/style.css'
 
 const Example = () => {
-  return <PhoneInput supportedCountries={['US', 'CA', 'VN']} />;
-};
+  return <PhoneInput supportedCountries={['US', 'CA', 'VN']} />
+}
 ```
 
 ### Auto formating and validating with built-in caret handler
@@ -78,11 +80,12 @@ const Example = () => {
 </Container>
 
 ```jsx
-import { PhoneInput } from '@react-awesome/phone-input';
+import { PhoneInput } from '@react-awesome/phone-input'
+import '@react-awesome/phone-input/dist/style.css'
 
 const Example = () => {
-  return <PhoneInput />;
-};
+  return <PhoneInput />
+}
 ```
 
 ### Without country select
@@ -94,11 +97,12 @@ const Example = () => {
 </Container>
 
 ```jsx
-import { PhoneInput } from '@react-awesome/phone-input';
+import { PhoneInput } from '@react-awesome/phone-input'
+import '@react-awesome/phone-input/dist/style.css'
 
 const Example = () => {
-  return <PhoneInput showCountrySelect={false} />;
-};
+  return <PhoneInput showCountrySelect={false} />
+}
 ```
 
 ## API

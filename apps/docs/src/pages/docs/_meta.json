@@ -17,6 +17,9 @@
   "use-selection-range": {
     "title": "useSelectionRange"
   },
+  "use-preserve-input-caret-position": {
+    "title": "usePreserveInputCaretPosition"
+  },
   "-- More": {
     "type": "separator",
     "title": "More"

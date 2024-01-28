@@ -17,9 +17,9 @@ npm i @react-awesome/phone-input
 
 ## Usage
 
-import { useState } from 'react';
-import { Container } from '../../../components/Container';
-import { usePhoneInput } from '@react-awesome/phone-input';
+import { useState } from 'react'
+import { Container } from '../../../components/Container'
+import { usePhoneInput } from '@react-awesome/phone-input'
 
 export const Example = () => {
   const [value, setValue] = useState({
@@ -50,7 +50,7 @@ return (
   </h3>
   <ul className="mt-2">
     {Object.keys(value).map((key) => {
-      const v = value[key];
+      const v = value[key]
       return (
         <li key={key}>
           <span className="font-medium">👉 {key}</span>
@@ -58,7 +58,7 @@ return (
             {v.toString()}
           </code>
         </li>
-      );
+      )
     })}
   </ul>
 </div>
@@ -69,18 +69,18 @@ return (
 </Container>
 
 ```jsx
-import { usePhoneInput } from '@react-awesome/phone-input';
+import { usePhoneInput } from '@react-awesome/phone-input'
 
 const Example = () => {
-  const { register } = usePhoneInput();
+  const { register } = usePhoneInput()
 
   return (
     <input
       placeholder="I have been upgraded with usePhoneInput 😎"
       {...register('use-phone-input')}
     />
-  );
-};
+  )
+}
 ```
 
 ## Parameters
@@ -195,16 +195,40 @@ Set the selected country.
 
 - Type: `(country : CounntryCode) => void`
 
-## Type
+## Types
 
-#### `PhoneInputChangeMetadata` - object
+#### `PhoneInputChangeMetadata`
 
-- isValid: `boolean`
-- isPossible: `boolean`
-- e164Value: `string`
-- country: `CountryCode`
-- phoneCode: `string`
-- formattedValue: `string`
-- isSupported: `boolean`
+- Type: `object`
 
-#### `CountryCode` - string
+###### isValid
+
+- Type: `boolean`
+
+###### isPossible
+
+- Type: `boolean`
+
+###### e164Value
+
+- Type: `string`
+
+###### country
+
+- Type: `CountryCode`
+
+###### phoneCode
+
+- Type: `string`
+
+###### formattedValue
+
+- Type: `string`
+
+###### isSupported
+
+- Type: `boolean`
+
+#### `CountryCode`
+
+- Type: `string`
