@@ -1,6 +1,6 @@
 {
   "name": "@react-awesome/components",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -9,9 +9,28 @@
   "files": [
     "dist/**"
   ],
+  "keywords": [
+    "react",
+    "awesome",
+    "phone input",
+    "hooks",
+    "caret"
+  ],
   "repository": {
     "url": "https://github.com/trinhthinh388/react-awesome-components"
   },
+  "bugs": {
+    "url": "https://github.com/trinhthinh388/react-awesome-components/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "homepage": "https://react-awesome-components.vercel.app",
   "scripts": {
     "build": "vite --config ../../vite.config.ts build",
     "dev": "vite --watch --config ../../vite.config.ts build",
@@ -31,7 +50,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@react-awesome/hooks": "0.0.1",
-    "@react-awesome/phone-input": "1.0.1"
+    "@react-awesome/hooks": "0.0.2",
+    "@react-awesome/phone-input": "1.0.2"
   }
 }
