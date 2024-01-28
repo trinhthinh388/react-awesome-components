@@ -4,7 +4,7 @@ title: usePrevious
 
 # usePrevious
 
-**usePrevious** is a hook track the previous value of a variable.
+**usePrevious** is a hook track the previous value of a state.
 
 ## Install
 
@@ -17,9 +17,9 @@ npm i @react-awesome/hooks
 
 ## Usage
 
-import { useState } from 'react'
-import { Container } from '../../components/Container'
-import { usePrevious } from '@react-awesome/hooks'
+import { useState } from 'react';
+import { Container } from '../../components/Container';
+import { usePrevious } from '@react-awesome/hooks';
 
 export const Example = () => {
   const [state, setState] = useState(0);
@@ -59,16 +59,16 @@ return (
 </Container>
 
 ```jsx
-import { usePrevious } from '@react-awesome/hooks'
+import { usePrevious } from '@react-awesome/hooks';
 
 const Example = () => {
-  const [state, setState] = useState(0)
-  const previousValue = usePrevious(state)
+  const [state, setState] = useState(0);
+  const previousValue = usePrevious(state);
 
   return (
     <button onClick={() => setState((prev) => ++prev)}>Click to add</button>
-  )
-}
+  );
+};
 ```
 
 ## Parameters

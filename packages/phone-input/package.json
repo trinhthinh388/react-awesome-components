@@ -1,6 +1,6 @@
 {
   "name": "@react-awesome/phone-input",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -8,14 +8,6 @@
   "license": "MIT",
   "files": [
     "dist/**"
-  ],
-  "keywords": [
-    "react",
-    "phone input",
-    "e164",
-    "international",
-    "phone formatting",
-    "phone validation"
   ],
   "repository": {
     "url": "https://github.com/trinhthinh388/react-awesome-components"
@@ -28,15 +20,6 @@
     "test": "vitest --config ../../vite.config.ts --coverage --run",
     "test:ui": "vitest --config ../../vite.config.ts --coverage --ui",
     "typecheck": "tsc --noEmit"
-  },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    },
-    "./style.css": "./dist/style.css",
-    "./package.json": "./package.json"
   },
   "devDependencies": {
     "@react-awesome/eslint-config": "*",
@@ -56,6 +39,6 @@
     "libphonenumber-js": "^1.10.53"
   },
   "peerDependencies": {
-    "@react-awesome/hooks": "0.0.2"
+    "@react-awesome/hooks": "0.0.1"
   }
 }
