@@ -46,3 +46,26 @@ jobs:
       # - name: Send a Telegram notification if a publish happens
       #   if: steps.changesets.outputs.published == 'true'
       #   uses: appleboy/telegram-action@master
+
+  sync-branches:
+    runs-on: ubuntu-latest
+    name: Syncing Release to Master
+    steps:
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.11.0
+
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.17.x
+
+      - name: Opening pull request
+        id: pull
+        uses: tretuna/sync-branches@1.4.0
+        with:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          FROM_BRANCH: 'release'
+          TO_BRANCH: 'master'
