@@ -17,9 +17,9 @@ npm i @react-awesome/hooks
 
 ## Usage
 
-import { useState } from 'react';
-import { Container } from '../../components/Container';
-import { useSelectionRange } from '@react-awesome/hooks';
+import { useState } from 'react'
+import { Container } from '../../components/Container'
+import { useSelectionRange } from '@react-awesome/components'
 
 export const Example = () => {
   const [ref, setRef] = useState(null)
@@ -56,16 +56,16 @@ return (
 </Container>
 
 ```jsx
-import { useSelectionRange } from '@react-awesome/phone-input';
+import { useSelectionRange } from '@react-awesome/phone-input'
 
 const Example = () => {
-  const ref = useRef(null);
-  const { register } = useSelectionRange();
+  const ref = useRef(null)
+  const { register } = useSelectionRange()
 
-  const { caret } = useSelectionRange(ref.current);
+  const { caret } = useSelectionRange(ref.current)
 
-  return <input ref={ref} placeholder="Type something..." />;
-};
+  return <input ref={ref} placeholder="Type something..." />
+}
 ```
 
 ## Parameters
