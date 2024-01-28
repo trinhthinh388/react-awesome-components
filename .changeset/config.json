@@ -6,9 +6,5 @@
   "linked": [],
   "access": "public",
   "updateInternalDependencies": "patch",
-  "ignore": [
-    "@react-awesome/docs",
-    "@react-awesome/tsconfig",
-    "@react-awesome/eslint"
-  ]
+  "ignore": ["@react-awesome/docs"]
 }
