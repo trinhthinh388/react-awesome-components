@@ -8,7 +8,7 @@
 
 React Awesome Components is a collection of modern, reusable and well-tested React components that can be utilized across all of our different applications.
 
-Please refer to the [documentation](https://react-awesome-components.vercel.app) for more information.
+Please refer to the [documentation](https://react-awesome-components.vercel.app/docs/components) for more information.
 
 ## Installation
 
