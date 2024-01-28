@@ -12,6 +12,20 @@ yarn add @react-awesome/hooks
 npm i @react-awesome/hooks
 ```
 
+## Hooks
+
+- [usePrevious](https://react-awesome-components.vercel.app/docs/use-previous)
+
+  usePrevious is a hook track the previous value of a variable.
+
+- [useSelectionRange](https://react-awesome-components.vercel.app/docs/use-selection-range)
+
+  useSelectionRange tracks the input selection range.
+
+- [usePreserveInputCaretPosition](https://react-awesome-components.vercel.app/docs/use-preserve-input-caret-position)
+
+  usePreserveInputCaretPosition tracks the input caret position and place it at the correct position so user can have a natural typing experience.
+
 ## Contribution
 
 Yes please! See the
