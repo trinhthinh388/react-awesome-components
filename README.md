@@ -8,6 +8,10 @@
 
 React Awesome Components is a collection of modern, reusable and well-tested React components that can be utilized across all of our different applications.
 
+<p align="center">
+  <img alt="version" src="https://img.shields.io/npm/v/%40react-awesome%2Fcomponents" />
+</p>
+
 ## Getting Started
 
 Visit <a aria-label="react awesome introduction" href="https://react-awesome-components.vercel.app/introduction">https://react-awesome-components.vercel.app/introduction</a> to get started with React Awesome Components.

@@ -1,8 +1,5 @@
 import { useState } from 'react'
-import {
-  PhoneInput,
-  PhoneInputChangeMetadata,
-} from '@react-awesome/phone-input'
+import { PhoneInput, PhoneInputChangeMetadata } from '@react-awesome/components'
 
 export const SupportCountryPhoneInput = () => {
   const [value, setValue] = useState<PhoneInputChangeMetadata>({

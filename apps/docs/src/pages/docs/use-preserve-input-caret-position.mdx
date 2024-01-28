@@ -5,7 +5,7 @@ title: usePreserveInputCaretPosition
 import { useRef, useState } from 'react'
 import { Callout } from 'nextra/components'
 import { Container } from '../../components/Container'
-import { usePreserveInputCaretPosition } from '@react-awesome/hooks'
+import { usePreserveInputCaretPosition } from '@react-awesome/components'
 
 # usePreserveInputCaretPosition
 
@@ -129,11 +129,13 @@ prefix: 'PREFIX'
 
 const onChange = (e) => {
 const value = e.target.value
+if(value === '') {
+setValue('PREFIX')
+return
+}
 if(value.length < 6) return
 if(!value.startsWith('PREFIX')) return
 const cleanValue = e.target.value.replace('PREFIX', '')
-
-console.log(cleanValue, cleanValue.length)
 
 if(cleanValue === '') {
 setValue('PREFIX')
