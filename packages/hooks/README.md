@@ -1,5 +1,9 @@
 # @react-awesome/hooks
 
+<p align="center">
+  <img alt="version" src="https://img.shields.io/npm/v/%40react-awesome%2Fhooks" />
+</p>
+
 A collection of useful and awesome hooks.
 
 Please refer to the [documentation](https://react-awesome-components.vercel.app/docs/hooks) for more information.
