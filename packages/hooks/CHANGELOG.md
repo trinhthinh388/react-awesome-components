@@ -1,5 +1,13 @@
 # @react-awesome/hooks
 
+## 0.0.2
+
+### Patch Changes
+
+- Bug fixes:
+
+  - `usePreserveInputCaretPosition` - fix caret jumps inside prefix when pressed backspace.
+
 ## 0.0.1
 
 ### Patch Changes

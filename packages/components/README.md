@@ -6,9 +6,13 @@
 
 <h1 align="center">React Awesome Components. 😎</h1>
 
+<p align="center">
+  <img alt="version" src="https://img.shields.io/npm/v/%40react-awesome%2Fcomponents" />
+</p>
+
 React Awesome Components is a collection of modern, reusable and well-tested React components that can be utilized across all of our different applications.
 
-Please refer to the [documentation](https://react-awesome-components.vercel.app/docs/components) for more information.
+Please refer to the [documentation](https://react-awesome-components.vercel.app) for more information.
 
 ## Installation
 

@@ -1,0 +1,214 @@
+---
+title: usePreserveInputCaretPosition
+---
+
+import { useRef, useState } from 'react'
+import { Callout } from 'nextra/components'
+import { Container } from '../../components/Container'
+import { usePreserveInputCaretPosition } from '@react-awesome/hooks'
+
+# usePreserveInputCaretPosition
+
+**usePreserveInputCaretPosition** tracks the input caret position and place it at the correct position so user can have a natural typing experience.
+
+<Callout type="info">
+  **usePreserveInputCaretPosition** won't return the caret position (selection
+  range). If you want to track the selection range of an input, you can check
+  out [**useSelectionRange**](/docs/use-selection-range).
+</Callout>
+
+## Problem
+
+[**Controlled Component**](https://react.dev/learn/sharing-state-between-components#controlled-and-uncontrolled-components) is a good way to have the fully control on the component of which the information is driven by the props instead of the local state.
+
+Anyway, it has some caveats like when we have to format the input value (credit card, phone number, etc) whenever users enter one character. The caret will always be placed at the end of the value.
+And when users want to change a letter in the middle of the value, the caret will also jump right to the end.
+
+This is annoying and it creates a bad experience for users.
+
+export const BadExample = () => {
+  const [value, setValue] = useState('')
+
+const onChange = (e) => {
+if(!e.target.value) {
+setValue('')
+return
+}
+setValue(e.target.value.replace(/-/g, '').match(/.{1,2}/g).join('-'))
+}
+
+return <input className="w-full border rounded-md px-3 py-2" value={value} onChange={onChange} placeholder='XX-XX-XX' />
+}
+
+<Callout>
+  The example below will format the value to have the format `xx-xx-xx...`. Try
+  to change a letter in the middle and you can see the caret will jump right to
+  the end.
+</Callout>
+
+<Container>
+  <BadExample />
+</Container>
+
+## Install
+
+To start using **usePreserveInputCaretPosition**, you can install the `@react-awesome/hooks` library or you can import it directly from `@react-awesome/components` if you have installed it before. In your project directory, run
+the following command to install the dependencies:
+
+```sh npm2yarn
+npm i @react-awesome/hooks
+```
+
+## Usage
+
+export const Example = () => {
+  const ref = useRef(null)
+  const [value, setValue] = useState('')
+
+usePreserveInputCaretPosition(ref.current, {
+delimiters: ['-']
+})
+
+const onChange = (e) => {
+if(!e.target.value) {
+setValue('')
+return
+}
+setValue(e.target.value.replace(/-/g, '').match(/.{1,2}/g).join('-'))
+}
+
+return <input ref={ref} className="w-full border rounded-md px-3 py-2" value={value} onChange={onChange} placeholder='XX-XX-XX' />
+}
+
+When using `usePreserveInputCaretPosition` the input now can perfectly handle the caret position. No more jumping to the end.
+
+<Container>
+  <Example />
+</Container>
+
+```jsx
+import { usePreserveInputCaretPosition } from '@react-awesome/hooks'
+
+export const Example = () => {
+  const ref = useRef(null)
+  const [value, setValue] = useState('')
+
+  usePreserveInputCaretPosition(ref.current, {
+    delimiters: ['-'],
+  })
+
+  const onChange = (e) => {
+    if (!e.target.value) {
+      setValue('')
+      return
+    }
+    setValue(
+      e.target.value
+        .replace(/-/g, '')
+        .match(/.{1,2}/g)
+        .join('-'),
+    )
+  }
+
+  return (
+    <input ref={ref} value={value} onChange={onChange} placeholder="XX-XX-XX" />
+  )
+}
+```
+
+### With Prefix
+
+export const ExampleWithPrefix = () => {
+  const ref = useRef(null)
+  const [value, setValue] = useState('PREFIX')
+
+usePreserveInputCaretPosition(ref.current, {
+delimiters: ['-'],
+prefix: 'PREFIX'
+})
+
+const onChange = (e) => {
+const value = e.target.value
+if(value === '') {
+setValue('PREFIX')
+return
+}
+if(value.length < 6) return
+if(!value.startsWith('PREFIX')) return
+const cleanValue = e.target.value.replace('PREFIX', '')
+
+if(cleanValue === '') {
+setValue('PREFIX')
+return
+}
+
+if(cleanValue === '-') {
+setValue('PREFIX-')
+return
+}
+
+setValue('PREFIX-' + cleanValue
+.replace(/-/g, '')
+.match(/.{1,2}/g)
+.join('-'),)
+}
+
+return <input ref={ref} className="w-full border rounded-md px-3 py-2" value={value} onChange={onChange}/>
+}
+
+`usePreserveInputCaretPosition` also supports input has `prefix`.
+
+<Container>
+  <ExampleWithPrefix />
+</Container>
+
+```jsx
+import { usePreserveInputCaretPosition } from '@react-awesome/hooks'
+
+export const Example = () => {
+  const ref = useRef(null)
+  const [value, setValue] = useState('')
+
+  usePreserveInputCaretPosition(ref.current, {
+    delimiters: ['-'],
+    prefix: 'PREFIX ',
+  })
+
+  const onChange = (e) => {
+    // Example function to format the value with prefix
+    setValue(formatWithPrefix(e.target.value))
+  }
+
+  return (
+    <input ref={ref} value={value} onChange={onChange} placeholder="XX-XX-XX" />
+  )
+}
+```
+
+## Paramaters
+
+The `usePreserveInputCaretPosition` takes the following parameters:
+
+#### `inputEl`
+
+- Type: `HTMLInputElement`
+
+#### `options`
+
+- Type: `UsePreserveInputCaretPositionOpts`
+
+## Types
+
+#### `UsePreserveInputCaretPositionOpts`
+
+- Type: `object`
+
+###### prefix
+
+- Type: `string`
+- Default: `undefined`
+
+###### delimiters
+
+- Type: `string[]`
+- Default: `[]`

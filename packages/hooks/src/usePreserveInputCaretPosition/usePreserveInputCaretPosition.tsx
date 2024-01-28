@@ -84,7 +84,6 @@ export const calculateDelimiterQty = (
 export type UsePreserveInputCaretPositionOpts = {
   delimiters?: string[]
   prefix?: string
-  autoSubscribe?: boolean
 }
 export const usePreserveInputCaretPosition = (
   inputEl?: HTMLInputElement | null,
@@ -115,11 +114,18 @@ export const usePreserveInputCaretPosition = (
         })
         if (strippedValue === prefix) return
 
-        const actualIdx = calculateCaretPositionWithDelimiters(
+        let actualIdx = calculateCaretPositionWithDelimiters(
           value,
           preserveIdx,
           delimiters,
         )
+
+        /**
+         * If the index is within the length of the prefix then place the caret at the end of the prefix.
+         */
+        if (typeof prefix === 'string' && actualIdx <= prefix.length) {
+          actualIdx = prefix.length
+        }
 
         const delimiterQtyBeforeUpdate = calculateDelimiterQty(
           value,
