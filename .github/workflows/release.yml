@@ -50,6 +50,7 @@ jobs:
   sync-branches:
     runs-on: ubuntu-latest
     name: Syncing Release to Master
+    needs: ['release']
     steps:
       - name: 🛑 Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.11.0
@@ -60,7 +61,7 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 18.17.x
+          node-version: 12
 
       - name: Opening pull request
         id: pull
