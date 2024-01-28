@@ -1,5 +1,9 @@
 # @react-awesome/phone-input
 
+<p align="center">
+  <img alt="version" src="https://img.shields.io/npm/v/%40react-awesome%2Fphone-input" />
+</p>
+
 PhoneInput is a customize input component that can parse and validate phone number.
 
 Please refer to the [documentation](https://react-awesome-components.vercel.app/docs/phone-input) for more information.
