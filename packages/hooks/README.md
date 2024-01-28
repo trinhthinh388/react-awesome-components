@@ -16,7 +16,7 @@ npm i @react-awesome/hooks
 
 - [usePrevious](https://react-awesome-components.vercel.app/docs/use-previous)
 
-  usePrevious is a hook track the previous value of a value.
+  usePrevious is a hook track the previous value of a variable.
 
 - [useSelectionRange](https://react-awesome-components.vercel.app/docs/use-selection-range)
 
