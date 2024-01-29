@@ -1,6 +1,6 @@
 {
   "name": "@react-awesome/phone-input",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -46,7 +46,7 @@
     "libphonenumber-js": "^1.10.53"
   },
   "peerDependencies": {
-    "@react-awesome/use-click-outside": "0.0.2",
-    "@react-awesome/use-preserve-input-caret-position": "0.0.2"
+    "@react-awesome/use-click-outside": "0.0.3",
+    "@react-awesome/use-preserve-input-caret-position": "0.0.3"
   }
 }

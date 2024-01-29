@@ -1,5 +1,14 @@
 # @react-awesome/phone-input
 
+## 1.0.5
+
+### Patch Changes
+
+- updated README.md
+- Updated dependencies
+  - @react-awesome/use-preserve-input-caret-position@0.0.3
+  - @react-awesome/use-click-outside@0.0.3
+
 ## 1.0.4
 
 ### Patch Changes
