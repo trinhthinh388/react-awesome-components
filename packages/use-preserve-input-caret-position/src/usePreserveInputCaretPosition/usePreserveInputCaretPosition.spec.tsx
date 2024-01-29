@@ -249,7 +249,7 @@ describe('usePreserveInputCaretPosition', () => {
 
     await act(async () => {
       await user.keyboard(
-        '{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{Backspace}',
+        '[ArrowLeft][ArrowLeft][ArrowLeft][ArrowLeft][Backspace]',
       )
 
       await user.keyboard('{7}')
