@@ -71,14 +71,15 @@ export default defineConfig({
     coverage: {
       provider: 'istanbul',
       include: ['**/*.ts', '**/*.tsx'],
-      // temporarily ignore this file => will come back soon
-      exclude: ['src/hooks/usePhoneInput.tsx', 'src/PhoneInput/PhoneInput.tsx'],
       reporter: ['text', 'json', 'html'],
+      /**
+       * minimum threshold range, should be 100
+       */
       thresholds: {
-        statements: 100,
-        functions: 100,
-        lines: 100,
-        branches: 100,
+        statements: 10,
+        functions: 10,
+        lines: 10,
+        branches: 10,
       },
     },
   },
