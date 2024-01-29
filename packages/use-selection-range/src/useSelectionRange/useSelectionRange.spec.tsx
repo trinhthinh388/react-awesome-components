@@ -28,7 +28,12 @@ const InvalidComp = () => {
 
   return (
     <div>
-      <div id="input" contentEditable ref={setRef}>
+      <div
+        id="input"
+        suppressContentEditableWarning
+        contentEditable
+        ref={setRef}
+      >
         123456
       </div>
       <div>
