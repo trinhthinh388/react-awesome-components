@@ -1,5 +1,11 @@
 # @react-awesome/use-previous
 
+## 0.0.3
+
+### Patch Changes
+
+- updated README.md
+
 ## 0.0.2
 
 ### Patch Changes
