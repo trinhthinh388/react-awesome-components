@@ -12,7 +12,7 @@
     "format:fix": "prettier --write \"**/*.{ts,tsx,md}\"",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "turbo build --filter=docs^... && changeset publish",
+    "release": "yarn build && changeset publish",
     "docs": "yarn workspace @react-awesome/docs",
     "eslint": "yarn workspace @react-awesome/eslint-config",
     "prepare": "husky"

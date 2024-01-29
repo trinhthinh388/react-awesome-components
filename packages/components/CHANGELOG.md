@@ -1,5 +1,13 @@
 # @react-awesome/components
 
+## 1.0.3
+
+### Patch Changes
+
+- c2467d7: Bug Fixes:
+
+  - `@react-awesome/components` includes build files
+
 ## 1.0.2
 
 ### Patch Changes
