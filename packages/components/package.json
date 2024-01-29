@@ -1,9 +1,17 @@
 {
   "name": "@react-awesome/components",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "description": "React Awesome Components is a collection of modern, reusable and well-tested React components that can be utilized across all of our different applications.",
+  "keywords": [
+    "react",
+    "hooks",
+    "components",
+    "phone input",
+    "awesome"
+  ],
   "sideEffects": false,
   "license": "MIT",
   "files": [
@@ -31,10 +39,10 @@
     "access": "public"
   },
   "dependencies": {
-    "@react-awesome/phone-input": "1.0.3",
-    "@react-awesome/use-click-outside": "0.0.1",
-    "@react-awesome/use-preserve-input-caret-position": "0.0.1",
-    "@react-awesome/use-selection-range": "0.0.1",
-    "@react-awesome/use-previous": "0.0.1"
+    "@react-awesome/phone-input": "1.0.4",
+    "@react-awesome/use-click-outside": "0.0.2",
+    "@react-awesome/use-preserve-input-caret-position": "0.0.2",
+    "@react-awesome/use-selection-range": "0.0.2",
+    "@react-awesome/use-previous": "0.0.2"
   }
 }

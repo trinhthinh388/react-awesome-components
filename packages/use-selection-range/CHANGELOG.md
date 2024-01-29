@@ -1,5 +1,11 @@
 # @react-awesome/use-selection-range
 
+## 0.0.2
+
+### Patch Changes
+
+- Updated packages's keywords
+
 ## 0.0.1
 
 ### Patch Changes
