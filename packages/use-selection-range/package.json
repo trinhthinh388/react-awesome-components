@@ -1,11 +1,18 @@
 {
   "name": "@react-awesome/use-selection-range",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "license": "MIT",
+  "description": "useSelectionRange tracks the input selection range.",
+  "keywords": [
+    "react",
+    "hooks",
+    "input selection range",
+    "selection range"
+  ],
   "repository": {
     "url": "https://github.com/trinhthinh388/react-awesome-components"
   },

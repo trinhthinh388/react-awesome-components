@@ -1,10 +1,17 @@
 {
   "name": "@react-awesome/phone-input",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
+  "description": "PhoneInput is a customize input component that can parse and validate phone number.",
+  "keywords": [
+    "react",
+    "phone input",
+    "phone validation",
+    "phone formatting"
+  ],
   "license": "MIT",
   "files": [
     "dist/**"
@@ -39,7 +46,7 @@
     "libphonenumber-js": "^1.10.53"
   },
   "peerDependencies": {
-    "@react-awesome/use-click-outside": "0.0.1",
-    "@react-awesome/use-preserve-input-caret-position": "0.0.1"
+    "@react-awesome/use-click-outside": "0.0.2",
+    "@react-awesome/use-preserve-input-caret-position": "0.0.2"
   }
 }

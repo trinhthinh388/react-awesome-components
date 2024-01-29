@@ -1,11 +1,18 @@
 {
   "name": "@react-awesome/use-previous",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "license": "MIT",
+  "description": "usePrevious tracks the previous value of a variable.",
+  "keywords": [
+    "react",
+    "hooks",
+    "previous value",
+    "previous state"
+  ],
   "repository": {
     "url": "https://github.com/trinhthinh388/react-awesome-components"
   },
