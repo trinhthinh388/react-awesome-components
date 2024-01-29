@@ -58,8 +58,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    retry: 10,
-    testTimeout: 10_000,
+    retry: 2,
     setupFiles: path.resolve(process.cwd(), '../../setup-test.tsx'),
     include: [
       /**
