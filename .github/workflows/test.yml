@@ -15,7 +15,28 @@ permissions:
   contents: read
 
 jobs:
-  unit-test:
+  preserve-input-caret-position-unit-tests:
+    name: ʦ usePreserveInputCaretPosition Vitest
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.11.0
+
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.17.x
+
+      - name: 📥 Download deps
+        run: yarn install --frozen-lockfile
+
+      - name: 🔎 Unit Test
+        run: yarn workspace @react-awesome/use-preserve-input-caret-position test
+
+  unit-tests:
     name: ʦ Vitest
     runs-on: ubuntu-latest
     steps:
