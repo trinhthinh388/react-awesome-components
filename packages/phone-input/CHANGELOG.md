@@ -1,5 +1,14 @@
 # @react-awesome/phone-input
 
+## 1.0.3
+
+### Patch Changes
+
+- Split each hook in `@react-awesome/hooks` into individual package.
+- Updated dependencies
+  - @react-awesome/use-preserve-input-caret-position@0.0.1
+  - @react-awesome/use-click-outside@0.0.1
+
 ## 1.0.2
 
 ### Patch Changes
