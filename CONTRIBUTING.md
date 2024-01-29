@@ -9,7 +9,7 @@ prepare your contribution.
 The following steps will get you up and running to contribute to React Awesome Components:
 
 1. Fork the repo (click the <kbd>Fork</kbd> button at the top right of
-   [this page]([https://github.com/trinhthinh388/react-awesome-components](https://github.com/trinhthinh388/react-awesome-components)))
+   [this page](<[https://github.com/trinhthinh388/react-awesome-components](https://github.com/trinhthinh388/react-awesome-components)>))
 
 2. Clone your fork locally
 
@@ -22,6 +22,7 @@ cd react-awesome-components
    command will install dependencies.
 
 > If you run into any issues during this step, kindly reach out to the React Awesome Components
+>
 > - Email: trinhthinh388@gmail.com
 > - Telegram: @chick_buster
 > - Twitter: @chick_buster
@@ -138,6 +139,7 @@ All commits that fix bugs or add features need a test.
 ## Want to write a blog post or tutorial
 
 That would be amazing! Reach out to me here:
+
 > - Email: trinhthinh388@gmail.com
 > - Telegram: @chick_buster
 > - Twitter: @chick_buster
