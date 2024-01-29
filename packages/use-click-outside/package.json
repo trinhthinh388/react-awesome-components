@@ -1,11 +1,18 @@
 {
   "name": "@react-awesome/use-click-outside",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "license": "MIT",
+  "description": "useClickOutside triggers callback when user clicks on the outside area of an element.",
+  "keywords": [
+    "react",
+    "hooks",
+    "click outside",
+    "outside"
+  ],
   "repository": {
     "url": "https://github.com/trinhthinh388/react-awesome-components"
   },

@@ -1,11 +1,20 @@
 {
   "name": "@react-awesome/use-preserve-input-caret-position",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "license": "MIT",
+  "description": "usePreserveInputCaretPosition tracks the input caret position and place it at the correct position so user can have a natural typing experience.",
+  "keywords": [
+    "react",
+    "hooks",
+    "preserve caret position",
+    "caret",
+    "caret position",
+    "delimiters"
+  ],
   "repository": {
     "url": "https://github.com/trinhthinh388/react-awesome-components"
   },

@@ -4,7 +4,7 @@
   <img alt="version" src="https://img.shields.io/npm/v/%40react-awesome%2Fuse-preserve-input-caret-position" />
 </p>
 
-_usePreserveInputCaretPosition_ tracks the input caret position and place it at the correct position so user can have a natural typing experience.
+**usePreserveInputCaretPosition** tracks the input caret position and place it at the correct position so user can have a natural typing experience.
 
 Please refer to the [documentation](https://react-awesome-components.vercel.app/docs/use-preserve-input-caret-position) for more information.
 
