@@ -9,7 +9,7 @@ prepare your contribution.
 The following steps will get you up and running to contribute to React Awesome Components:
 
 1. Fork the repo (click the <kbd>Fork</kbd> button at the top right of
-   [this page]([https://github.com/chakra-ui/chakra-ui](https://github.com/trinhthinh388/react-awesome-components)))
+   [this page]([https://github.com/trinhthinh388/react-awesome-components](https://github.com/trinhthinh388/react-awesome-components)))
 
 2. Clone your fork locally
 
@@ -150,5 +150,5 @@ interested in contributing to the documentation, you can check it out.
 
 ## License
 
-By contributing your code to the chakra-ui GitHub repository, you agree to
+By contributing your code to the react-awesome-components GitHub repository, you agree to
 license your contribution under the MIT license.
