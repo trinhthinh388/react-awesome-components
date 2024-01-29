@@ -59,6 +59,11 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     retry: 2,
+    poolOptions: {
+      threads: {
+        singleThread: true,
+      },
+    },
     setupFiles: path.resolve(process.cwd(), '../../setup-test.tsx'),
     include: [
       /**
