@@ -7,7 +7,13 @@
       "dependsOn": ["^build"]
     },
     "@react-awesome/components#build": {
-      "dependsOn": ["@react-awesome/phone-input#build"]
+      "dependsOn": [
+        "@react-awesome/use-previous#build",
+        "@react-awesome/use-selection-range#build",
+        "@react-awesome/use-preserve-input-caret-position#build",
+        "@react-awesome/use-click-outside#build",
+        "@react-awesome/phone-input#build"
+      ]
     },
     "test": {
       "cache": false,
