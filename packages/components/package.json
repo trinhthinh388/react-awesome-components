@@ -1,6 +1,6 @@
 {
   "name": "@react-awesome/components",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -31,10 +31,10 @@
     "access": "public"
   },
   "dependencies": {
-    "@react-awesome/phone-input": "1.0.2",
-    "@react-awesome/use-click-outside": "0.0.0",
-    "@react-awesome/use-preserve-input-caret-position": "0.0.0",
-    "@react-awesome/use-selection-range": "0.0.0",
-    "@react-awesome/use-previous": "0.0.0"
+    "@react-awesome/phone-input": "1.0.3",
+    "@react-awesome/use-click-outside": "0.0.1",
+    "@react-awesome/use-preserve-input-caret-position": "0.0.1",
+    "@react-awesome/use-selection-range": "0.0.1",
+    "@react-awesome/use-previous": "0.0.1"
   }
 }

@@ -1,5 +1,17 @@
 # @react-awesome/components
 
+## 1.0.4
+
+### Patch Changes
+
+- Split each hook in `@react-awesome/hooks` into individual package.
+- Updated dependencies
+  - @react-awesome/use-preserve-input-caret-position@0.0.1
+  - @react-awesome/use-selection-range@0.0.1
+  - @react-awesome/use-click-outside@0.0.1
+  - @react-awesome/use-previous@0.0.1
+  - @react-awesome/phone-input@1.0.3
+
 ## 1.0.3
 
 ### Patch Changes
