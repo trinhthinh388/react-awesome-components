@@ -9,6 +9,11 @@ module.exports = {
   globals: {
     React: true,
     JSX: true,
+    describe: true,
+    it: true,
+    expect: true,
+    vitest: true,
+    vi: true
   },
   env: {
     node: true,

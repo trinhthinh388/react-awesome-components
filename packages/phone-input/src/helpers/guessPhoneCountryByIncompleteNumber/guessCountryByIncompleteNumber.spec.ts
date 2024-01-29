@@ -1,4 +1,3 @@
-import { it, expect, describe } from 'vitest'
 import { guessCountryByIncompleteNumber } from './guessCountryByIncompleteNumber'
 
 describe('guessPhoneCountry', () => {

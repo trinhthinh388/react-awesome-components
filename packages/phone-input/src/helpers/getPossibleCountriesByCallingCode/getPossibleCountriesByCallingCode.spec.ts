@@ -1,4 +1,3 @@
-import { it, expect, describe } from 'vitest'
 import { getPossibleCountriesByCallingCode } from './getPossibleCountriesByCallingCode'
 
 describe('getPossibleCountriesByCallingCode', () => {

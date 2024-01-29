@@ -1,22 +1,25 @@
 {
-  "name": "@react-awesome/components",
-  "version": "1.0.4",
+  "name": "@react-awesome/use-click-outside",
+  "version": "0.0.1",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "license": "MIT",
-  "files": [
-    "dist/**"
-  ],
   "repository": {
     "url": "https://github.com/trinhthinh388/react-awesome-components"
   },
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
     "build": "vite --config ../../vite.config.ts build",
     "dev": "vite --watch --config ../../vite.config.ts build",
     "lint": "eslint \"src/**/*.ts*\"",
-    "clean": "rimraf .turbo && rimraf node_modules && rimraf dist"
+    "clean": "rimraf .turbo && rimraf node_modules && rimraf dist",
+    "test": "vitest --config ../../vite.config.ts --coverage --run",
+    "test:ui": "vitest --config ../../vite.config.ts --coverage --ui",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@react-awesome/eslint-config": "*",
@@ -29,12 +32,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "@react-awesome/phone-input": "1.0.3",
-    "@react-awesome/use-click-outside": "0.0.1",
-    "@react-awesome/use-preserve-input-caret-position": "0.0.1",
-    "@react-awesome/use-selection-range": "0.0.1",
-    "@react-awesome/use-previous": "0.0.1"
   }
 }
