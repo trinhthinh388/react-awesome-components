@@ -17,7 +17,8 @@
     },
     "test": {
       "cache": false,
-      "outputs": ["coverage/**"]
+      "outputs": ["coverage/**"],
+      "dependsOn": ["^test"]
     },
     "lint": {},
     "dev": {
