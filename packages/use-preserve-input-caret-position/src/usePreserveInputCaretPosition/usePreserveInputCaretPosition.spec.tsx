@@ -7,16 +7,18 @@ import {
   stripDelimiters,
   usePreserveInputCaretPosition,
 } from './usePreserveInputCaretPosition'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import userEvent from '@testing-library/user-event'
 
-const user = userEvent.setup()
+const user = userEvent.setup({
+  delay: 300,
+})
 
 const Comp = () => {
   const [value, setValue] = useState<string>('')
-  const ref = useRef<HTMLInputElement>(null)
+  const [ref, setRef] = useState<HTMLInputElement | null>(null)
 
-  usePreserveInputCaretPosition(ref.current, { delimiters: ['-'] })
+  usePreserveInputCaretPosition(ref, { delimiters: ['-'] })
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.value) {
@@ -35,7 +37,7 @@ const Comp = () => {
 
   return (
     <input
-      ref={ref}
+      ref={setRef}
       value={value}
       onChange={onChange}
       placeholder="xx-xx-xx..."
@@ -45,9 +47,9 @@ const Comp = () => {
 
 const CompWithPrefix = () => {
   const [value, setValue] = useState<string>('PREFIX')
-  const ref = useRef<HTMLInputElement>(null)
+  const [ref, setRef] = useState<HTMLInputElement | null>(null)
 
-  usePreserveInputCaretPosition(ref.current, {
+  usePreserveInputCaretPosition(ref, {
     delimiters: ['-'],
     prefix: 'PREFIX',
   })
@@ -83,7 +85,7 @@ const CompWithPrefix = () => {
 
   return (
     <input
-      ref={ref}
+      ref={setRef}
       value={value}
       onChange={onChange}
       placeholder="PREFIX xx-xx-xx..."
@@ -255,21 +257,17 @@ describe('usePreserveInputCaretPosition', () => {
       await user.keyboard('{7}')
     })
 
-    setTimeout(() => {
-      expect(input.getAttribute('value')).toBe('12-74-56')
-    }, 1_000)
+    expect(input.getAttribute('value')).toBe('12-74-56')
 
     await act(async () => {
       await user.keyboard('{8}')
     })
 
-    setTimeout(() => {
-      /**
-       * Because after delete `7` the caret will be placed like this 12-|74-56
-       * Flow: 12-3|4-56 -> 12|-4-56 -> 12-|74-56 -> 12-87|-45-6
-       */
-      expect(input.getAttribute('value')).toBe('12-87-45-6')
-    }, 1_000)
+    /**
+     * Because after delete `7` the caret will be placed like this 12-|74-56
+     * Flow: 12-3|4-56 -> 12|-4-56 -> 12-|74-56 -> 12-87|-45-6
+     */
+    expect(input.getAttribute('value')).toBe('12-87-45-6')
   })
 
   it('Should be able to ignore the prefix', async () => {
@@ -332,8 +330,6 @@ describe('usePreserveInputCaretPosition', () => {
       await user.keyboard('{8}')
     })
 
-    setTimeout(() => {
-      expect(input.getAttribute('value')).toBe('PREFIX-78-12-34-56')
-    }, 1_000)
+    expect(input.getAttribute('value')).toBe('PREFIX-78-12-34-56')
   })
 })
