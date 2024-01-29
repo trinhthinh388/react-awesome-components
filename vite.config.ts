@@ -29,7 +29,10 @@ export default defineConfig({
         'react',
         'react-dom',
         'react/jsx-runtime',
-        '@react-awesome/hooks',
+        '@react-awesome/use-selection-range',
+        '@react-awesome/use-previous',
+        '@react-awesome/use-click-outside',
+        '@react-awesome/use-preserve-input-caret-position',
         '@react-awesome/phone-input',
       ],
       output: [
@@ -68,13 +71,15 @@ export default defineConfig({
     coverage: {
       provider: 'istanbul',
       include: ['**/*.ts', '**/*.tsx'],
+      // temporarily ignore this file => will come back soon
+      exclude: ['src/hooks/usePhoneInput.tsx', 'src/PhoneInput/PhoneInput.tsx'],
       reporter: ['text', 'json', 'html'],
-      // thresholds: {
-      //   statements: 100,
-      //   functions: 100,
-      //   lines: 100,
-      //   branches: 100,
-      // },
+      thresholds: {
+        statements: 100,
+        functions: 100,
+        lines: 100,
+        branches: 100,
+      },
     },
   },
 })

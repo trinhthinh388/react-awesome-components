@@ -17,9 +17,9 @@ npm i @react-awesome/hooks
 
 ## Usage
 
-import { useState } from 'react';
-import { Container } from '../../components/Container';
-import { useSelectionRange } from '@react-awesome/hooks';
+import { useState } from 'react'
+import { Container } from '../../components/Container'
+import { useSelectionRange } from '@react-awesome/hooks'
 
 export const Example = () => {
   const [ref, setRef] = useState(null)
@@ -56,16 +56,75 @@ return (
 </Container>
 
 ```jsx
-import { useSelectionRange } from '@react-awesome/phone-input';
+import { useSelectionRange } from '@react-awesome/phone-input'
 
 const Example = () => {
-  const ref = useRef(null);
-  const { register } = useSelectionRange();
+  const ref = useRef(null)
+  const { register } = useSelectionRange()
 
-  const { caret } = useSelectionRange(ref.current);
+  const { caret } = useSelectionRange(ref.current)
 
-  return <input ref={ref} placeholder="Type something..." />;
-};
+  return <input ref={ref} placeholder="Type something..." />
+}
+```
+
+## Notes
+
+**useSelectionRange** doesn't have effect on some special editable elements like `div` with `contentEditable` or `textarea`.
+Since `div` with `contentEditable` (or `textarea`) doesn't offer any `selectionStart` or `selectionEnd` to the callback.
+
+export const BadExample = () => {
+  const [ref, setRef] = useState(null)
+
+const { caret } = useSelectionRange(ref)
+
+return (
+
+<>
+  <div
+    className="w-full border rounded-md px-3 py-2 border-red-400"
+    ref={setRef}
+    contentEditable
+    suppressContentEditableWarning
+  >
+    I cannot track the contentEditable div element
+  </div>
+  <ul className="mt-2">
+    <li>
+      <span className="font-medium">😢 Start</span>
+      <code className="ml-2 nx-border-black nx-border-opacity-[0.04] nx-bg-opacity-[0.03] nx-bg-black nx-break-words nx-rounded-md nx-border nx-py-0.5 nx-px-[.25em] nx-text-[.9em] dark:nx-border-white/10 dark:nx-bg-white/10">
+        {caret.start.toString()}
+      </code>
+    </li>
+    <li>
+      <span className="font-medium">😢 End</span>
+      <code className="ml-2 nx-border-black nx-border-opacity-[0.04] nx-bg-opacity-[0.03] nx-bg-black nx-break-words nx-rounded-md nx-border nx-py-0.5 nx-px-[.25em] nx-text-[.9em] dark:nx-border-white/10 dark:nx-bg-white/10">
+        {caret.end.toString()}
+      </code>
+    </li>
+  </ul>
+</>
+); };
+
+<Container>
+  <BadExample />
+</Container>
+
+```jsx
+import { useSelectionRange } from '@react-awesome/phone-input'
+
+const NotWorkingExample = () => {
+  const ref = useRef(null)
+  const { register } = useSelectionRange()
+
+  const { caret } = useSelectionRange(ref.current)
+
+  return (
+    <div ref={setRef} contentEditable>
+      I cannot track the contentEditable div element
+    </div>
+  )
+}
 ```
 
 ## Parameters

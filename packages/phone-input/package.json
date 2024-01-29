@@ -39,6 +39,7 @@
     "libphonenumber-js": "^1.10.53"
   },
   "peerDependencies": {
-    "@react-awesome/hooks": "0.0.2"
+    "@react-awesome/use-click-outside": "0.0.0",
+    "@react-awesome/use-preserve-input-caret-position": "0.0.0"
   }
 }

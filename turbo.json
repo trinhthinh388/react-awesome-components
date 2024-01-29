@@ -7,10 +7,7 @@
       "dependsOn": ["^build"]
     },
     "@react-awesome/components#build": {
-      "dependsOn": [
-        "@react-awesome/hooks#build",
-        "@react-awesome/phone-input#build"
-      ]
+      "dependsOn": ["@react-awesome/phone-input#build"]
     },
     "test": {
       "cache": false,

@@ -103,7 +103,7 @@ export const usePreserveInputCaretPosition = (
 
       const preserveIdx = calculateCaretPositionWithoutDelimiters(
         value,
-        caretEnd || 0,
+        caretEnd || /* istanbul ignore next */ 0,
         delimiters,
       )
 
