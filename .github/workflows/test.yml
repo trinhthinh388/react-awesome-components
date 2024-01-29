@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 jobs:
-  unit-test:
+  unit-tests:
     name: ʦ Vitest
     runs-on: ubuntu-latest
     steps:
@@ -33,5 +33,5 @@ jobs:
       - name: 📥 Download deps
         run: yarn install --frozen-lockfile
 
-      - name: 🔎 Type check
+      - name: 🔎 Unit Test
         run: yarn test

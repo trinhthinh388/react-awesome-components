@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { UsePhoneInput, usePhoneInput } from '../hooks/usePhoneInput'
-import { useClickOutside } from '@react-awesome/hooks'
+import { useClickOutside } from '@react-awesome/use-click-outside'
 import classNames from 'classnames'
 import Flags from 'country-flag-icons/react/3x2'
 

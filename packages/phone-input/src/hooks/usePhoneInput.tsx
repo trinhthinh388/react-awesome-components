@@ -7,7 +7,7 @@ import {
   formatIncompletePhoneNumber,
   AsYouType,
 } from 'libphonenumber-js'
-import { usePreserveInputCaretPosition } from '@react-awesome/hooks'
+import { usePreserveInputCaretPosition } from '@react-awesome/use-preserve-input-caret-position'
 import {
   guessCountryByIncompleteNumber,
   formatInternational,

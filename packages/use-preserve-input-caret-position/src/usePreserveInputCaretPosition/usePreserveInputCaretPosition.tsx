@@ -67,7 +67,10 @@ export const calculateCaretPositionWithDelimiters = (
   return idx
 }
 
-const calculateDelimiterQty = (value: string, delimiters: string[] = []) => {
+export const calculateDelimiterQty = (
+  value: string,
+  delimiters: string[] = [],
+) => {
   let result = 0
   for (const char of value) {
     if (delimiters.includes(char)) {
@@ -100,7 +103,7 @@ export const usePreserveInputCaretPosition = (
 
       const preserveIdx = calculateCaretPositionWithoutDelimiters(
         value,
-        caretEnd || 0,
+        caretEnd || /* istanbul ignore next */ 0,
         delimiters,
       )
 
