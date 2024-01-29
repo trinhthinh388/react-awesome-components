@@ -6,6 +6,7 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "test": "turbo build --filter=!@react-awesome/docs && turbo test --filter=!@react-awesome/use-preserve-input-caret-position",
+    "test:preserve-input-caret-position": "turbo build --filter=!@react-awesome/docs && turbo test --filter=@react-awesome/use-preserve-input-caret-position",
     "typecheck": "turbo typecheck",
     "clean": "turbo clean && rimraf node_modules",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",

@@ -34,7 +34,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: 🔎 Unit Test
-        run: yarn workspace @react-awesome/use-preserve-input-caret-position test
+        run: yarn test:preserve-input-caret-position
 
   unit-tests:
     name: ʦ Vitest
