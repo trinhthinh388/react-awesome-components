@@ -139,6 +139,8 @@ export const usePreserveInputCaretPosition = (
           delimiterQtyAfterUpdate > delimiterQtyBeforeUpdate
             ? delimiterQtyAfterUpdate - delimiterQtyBeforeUpdate
             : 0
+
+        console.log('SET' + (actualIdx + diff))
         target.setSelectionRange(actualIdx + diff, actualIdx + diff)
       })
     },
