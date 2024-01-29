@@ -259,15 +259,15 @@ describe('usePreserveInputCaretPosition', () => {
       expect(input.getAttribute('value')).toBe('12-74-56')
     }, 1_000)
 
-    // await act(async () => {
-    //   await user.keyboard('{8}')
-    // })
+    await act(async () => {
+      await user.keyboard('{8}')
+    })
 
     /**
      * Because after delete `7` the caret will be placed like this 12-|74-56
      * Flow: 12-3|4-56 -> 12|-4-56 -> 12-|74-56 -> 12-87|-45-6
      */
-    // expect(input.getAttribute('value')).toBe('12-87-45-6')
+    expect(input.getAttribute('value')).toBe('12-87-45-6')
   })
 
   it('Should be able to ignore the prefix', async () => {
