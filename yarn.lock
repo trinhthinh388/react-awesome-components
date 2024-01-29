@@ -995,11 +995,6 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
-"@react-awesome/hooks@0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@react-awesome/hooks/-/hooks-0.0.2.tgz#ed7126520e439e87f69e931b34b608e7874b6bb6"
-  integrity sha512-opWYzbnbnMWJ60E76WpIcQ1YcZWGeoqY7nTBjDTw72rcm+NZX+RfNtHwvCG2mOXTX+f3VIghWO1JZtvTyfnniw==
-
 "@rollup/pluginutils@^5.1.0":
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/@rollup/pluginutils/-/pluginutils-5.1.0.tgz#7e53eddc8c7f483a4ad0b94afb1f7f5fd3c771e0"
