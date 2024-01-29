@@ -2,6 +2,10 @@
 
 <p align="center">
   <img alt="version" src="https://img.shields.io/npm/v/%40react-awesome%2Fuse-previous" />
+  <img alt="coverage" src="https://img.shields.io/codecov/c/github/trinhthinh388/react-awesome-components/master?token=VQ8VJ7OECQ&flag=usePrevious" />
+  <img alt="license" src="https://img.shields.io/github/license/trinhthinh388/react-awesome-components" />
+  <img alt="build status" src="https://img.shields.io/github/actions/workflow/status/trinhthinh388/react-awesome-components/release.yml" />
+  <img alt="size" src="https://img.shields.io/bundlejs/size/%40react-awesome/use-previous" />
 </p>
 
 **usePrevious** tracks the previous value of a variable.

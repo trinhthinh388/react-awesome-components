@@ -1,5 +1,16 @@
 # @react-awesome/components
 
+## 1.0.6
+
+### Patch Changes
+
+- Updated dependencies
+  - @react-awesome/use-preserve-input-caret-position@0.0.3
+  - @react-awesome/use-selection-range@0.0.3
+  - @react-awesome/use-click-outside@0.0.3
+  - @react-awesome/use-previous@0.0.3
+  - @react-awesome/phone-input@1.0.5
+
 ## 1.0.5
 
 ### Patch Changes

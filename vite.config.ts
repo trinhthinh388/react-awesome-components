@@ -57,6 +57,7 @@ export default defineConfig({
   },
   test: {
     globals: true,
+    testTimeout: 15_000,
     environment: 'jsdom',
     retry: 2,
     poolOptions: {

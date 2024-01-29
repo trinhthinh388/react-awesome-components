@@ -35,3 +35,39 @@ jobs:
 
       - name: 🔎 Unit Test
         run: yarn test
+
+      - name: Upload `PhoneInput` coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: PhoneInput
+          files: ./packages/phone-input/coverage/coverage-final.json
+
+      # Hooks
+      - name: Upload `useClickOutside` coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: useClickOutside
+          files: ./packages/use-click-outside/coverage/coverage-final.json
+
+      - name: Upload `usePreserveInputCaretPosition` coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: usePreserveInputCaretPosition
+          files: ./packages/use-preserve-input-caret-position/coverage/coverage-final.json
+
+      - name: Upload `usePrevious` coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: usePrevious
+          files: ./packages/use-previous/coverage/coverage-final.json
+
+      - name: Upload `useSelectionRange` coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: useSelectionRange
+          files: ./packages/use-selection-range/coverage/coverage-final.json
