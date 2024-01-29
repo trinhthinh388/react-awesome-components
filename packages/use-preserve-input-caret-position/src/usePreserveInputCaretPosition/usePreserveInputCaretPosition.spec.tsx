@@ -10,7 +10,9 @@ import {
 import { useState } from 'react'
 import userEvent from '@testing-library/user-event'
 
-const user = userEvent.setup()
+const user = userEvent.setup({
+  delay: 300,
+})
 
 const Comp = () => {
   const [value, setValue] = useState<string>('')
