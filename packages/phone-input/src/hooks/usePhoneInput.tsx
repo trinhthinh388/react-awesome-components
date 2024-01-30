@@ -53,9 +53,9 @@ export type UsePhoneInput = {
     metadata: PhoneInputChangeMetadata,
   ) => void
   /**
-   * @description Specify event to trigger the guess country function.
+   * @description Turn on/off guessing country on change.
    */
-  guessOn?: 'change' | boolean
+  guessCountryOnChange?: boolean
   /**
    * @description - use smart caret
    */
