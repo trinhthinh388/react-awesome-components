@@ -67,7 +67,7 @@ export const usePhoneInput = ({
   supportedCountries,
   defaultCountry,
   onChange: onPhoneChange = () => {},
-  guessOn = 'change',
+  guessCountryOnChange = true,
   smartCaret = true,
 }: UsePhoneInput = {}) => {
   /**
@@ -133,10 +133,10 @@ export const usePhoneInput = ({
    */
   const guessCountry = React.useCallback(
     (value: string) => {
-      if (!guessOn) return
+      if (!guessCountryOnChange) return
       return guessCountryByIncompleteNumber(value)
     },
-    [guessOn],
+    [guessCountryOnChange],
   )
   const openCountrySelect = React.useCallback(() => setSelectOpen(true), [])
   const closeCountrySelect = React.useCallback(() => setSelectOpen(false), [])
