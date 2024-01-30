@@ -17,7 +17,7 @@ React Awesome Components is a collection of modern, reusable and well-tested Rea
 
 ## Getting Started
 
-Visit <a aria-label="react awesome introduction" href="https://react-awesome-components.vercel.app">https://react-awesome-components.vercel.app/introduction</a> to get started with React Awesome Components.
+Visit <a aria-label="react awesome introduction" href="https://react-awesome-components.vercel.app/introduction">https://react-awesome-components.vercel.app/introduction</a> to get started with React Awesome Components.
 
 ## Documentation
 
