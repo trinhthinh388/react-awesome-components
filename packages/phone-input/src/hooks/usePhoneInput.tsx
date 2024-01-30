@@ -55,7 +55,7 @@ export type UsePhoneInput = {
   /**
    * @description Specify event to trigger the guess country function.
    */
-  guessOn?: 'blur' | 'change' | boolean
+  guessOn?: 'change' | boolean
   /**
    * @description - use smart caret
    */
