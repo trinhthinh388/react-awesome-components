@@ -53,9 +53,9 @@ export type UsePhoneInput = {
     metadata: PhoneInputChangeMetadata,
   ) => void
   /**
-   * @description Specify event to trigger the guess country function.
+   * @description Turn on/off guessing country on change.
    */
-  guessOn?: 'blur' | 'change' | boolean
+  guessCountryOnChange?: boolean
   /**
    * @description - use smart caret
    */
@@ -67,7 +67,7 @@ export const usePhoneInput = ({
   supportedCountries,
   defaultCountry,
   onChange: onPhoneChange = () => {},
-  guessOn = 'change',
+  guessCountryOnChange = true,
   smartCaret = true,
 }: UsePhoneInput = {}) => {
   /**
@@ -133,10 +133,10 @@ export const usePhoneInput = ({
    */
   const guessCountry = React.useCallback(
     (value: string) => {
-      if (!guessOn) return
+      if (!guessCountryOnChange) return
       return guessCountryByIncompleteNumber(value)
     },
-    [guessOn],
+    [guessCountryOnChange],
   )
   const openCountrySelect = React.useCallback(() => setSelectOpen(true), [])
   const closeCountrySelect = React.useCallback(() => setSelectOpen(false), [])
