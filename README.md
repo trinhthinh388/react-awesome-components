@@ -10,7 +10,7 @@ React Awesome Components is a collection of modern, reusable and well-tested Rea
 
 <p align="center">
   <img alt="version" src="https://img.shields.io/npm/v/%40react-awesome%2Fcomponents" />
-  <img alt="coverage" src="https://img.shields.io/codecov/c/github/trinhthinh388/react-awesome-components/master" />
+  <img alt="coverage" src="https://codecov.io/gh/trinhthinh388/react-awesome-components/graph/badge.svg?token=VQ8VJ7OECQ)" />
   <img alt="license" src="https://img.shields.io/github/license/trinhthinh388/react-awesome-components" />
   <img alt="build status" src="https://img.shields.io/github/actions/workflow/status/trinhthinh388/react-awesome-components/release.yml" />
 </p>
