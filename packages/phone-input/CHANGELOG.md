@@ -1,5 +1,13 @@
 # @react-awesome/phone-input
 
+## 1.0.6
+
+### Patch Changes
+
+- Bug fixes:
+
+  - `usePhoneInput` doesn't detect country when received `value` on mount.
+
 ## 1.0.5
 
 ### Patch Changes

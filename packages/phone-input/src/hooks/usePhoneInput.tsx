@@ -97,7 +97,7 @@ export const usePhoneInput = ({
     }
 
     return {
-      phone: value || '',
+      phone: '',
       country: getInitialCountry(),
     }
   })
@@ -245,12 +245,15 @@ export const usePhoneInput = ({
   React.useEffect(() => {
     if (!value) return
     if (value !== innerValue.phone) {
+      const metadata = generateMetadata(value, innerValue.country)
+      onPhoneChange(undefined, metadata)
       setInnerValue((prev) => ({
         ...prev,
+        country: metadata.country,
         phone: value,
       }))
     }
-  }, [innerValue, onPhoneChange, value])
+  }, [generateMetadata, innerValue, onPhoneChange, value])
 
   return {
     inputEl: inputRef,
