@@ -20,6 +20,9 @@
   "use-preserve-input-caret-position": {
     "title": "usePreserveInputCaretPosition"
   },
+  "use-click-outside": {
+    "title": "useClickOutside"
+  },
   "-- More": {
     "type": "separator",
     "title": "More"

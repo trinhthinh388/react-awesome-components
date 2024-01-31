@@ -1,0 +1,90 @@
+---
+title: useClickOutside
+---
+
+# useClickOutside
+
+**useClickOutside** triggers callback when user clicks on the outside area of an element.
+
+## Install
+
+To start using **useClickOutside**, you can install the `@react-awesome/use-click-outside` library or you can import it directly from `@react-awesome/components` if you have installed it before. In your project directory, run
+the following command to install the dependencies:
+
+```sh npm2yarn
+npm i @react-awesome/use-click-outside
+```
+
+## Usage
+
+import { useState } from 'react'
+import { Container } from '../../components/Container'
+import { useClickOutside } from '@react-awesome/components'
+
+export const Example = () => {
+  const [ref, setRef] = useState(null)
+  const [state, setState] = useState(false)
+
+useClickOutside(ref, () => setState(false))
+
+return (
+
+<div className="mx-auto flex items-center justify-center">
+  <div ref={setRef}>
+    <button
+      onClick={() => setState(true)}
+      className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
+    >
+      <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+        Open modal
+      </span>
+    </button>
+    <dialog
+      open={state}
+      className="px-6 py-5 bg-purple-400 border border-purple-600 rounded backdrop:bg-gray-50"
+    >
+      <p>Hey! click outside to close me.</p>
+    </dialog>
+  </div>
+</div>
+) }
+
+<Container>
+  <Example />
+</Container>
+
+```jsx
+import { useClickOutside } from '@react-awesome/use-click-outside'
+
+const Example = () => {
+  const ref = useRef(null)
+  const [state, setState] = useState(false)
+
+  useClickOutside(ref.current, () => {
+    setState(false)
+  })
+
+  return (
+    <>
+      <div ref={ref}>
+        <button onClick={() => setState(true)}>Open modal</button>
+        <dialog open={state}>
+          <p>Hey! click outside to close me.</p>
+        </dialog>
+      </div>
+    </>
+  )
+}
+```
+
+## Parameters
+
+The `useClickOutside` takes the following parameters:
+
+#### `inputEl`
+
+- Type: `HTMLInputElement`
+
+#### `callback`
+
+- Type: `(event: MouseEvent | undefined) => any`

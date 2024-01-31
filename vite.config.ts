@@ -83,10 +83,10 @@ export default defineConfig({
        * minimum threshold range, should be 100
        */
       thresholds: {
-        statements: 10,
-        functions: 10,
-        lines: 10,
-        branches: 10,
+        statements: 80,
+        functions: 80,
+        lines: 80,
+        branches: 80,
       },
     },
   },
