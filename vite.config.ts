@@ -34,6 +34,7 @@ export default defineConfig({
         '@react-awesome/use-click-outside',
         '@react-awesome/use-preserve-input-caret-position',
         '@react-awesome/phone-input',
+        '@react-awesome/use-toggle',
       ],
       output: [
         {

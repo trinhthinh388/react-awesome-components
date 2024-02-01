@@ -11,17 +11,20 @@
     "type": "separator",
     "title": "Hooks"
   },
+  "use-toggle": {
+    "title": "useToggle"
+  },
   "use-previous": {
     "title": "usePrevious"
+  },
+  "use-click-outside": {
+    "title": "useClickOutside"
   },
   "use-selection-range": {
     "title": "useSelectionRange"
   },
   "use-preserve-input-caret-position": {
     "title": "usePreserveInputCaretPosition"
-  },
-  "use-click-outside": {
-    "title": "useClickOutside"
   },
   "-- More": {
     "type": "separator",
