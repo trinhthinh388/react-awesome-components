@@ -8,6 +8,7 @@
     },
     "@react-awesome/components#build": {
       "dependsOn": [
+        "@react-awesome/use-toggle#build",
         "@react-awesome/use-previous#build",
         "@react-awesome/use-selection-range#build",
         "@react-awesome/use-preserve-input-caret-position#build",
