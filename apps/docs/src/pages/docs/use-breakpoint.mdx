@@ -23,8 +23,25 @@ import { Container } from '../../components/Container'
 import { useBreakpoint } from '@react-awesome/components'
 
 export const Example = () => {
-  return null
-}
+  const [ref, setRef] = useState(null)
+
+const { currentBreakpoint } = useBreakpoint(ref, {
+breakpoints: {
+sm: 320,
+md: 480,
+lg: 640
+},
+callbacks: {}
+})
+
+return (
+
+<div ref={setRef} className="w-full flex items-center justify-center">
+  <div className="h-32 w-full max-w-32 flex items-center justify-center  p-0.5 overflow-hidden text-xl font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+    {currentBreakpoint}
+  </div>
+</div>
+) }
 
 <Container showSizeHandler>
   <Example />
