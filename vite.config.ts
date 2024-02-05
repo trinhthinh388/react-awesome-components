@@ -35,6 +35,7 @@ export default defineConfig({
         '@react-awesome/use-preserve-input-caret-position',
         '@react-awesome/phone-input',
         '@react-awesome/use-toggle',
+        '@react-awesome/use-breakpoint',
       ],
       output: [
         {
