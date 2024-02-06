@@ -50,7 +50,7 @@ export type UsePhoneInput = {
    */
   onChange?: (
     ev: React.ChangeEvent<HTMLInputElement> | undefined,
-    metadata: PhoneInputChangeMetadata,
+    metadata: PhoneInputChangeMetadata
   ) => void
   /**
    * @description Turn on/off guessing country on change.
@@ -136,13 +136,13 @@ export const usePhoneInput = ({
       if (!guessCountryOnChange) return
       return guessCountryByIncompleteNumber(value)
     },
-    [guessCountryOnChange],
+    [guessCountryOnChange]
   )
   const openCountrySelect = React.useCallback(() => setSelectOpen(true), [])
   const closeCountrySelect = React.useCallback(() => setSelectOpen(false), [])
   const toggleCountrySelect = React.useCallback(
     (state?: boolean) => setSelectOpen(state ? state : (prev) => !prev),
-    [],
+    []
   )
   const generateMetadata = React.useCallback(
     (value: string, currentCountry: CountryCode): PhoneInputChangeMetadata => {
@@ -150,7 +150,7 @@ export const usePhoneInput = ({
       const guessedCountry = guessCountry(_value) || currentCountry
       const isSupported = checkCountryValidity(
         guessedCountry,
-        supportedCountries,
+        supportedCountries
       )
       // If country is not supported country then return the defaultCountry or the first country in the option list.
       const country = isSupported
@@ -169,7 +169,7 @@ export const usePhoneInput = ({
         isSupported,
       }
     },
-    [defaultCountry, guessCountry, options, supportedCountries],
+    [defaultCountry, guessCountry, options, supportedCountries]
   )
   const setSelectedCountry = React.useCallback(
     (country: CountryCode) => {
@@ -182,7 +182,7 @@ export const usePhoneInput = ({
       }))
       closeCountrySelect()
     },
-    [closeCountrySelect, generateMetadata, onPhoneChange],
+    [closeCountrySelect, generateMetadata, onPhoneChange]
   )
 
   /**
@@ -210,12 +210,12 @@ export const usePhoneInput = ({
         }))
       }
     },
-    [generateMetadata, innerValue.country, onPhoneChange],
+    [generateMetadata, innerValue.country, onPhoneChange]
   )
 
   const register = React.useCallback(
     (
-      name?: string,
+      name?: string
     ): Pick<
       React.DetailedHTMLProps<
         React.InputHTMLAttributes<HTMLInputElement>,
@@ -232,7 +232,7 @@ export const usePhoneInput = ({
         autoComplete: 'tel',
       }
     },
-    [innerValue.phone, onChange],
+    [innerValue.phone, onChange]
   )
 
   /**

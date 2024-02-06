@@ -105,7 +105,7 @@ describe('stripDelimiters', () => {
       stripDelimiters({
         value: '+ 128-34',
         delimiters: [' ', '-'],
-      }),
+      })
     ).toStrictEqual('+12834')
   })
 })
@@ -153,7 +153,7 @@ describe('usePreserveInputCaretPosition', () => {
     }
 
     renderHook(() =>
-      usePreserveInputCaretPosition(mockInput as unknown as HTMLInputElement),
+      usePreserveInputCaretPosition(mockInput as unknown as HTMLInputElement)
     )
 
     expect(mockInput.addEventListener.mock.calls[0][0]).toBe('input')
@@ -251,7 +251,7 @@ describe('usePreserveInputCaretPosition', () => {
 
     await act(async () => {
       await user.keyboard(
-        '{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{Backspace}',
+        '{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{Backspace}'
       )
 
       await user.keyboard('{7}')
@@ -291,7 +291,7 @@ describe('usePreserveInputCaretPosition', () => {
 
     await act(async () => {
       await user.keyboard(
-        '{Backspace}{Backspace}{Backspace}{Backspace}{Backspace}{Backspace}{Backspace}{Backspace}{Backspace}{Backspace}{Backspace}',
+        '{Backspace}{Backspace}{Backspace}{Backspace}{Backspace}{Backspace}{Backspace}{Backspace}{Backspace}{Backspace}{Backspace}'
       )
     })
 
@@ -322,7 +322,7 @@ describe('usePreserveInputCaretPosition', () => {
      */
     await act(async () => {
       await user.keyboard(
-        '{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{Backspace}',
+        '{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{ArrowLeft}{Backspace}'
       )
 
       await user.keyboard('{7}')

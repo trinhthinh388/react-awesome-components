@@ -5,7 +5,7 @@ export const greater =
   (
     BREAKPOINTS: Record<string, number>,
     containerEl: HTMLElement | null,
-    direction: 'horizontal' | 'vertical' = 'horizontal',
+    direction: 'horizontal' | 'vertical' = 'horizontal'
   ) =>
   (breakpoint: string) => {
     if (!containerEl) return false

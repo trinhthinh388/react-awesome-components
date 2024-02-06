@@ -148,7 +148,7 @@ describe('usePhoneInput', () => {
 
   it('Should allow to turn off smart caret', async () => {
     const { container } = render(
-      <Comp defaultCountry="CA" smartCaret={false} />,
+      <Comp defaultCountry="CA" smartCaret={false} />
     )
 
     const input = container.querySelector('input')

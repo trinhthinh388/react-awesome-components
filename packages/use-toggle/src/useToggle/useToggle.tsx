@@ -6,7 +6,7 @@ export const useToggle = (initialValue: boolean) => {
   const toggle = useCallback(
     (_value?: boolean) =>
       setValue((prev) => (typeof _value === 'boolean' ? _value : !prev)),
-    [],
+    []
   )
 
   return {

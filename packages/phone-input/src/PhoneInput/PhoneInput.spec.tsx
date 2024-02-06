@@ -49,7 +49,7 @@ describe('PhoneInput', () => {
     })
 
     expect(
-      container.querySelector('ul[class*=selectList]')?.parentElement,
+      container.querySelector('ul[class*=selectList]')?.parentElement
     ).toBeVisible()
   })
 
@@ -68,7 +68,7 @@ describe('PhoneInput', () => {
     })
 
     expect(
-      container.querySelector('ul[class*=selectList]')?.parentElement,
+      container.querySelector('ul[class*=selectList]')?.parentElement
     ).toBeVisible()
 
     await act(async () => {
@@ -78,7 +78,7 @@ describe('PhoneInput', () => {
     expect(
       container
         .querySelector('ul[class*=selectList]')
-        ?.parentElement?.classList.value.includes('hidden'),
+        ?.parentElement?.classList.value.includes('hidden')
     ).toBe(true)
   })
 
@@ -98,7 +98,7 @@ describe('PhoneInput', () => {
     })
 
     expect(
-      container.querySelector('ul[class*=selectList]')?.parentElement,
+      container.querySelector('ul[class*=selectList]')?.parentElement
     ).toBeVisible()
 
     await act(async () => {
@@ -108,7 +108,7 @@ describe('PhoneInput', () => {
     expect(
       container
         .querySelector('ul[class*=selectList]')
-        ?.parentElement?.classList.value.includes('hidden'),
+        ?.parentElement?.classList.value.includes('hidden')
     ).toBe(true)
   })
 })

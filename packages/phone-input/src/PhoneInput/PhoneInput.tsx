@@ -62,27 +62,28 @@ export const PhoneInput = ({
   })
 
   const Options = React.useMemo(
-    () => () => (
-      <ul className={classNames(styles.selectList, selectListClassname)}>
-        {options.map((opt) => {
-          const Flag = Flags[opt.iso2]
-          return (
-            <li
-              key={opt.iso2}
-              className={classNames(styles.selectOpt, selectOptionClassname)}
-              onClick={() => setSelectedCountry(opt.iso2)}
-            >
-              <Flag className={styles.flag} />
-              <span suppressHydrationWarning className={styles.country}>
-                {opt.name}
-              </span>
-              <span className={styles.phoneCode}>{`+${opt.phoneCode}`}</span>
-            </li>
-          )
-        })}
-      </ul>
-    ),
-    [options, selectListClassname, selectOptionClassname, setSelectedCountry],
+    () => () =>
+      (
+        <ul className={classNames(styles.selectList, selectListClassname)}>
+          {options.map((opt) => {
+            const Flag = Flags[opt.iso2]
+            return (
+              <li
+                key={opt.iso2}
+                className={classNames(styles.selectOpt, selectOptionClassname)}
+                onClick={() => setSelectedCountry(opt.iso2)}
+              >
+                <Flag className={styles.flag} />
+                <span suppressHydrationWarning className={styles.country}>
+                  {opt.name}
+                </span>
+                <span className={styles.phoneCode}>{`+${opt.phoneCode}`}</span>
+              </li>
+            )
+          })}
+        </ul>
+      ),
+    [options, selectListClassname, selectOptionClassname, setSelectedCountry]
   )
 
   const SelectedFlag = Flags[selectedCountry]
@@ -92,7 +93,7 @@ export const PhoneInput = ({
       className={classNames(
         styles.container,
         { [styles.containerWithoutCountrySelect]: !showCountrySelect },
-        className,
+        className
       )}
     >
       {showCountrySelect && (
@@ -120,7 +121,7 @@ export const PhoneInput = ({
         className={classNames(
           styles.input,
           { [styles.inputWithoutCountrySelect]: !showCountrySelect },
-          inputClassname,
+          inputClassname
         )}
         {...register(name)}
         {...props}

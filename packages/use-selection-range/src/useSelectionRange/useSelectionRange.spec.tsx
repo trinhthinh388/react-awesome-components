@@ -63,7 +63,7 @@ describe('useSelectionRange', () => {
     }
 
     renderHook(() =>
-      useSelectionRange(mockInput as unknown as HTMLInputElement),
+      useSelectionRange(mockInput as unknown as HTMLInputElement)
     )
 
     expect(mockInput.addEventListener).toHaveBeenCalledTimes(2)
@@ -78,7 +78,7 @@ describe('useSelectionRange', () => {
     }
 
     const { unmount } = renderHook(() =>
-      useSelectionRange(mockInput as unknown as HTMLInputElement),
+      useSelectionRange(mockInput as unknown as HTMLInputElement)
     )
 
     unmount()

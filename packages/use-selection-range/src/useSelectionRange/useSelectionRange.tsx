@@ -9,7 +9,7 @@ export type UseSelectionRangeOpts = {
 
 export const useSelectionRange = (
   inputEl?: HTMLElement | null,
-  { initialPosition = { start: 0, end: 0 } }: UseSelectionRangeOpts = {},
+  { initialPosition = { start: 0, end: 0 } }: UseSelectionRangeOpts = {}
 ) => {
   const [caret, setCaret] = useState<{ start: number; end: number }>({
     start: initialPosition.start,
