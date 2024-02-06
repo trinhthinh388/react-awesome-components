@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import {
+  smaller,
+  smallerOrEqual,
+  greater,
+  greaterOrEqual,
+  between,
+} from '../helpers'
 import _debounce from 'lodash/debounce'
 
 const DEFAULT_BREAKPOINTS = {
@@ -20,6 +27,29 @@ export type UseBreakpointCallbacks<
     ? Record<K, UseBreakpointCallback>
     : never
 
+export type UseBreakpointUtils<
+  B extends Record<string, number> = DefaultBreakpointConfigs,
+> = B extends DefaultBreakpointConfigs
+  ? {
+      greater(k: keyof DefaultBreakpointConfigs): boolean
+      greaterOrEqual: (k: keyof DefaultBreakpointConfigs) => boolean
+      smaller(k: keyof DefaultBreakpointConfigs): boolean
+      smallerOrEqual(k: keyof DefaultBreakpointConfigs): boolean
+      between(
+        a: keyof DefaultBreakpointConfigs,
+        b: keyof DefaultBreakpointConfigs,
+      ): boolean
+    }
+  : B extends Record<infer K, number>
+    ? {
+        greater(k: K): boolean
+        greaterOrEqual(k: K): boolean
+        smaller(k: K): boolean
+        smallerOrEqual(k: K): boolean
+        between(a: K, b: K): boolean
+      }
+    : never
+
 export type UseBreakpointOpts<
   B extends Record<string, number> = DefaultBreakpointConfigs,
 > = {
@@ -34,7 +64,7 @@ export type UseBreakpointOpts<
 export function useBreakpoint<B extends Record<string, number>>(
   containerEl: HTMLElement | null,
   opts: UseBreakpointOpts<B> = {},
-) {
+): { currentBreakpoint?: keyof B } & UseBreakpointUtils<B> {
   const {
     breakpoints: BPS = DEFAULT_BREAKPOINTS,
     callbacks,
@@ -44,29 +74,42 @@ export function useBreakpoint<B extends Record<string, number>>(
     keyof typeof BPS | undefined
   >(fallbackValue as keyof typeof BPS)
 
+  const BPS_VALUES_ARR = useMemo(
+    () => Object.values(BPS).sort((a, b) => a - b),
+    [BPS],
+  )
+  const BPS_BY_KEYS = useMemo(
+    () =>
+      Object.keys(BPS).reduce<Record<string, keyof typeof BPS>>((obj, key) => {
+        const bpKey = BPS[key as keyof typeof BPS]
+        if (obj[bpKey]) {
+          throw new Error(
+            `Found two breakpoints has the same value: ${obj[bpKey]} and ${key}`,
+          )
+        }
+        obj[bpKey] = key as keyof typeof BPS
+        return obj
+      }, {}),
+    [BPS],
+  )
+
   const determineCurrentBreakpoint = useCallback(
     ({ width }: { width: number; height: number }) => {
-      const sortedBreakpoints = Object.values(BPS).sort((a, b) => a - b)
-      for (let i = 0; i < sortedBreakpoints.length; i++) {
-        if (i === 0 && width <= sortedBreakpoints[i]) {
-          setCurrentBreakpoint('sm')
+      for (let i = 0; i < BPS_VALUES_ARR.length; i++) {
+        const currentBp = BPS_VALUES_ARR[i]
+        if (i === 0 && width <= currentBp) {
+          setCurrentBreakpoint(BPS_BY_KEYS[currentBp.toString()])
           break
-        } else if (
-          width > sortedBreakpoints[i - 1] &&
-          width <= sortedBreakpoints[i]
-        ) {
-          setCurrentBreakpoint('md')
+        } else if (width > BPS_VALUES_ARR[i - 1] && width <= currentBp) {
+          setCurrentBreakpoint(BPS_BY_KEYS[currentBp.toString()])
           break
-        } else if (
-          i + 1 === sortedBreakpoints.length &&
-          width > sortedBreakpoints[i]
-        ) {
-          setCurrentBreakpoint('lg')
+        } else if (i + 1 === BPS_VALUES_ARR.length && width > currentBp) {
+          setCurrentBreakpoint(BPS_BY_KEYS[currentBp.toString()])
           break
         }
       }
     },
-    [BPS],
+    [BPS_BY_KEYS, BPS_VALUES_ARR],
   )
 
   useEffect(() => {
@@ -90,7 +133,13 @@ export function useBreakpoint<B extends Record<string, number>>(
     }
   }, [containerEl, determineCurrentBreakpoint])
 
+  // @ts-expect-error
   return {
     currentBreakpoint,
+    smaller: smaller(BPS, containerEl),
+    smallerOrEqual: smallerOrEqual(BPS, containerEl),
+    greater: greater(BPS, containerEl),
+    greaterOrEqual: greaterOrEqual(BPS, containerEl),
+    between: between(BPS, containerEl),
   }
 }
