@@ -33,7 +33,7 @@ export const stripDelimiters = ({
 export const calculateCaretPositionWithoutDelimiters = (
   value: string,
   selectionEnd: number,
-  delimiters: Delimiters
+  delimiters: Delimiters,
 ) => {
   let idx = selectionEnd
   for (let charIdx = 0; charIdx < selectionEnd; charIdx++) {
@@ -53,7 +53,7 @@ export const calculateCaretPositionWithoutDelimiters = (
 export const calculateCaretPositionWithDelimiters = (
   value: string,
   selectionEnd: number,
-  delimiters: Delimiters
+  delimiters: Delimiters,
 ) => {
   let idx = selectionEnd
 
@@ -69,7 +69,7 @@ export const calculateCaretPositionWithDelimiters = (
 
 export const calculateDelimiterQty = (
   value: string,
-  delimiters: string[] = []
+  delimiters: string[] = [],
 ) => {
   let result = 0
   for (const char of value) {
@@ -87,7 +87,7 @@ export type UsePreserveInputCaretPositionOpts = {
 }
 export const usePreserveInputCaretPosition = (
   inputEl?: HTMLInputElement | null,
-  { delimiters = [], prefix }: UsePreserveInputCaretPositionOpts = {}
+  { delimiters = [], prefix }: UsePreserveInputCaretPositionOpts = {},
 ) => {
   const onInput = useCallback(
     (e: Event) => {
@@ -104,7 +104,7 @@ export const usePreserveInputCaretPosition = (
       const preserveIdx = calculateCaretPositionWithoutDelimiters(
         value,
         caretEnd || /* istanbul ignore next */ 0,
-        delimiters
+        delimiters,
       )
 
       window.requestAnimationFrame(() => {
@@ -117,7 +117,7 @@ export const usePreserveInputCaretPosition = (
         let actualIdx = calculateCaretPositionWithDelimiters(
           value,
           preserveIdx,
-          delimiters
+          delimiters,
         )
 
         /**
@@ -129,11 +129,11 @@ export const usePreserveInputCaretPosition = (
 
         const delimiterQtyBeforeUpdate = calculateDelimiterQty(
           value,
-          delimiters
+          delimiters,
         )
         const delimiterQtyAfterUpdate = calculateDelimiterQty(
           target.value,
-          delimiters
+          delimiters,
         )
         const diff =
           delimiterQtyAfterUpdate > delimiterQtyBeforeUpdate
@@ -143,7 +143,7 @@ export const usePreserveInputCaretPosition = (
         target.setSelectionRange(actualIdx + diff, actualIdx + diff)
       })
     },
-    [delimiters, prefix]
+    [delimiters, prefix],
   )
 
   useEffect(() => {

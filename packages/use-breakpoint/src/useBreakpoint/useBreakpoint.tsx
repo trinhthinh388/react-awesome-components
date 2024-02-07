@@ -20,15 +20,15 @@ export type BreakpointConfig = Record<string, number>
 export type UseBreakpointCallback = () => any
 
 export type UseBreakpointCallbacks<
-  O extends Record<string, number> = DefaultBreakpointConfigs
+  O extends Record<string, number> = DefaultBreakpointConfigs,
 > = O extends DefaultBreakpointConfigs
   ? Record<keyof DefaultBreakpointConfigs, UseBreakpointCallback>
   : O extends Record<infer K, number>
-  ? Record<K, UseBreakpointCallback>
-  : never
+    ? Record<K, UseBreakpointCallback>
+    : never
 
 export type UseBreakpointUtils<
-  B extends Record<string, number> = DefaultBreakpointConfigs
+  B extends Record<string, number> = DefaultBreakpointConfigs,
 > = B extends DefaultBreakpointConfigs
   ? {
       greater(k: keyof DefaultBreakpointConfigs): boolean
@@ -37,21 +37,21 @@ export type UseBreakpointUtils<
       smallerOrEqual(k: keyof DefaultBreakpointConfigs): boolean
       between(
         a: keyof DefaultBreakpointConfigs,
-        b: keyof DefaultBreakpointConfigs
+        b: keyof DefaultBreakpointConfigs,
       ): boolean
     }
   : B extends Record<infer K, number>
-  ? {
-      greater(k: K): boolean
-      greaterOrEqual(k: K): boolean
-      smaller(k: K): boolean
-      smallerOrEqual(k: K): boolean
-      between(a: K, b: K): boolean
-    }
-  : never
+    ? {
+        greater(k: K): boolean
+        greaterOrEqual(k: K): boolean
+        smaller(k: K): boolean
+        smallerOrEqual(k: K): boolean
+        between(a: K, b: K): boolean
+      }
+    : never
 
 export type UseBreakpointOpts<
-  B extends Record<string, number> = DefaultBreakpointConfigs
+  B extends Record<string, number> = DefaultBreakpointConfigs,
 > = {
   /**
    * @description Breakpoints object, each breakpoint should be defined in `px` value.
@@ -64,7 +64,7 @@ export type UseBreakpointOpts<
 
 export function useBreakpoint<B extends Record<string, number>>(
   containerEl: HTMLElement | null,
-  opts: UseBreakpointOpts<B> = {}
+  opts: UseBreakpointOpts<B> = {},
 ): { currentBreakpoint?: keyof B } & UseBreakpointUtils<B> {
   const {
     breakpoints: BPS = DEFAULT_BREAKPOINTS,
@@ -77,7 +77,7 @@ export function useBreakpoint<B extends Record<string, number>>(
 
   const BPS_VALUES_ARR = useMemo(
     () => Object.values(BPS).sort((a, b) => a - b),
-    [BPS]
+    [BPS],
   )
   const BPS_BY_KEYS = useMemo(
     () =>
@@ -85,13 +85,13 @@ export function useBreakpoint<B extends Record<string, number>>(
         const bpKey = BPS[key as keyof typeof BPS]
         if (obj[bpKey]) {
           throw new Error(
-            `Found two breakpoints has the same value: ${obj[bpKey]} and ${key}`
+            `Found two breakpoints has the same value: ${obj[bpKey]} and ${key}`,
           )
         }
         obj[bpKey] = key as keyof typeof BPS
         return obj
       }, {}),
-    [BPS]
+    [BPS],
   )
 
   const determineCurrentBreakpoint = useCallback(
@@ -110,7 +110,7 @@ export function useBreakpoint<B extends Record<string, number>>(
         }
       }
     },
-    [BPS_BY_KEYS, BPS_VALUES_ARR]
+    [BPS_BY_KEYS, BPS_VALUES_ARR],
   )
 
   useEffect(() => {

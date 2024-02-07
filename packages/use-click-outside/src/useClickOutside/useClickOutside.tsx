@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 export const useClickOutside = (
   el: HTMLElement | null,
-  callback?: (event: MouseEvent) => any
+  callback?: (event: MouseEvent) => any,
 ) => {
   useEffect(() => {
     if (!callback) return

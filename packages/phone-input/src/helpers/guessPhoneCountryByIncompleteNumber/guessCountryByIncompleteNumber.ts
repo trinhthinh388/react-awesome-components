@@ -9,7 +9,7 @@ const asYouType = new AsYouType()
  *
  */
 export const guessCountryByIncompleteNumber = (
-  value: string
+  value: string,
 ): CountryCode | undefined => {
   const internationalValue = formatInternational(value)
   const possibleCountries =

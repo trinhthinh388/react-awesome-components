@@ -6,7 +6,7 @@ export const between =
   (
     BREAKPOINTS: Record<string, number>,
     containerEl: HTMLElement | null,
-    direction: 'horizontal' | 'vertical' = 'horizontal'
+    direction: 'horizontal' | 'vertical' = 'horizontal',
   ) =>
   (minBreakpoint: string, maxBreakpoint: string) => {
     if (!containerEl) return false

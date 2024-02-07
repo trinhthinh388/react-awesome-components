@@ -25,6 +25,6 @@ export const getPossibleCountriesByCallingCode = (phoneValue: string) => {
       ...countriesHaveThreeChars,
       ...countriesHaveTwoChars,
       ...countriesHaveOneChars,
-    ])
+    ]),
   )
 }
