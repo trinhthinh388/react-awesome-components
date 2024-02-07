@@ -59,6 +59,7 @@ export type UseBreakpointOpts<
   breakpoints?: B
   callbacks?: Partial<UseBreakpointCallbacks<B>>
   fallbackValue?: keyof B
+  useResizeObserver?: boolean
 }
 
 export function useBreakpoint<B extends Record<string, number>>(
