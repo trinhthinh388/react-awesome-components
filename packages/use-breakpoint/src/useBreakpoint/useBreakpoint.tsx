@@ -96,8 +96,9 @@ export function useBreakpoint<B extends Record<string, number>>(
 
   const determineCurrentBreakpoint = useCallback(
     ({ width }: { width: number; height: number }) => {
+      let currentBp = BPS_VALUES_ARR[0]
       for (let i = 0; i < BPS_VALUES_ARR.length; i++) {
-        const currentBp = BPS_VALUES_ARR[i]
+        currentBp = BPS_VALUES_ARR[i]
         if (i === 0 && width <= currentBp) {
           setCurrentBreakpoint(BPS_BY_KEYS[currentBp.toString()])
           break
@@ -109,6 +110,8 @@ export function useBreakpoint<B extends Record<string, number>>(
           break
         }
       }
+
+      return BPS_BY_KEYS[currentBp]
     },
     [BPS_BY_KEYS, BPS_VALUES_ARR],
   )
@@ -119,10 +122,12 @@ export function useBreakpoint<B extends Record<string, number>>(
     const callback = (entries: ResizeObserverEntry[]) => {
       const [entry] = entries
       const { width, height } = entry.contentRect
-      determineCurrentBreakpoint({
+      const currentBp = determineCurrentBreakpoint({
         width,
         height,
       })
+
+      callbacks?.[currentBp]?.()
     }
 
     const resizeObserver = new ResizeObserver(callback)
@@ -132,7 +137,7 @@ export function useBreakpoint<B extends Record<string, number>>(
     return () => {
       resizeObserver.disconnect()
     }
-  }, [containerEl, determineCurrentBreakpoint])
+  }, [callbacks, containerEl, determineCurrentBreakpoint])
 
   // @ts-expect-error
   return {

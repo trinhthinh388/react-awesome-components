@@ -68,7 +68,7 @@ const Example = () => {
 
 ## Custom breakpoint configs
 
-export const ExampleWIithCustomConfig = () => {
+export const ExampleWithCustomConfig = () => {
   const [ref, setRef] = useState(null)
 
 const { currentBreakpoint } = useBreakpoint(ref, {
@@ -90,7 +90,7 @@ return (
 ) }
 
 <Container showSizeHandler>
-  <ExampleWIithCustomConfig />
+  <ExampleWithCustomConfig />
 </Container>
 
 ```jsx
@@ -117,7 +117,7 @@ const Example = () => {
 
 ## Breakpoint utilities
 
-**useBreakpoint** returns some utilities:
+**useBreakpoint** returns some utilities to assert with the current container's size:
 
 - `smaller`
 - `greater`
@@ -199,7 +199,7 @@ return (
     style={{
       background,
     }}
-    className="h-32 w-full max-w-32 flex items-center justify-center  p-0.5 overflow-hidden text-xl font-medium text-gray-900 rounded-lg"
+    className="h-32 mt-6 w-full max-w-32 flex items-center justify-center  p-0.5 overflow-hidden text-xl font-medium text-gray-900 rounded-lg"
   />
 </div>
 ) }
@@ -207,3 +207,92 @@ return (
 <Container showSizeHandler>
   <ExampleWithCallback />
 </Container>
+
+```jsx
+import { useBreakpoint } from '@react-awesome/use-breakpoint'
+
+const Example = () => {
+  const ref = useRef(null)
+  const [background, setBg] = useState('red')
+
+  useBreakpoint(ref, {
+    breakpoints: {
+      sm: 320,
+      md: 480,
+      lg: 640,
+    },
+    callbacks: {
+      sm: () => setBg('red'),
+      md: () => setBg('green'),
+      lg: () => setBg('blue'),
+    },
+  })
+
+  return (
+    <>
+      <div ref={setRef}>
+        <p> The background will change when container's size is changed</p>
+      </div>
+      <div
+        style={{
+          background,
+        }}
+      />
+    </>
+  )
+}
+```
+
+## Parameters
+
+The `useBreakpoint` takes the following parameters:
+
+#### `containerEl`
+
+- Type: `HTMLElement`
+
+#### `Options`
+
+- Type: `UseBreakpointOpts`
+
+## API
+
+#### `currentBreakpoint`
+
+- Type: `string`
+
+#### `smaller`
+
+- Type: `(breakpoint: string) => boolean`
+
+#### `smallerOrEqual`
+
+- Type: `(breakpoint: string) => boolean`
+
+#### `greater`
+
+- Type: `(breakpoint: string) => boolean`
+
+#### `greaterOrEqual`
+
+- Type: `(breakpoint: string) => boolean`
+
+#### `between`
+
+- Type: `(breakpoint: string) => boolean`
+
+## Types
+
+#### `UseBreakpointOpts`
+
+###### `breakpoints`
+
+- Type: `Record<string, number>`
+
+##### `callbacks`
+
+- Type: `Record<string, () => void>`
+
+##### `fallbackValue`
+
+- Type: string
