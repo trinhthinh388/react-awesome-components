@@ -78,3 +78,10 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: useToggle
           files: ./packages/use-toggle/coverage/coverage-final.json
+
+      - name: Upload `useBreakpoint` coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: useBreakpoint
+          files: ./packages/use-breakpoint/coverage/coverage-final.json

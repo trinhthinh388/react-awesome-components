@@ -1,0 +1,298 @@
+---
+title: useBreakpoint
+---
+
+# useBreakpoint
+
+**useBreakpoint** returns the current breakpoint of a element, contains useful utilities to work with user-defined breakpoints and automatically triggers
+callback when the element's size is equal to a specific breakpoint.
+
+## Install
+
+To start using **useBreakpoint**, you can install the `@react-awesome/use-breakpoint` library or you can import it directly from `@react-awesome/components` if you have installed it before. In your project directory, run
+the following command to install the dependencies:
+
+```sh npm2yarn
+npm i @react-awesome/use-breakpoint
+```
+
+## Usage
+
+import { useState } from 'react'
+import { Container } from '../../components/Container'
+import { useBreakpoint } from '@react-awesome/components'
+
+export const Example = () => {
+  const [ref, setRef] = useState(null)
+
+const { currentBreakpoint } = useBreakpoint(ref, {
+breakpoints: {
+sm: 320,
+md: 480,
+lg: 640
+},
+callbacks: {}
+})
+
+return (
+
+<div ref={setRef} className="w-full flex items-center justify-center">
+  <div className="h-32 w-full max-w-32 flex items-center justify-center  p-0.5 overflow-hidden text-xl font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+    {currentBreakpoint}
+  </div>
+</div>
+) }
+
+By default, **useBreakpoint** has the same breakpoint configs with [TailwindCSS](https://tailwindcss.com/docs/responsive-design).
+But you can freely use any configs that best suit your case.
+
+<Container showSizeHandler>
+  <Example />
+</Container>
+
+```jsx
+import { useBreakpoint } from '@react-awesome/use-breakpoint'
+
+const Example = () => {
+  const ref = useRef(null)
+
+  const { currentBreakpoint } = useBreakpoint(ref.curent)
+
+  return (
+    <div ref={ref}>
+      <div>{currentBreakpoint}</div>
+    </div>
+  )
+}
+```
+
+## Custom breakpoint configs
+
+export const ExampleWithCustomConfig = () => {
+  const [ref, setRef] = useState(null)
+
+const { currentBreakpoint } = useBreakpoint(ref, {
+breakpoints: {
+"📱": 320,
+"💻": 480,
+"🖥️": 640
+},
+callbacks: {}
+})
+
+return (
+
+<div ref={setRef} className="w-full flex items-center justify-center">
+  <div className="h-32 w-full max-w-32 flex items-center justify-center  p-0.5 overflow-hidden text-xl font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+    {currentBreakpoint}
+  </div>
+</div>
+) }
+
+<Container showSizeHandler>
+  <ExampleWithCustomConfig />
+</Container>
+
+```jsx
+import { useBreakpoint } from '@react-awesome/use-breakpoint'
+
+const Example = () => {
+  const ref = useRef(null)
+
+  const { currentBreakpoint } = useBreakpoint(ref.curent, {
+    breakpoints: {
+      '📱': 320,
+      '💻': 480,
+      '🖥️': 640,
+    },
+  })
+
+  return (
+    <div ref={ref}>
+      <div>{currentBreakpoint}</div>
+    </div>
+  )
+}
+```
+
+## Breakpoint utilities
+
+**useBreakpoint** returns some utilities to assert with the current container's size:
+
+- `smaller`
+- `greater`
+- `smallerOrEqual`
+- `greaterOrEqual`
+- `between`
+
+export const ExampleUseUtilities = () => {
+  const [ref, setRef] = useState(null)
+
+const { smaller } = useBreakpoint(ref, {
+breakpoints: {
+sm: 320,
+md: 480,
+lg: 640
+},
+callbacks: {}
+})
+
+return (
+
+<div ref={setRef} className="w-full flex flex-col items-center justify-center">
+  <p className="text-center text-lg font-semibold">
+    Shrink the container to see the alien!
+  </p>
+  <p className="text-2xl mt-3">{smaller('md') && '👽'}</p>
+</div>
+) }
+
+<Container showSizeHandler>
+  <ExampleUseUtilities />
+</Container>
+
+```jsx
+import { useBreakpoint } from '@react-awesome/use-breakpoint'
+
+const Example = () => {
+  const ref = useRef(null)
+
+  const { smaller } = useBreakpoint(ref.curent)
+
+  return (
+    <div ref={setRef}>
+      <p>Shrink the container to see the alien!</p>
+      <p>{smaller('md') && '👽'}</p>
+    </div>
+  )
+}
+```
+
+## Callbacks
+
+**useBreakpoint** also supports to trigger provided callback on a specific breakpoint.
+
+export const ExampleWithCallback = () => {
+  const [ref, setRef] = useState(null)
+  const [background, setBg] = useState('red')
+
+useBreakpoint(ref, {
+breakpoints: {
+sm: 320,
+md: 480,
+lg: 640
+},
+callbacks: {
+sm: () => setBg('red'),
+md: () => setBg('green'),
+lg: () => setBg('blue')
+}
+})
+
+return (
+
+<div ref={setRef} className="w-full flex flex-col items-center justify-center">
+  <p className="text-center text-lg font-semibold">
+    The background will change when container's size is changed
+  </p>
+  <div
+    style={{
+      background,
+    }}
+    className="h-32 mt-6 w-full max-w-32 flex items-center justify-center  p-0.5 overflow-hidden text-xl font-medium text-gray-900 rounded-lg"
+  />
+</div>
+) }
+
+<Container showSizeHandler>
+  <ExampleWithCallback />
+</Container>
+
+```jsx
+import { useBreakpoint } from '@react-awesome/use-breakpoint'
+
+const Example = () => {
+  const ref = useRef(null)
+  const [background, setBg] = useState('red')
+
+  useBreakpoint(ref, {
+    breakpoints: {
+      sm: 320,
+      md: 480,
+      lg: 640,
+    },
+    callbacks: {
+      sm: () => setBg('red'),
+      md: () => setBg('green'),
+      lg: () => setBg('blue'),
+    },
+  })
+
+  return (
+    <>
+      <div ref={setRef}>
+        <p> The background will change when container's size is changed</p>
+      </div>
+      <div
+        style={{
+          background,
+        }}
+      />
+    </>
+  )
+}
+```
+
+## Parameters
+
+The `useBreakpoint` takes the following parameters:
+
+#### `containerEl`
+
+- Type: `HTMLElement`
+
+#### `Options`
+
+- Type: `UseBreakpointOpts`
+
+## API
+
+#### `currentBreakpoint`
+
+- Type: `string`
+
+#### `smaller`
+
+- Type: `(breakpoint: string) => boolean`
+
+#### `smallerOrEqual`
+
+- Type: `(breakpoint: string) => boolean`
+
+#### `greater`
+
+- Type: `(breakpoint: string) => boolean`
+
+#### `greaterOrEqual`
+
+- Type: `(breakpoint: string) => boolean`
+
+#### `between`
+
+- Type: `(breakpoint: string) => boolean`
+
+## Types
+
+#### `UseBreakpointOpts`
+
+###### `breakpoints`
+
+- Type: `Record<string, number>`
+
+##### `callbacks`
+
+- Type: `Record<string, () => void>`
+
+##### `fallbackValue`
+
+- Type: string

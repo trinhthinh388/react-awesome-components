@@ -1,0 +1,49 @@
+{
+  "name": "@react-awesome/use-breakpoint",
+  "version": "0.0.1",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "license": "MIT",
+  "description": "useBreakpoint triggers callback when a container's size is equal to one specific breakpoint.",
+  "keywords": [
+    "react",
+    "hook",
+    "useBreakpoint",
+    "callback",
+    "breakpoint",
+    "media",
+    "query"
+  ],
+  "repository": {
+    "url": "https://github.com/trinhthinh388/react-awesome-components"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "vite --config ../../vite.config.ts build",
+    "dev": "vite --watch --config ../../vite.config.ts build",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "clean": "rimraf .turbo && rimraf node_modules && rimraf dist",
+    "test:ui": "vitest --config ../../vite.config.ts --coverage --ui",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@react-awesome/eslint-config": "*",
+    "@react-awesome/tsconfig": "*",
+    "@types/lodash": "^4.14.202",
+    "@types/react": "^18.2.46",
+    "@types/react-dom": "^18.2.18",
+    "eslint": "^8.56.0",
+    "react": "^18.2.0",
+    "typescript": "^5.3.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}

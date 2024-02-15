@@ -1,5 +1,12 @@
 # @react-awesome/components
 
+## 1.0.9
+
+### Patch Changes
+
+- Updated dependencies
+  - @react-awesome/use-breakpoint@0.0.1
+
 ## 1.0.8
 
 ### Patch Changes
