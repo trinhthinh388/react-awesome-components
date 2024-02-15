@@ -17,6 +17,9 @@
   "use-previous": {
     "title": "usePrevious"
   },
+  "use-breakpoint": {
+    "title": "useBreakpoint"
+  },
   "use-click-outside": {
     "title": "useClickOutside"
   },
