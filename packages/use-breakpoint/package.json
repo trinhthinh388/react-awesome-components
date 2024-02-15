@@ -27,6 +27,7 @@
     "dev": "vite --watch --config ../../vite.config.ts build",
     "lint": "eslint \"src/**/*.ts*\"",
     "clean": "rimraf .turbo && rimraf node_modules && rimraf dist",
+    "test": "vitest --config ../../vite.config.ts --coverage --run",
     "test:ui": "vitest --config ../../vite.config.ts --coverage --ui",
     "typecheck": "tsc --noEmit"
   },
