@@ -72,6 +72,8 @@
   padding: 0.5rem 0.75rem;
   background-color: var(--rap-phone-input-bg);
   color: var(--rap-phone-input-color);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
   border-top-right-radius: var(--rap-phone-input-border-radius);
   border-bottom-right-radius: var(--rap-phone-input-border-radius);
   border: 1px solid var(--rap-phone-input-border-color);
