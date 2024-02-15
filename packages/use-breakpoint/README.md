@@ -8,7 +8,8 @@
   <img alt="size" src="https://img.shields.io/bundlejs/size/%40react-awesome/use-breakpoint" />
 </p>
 
-**useBreakpoint** tracks the previous value of a variable.
+**useBreakpoint** returns the current breakpoint of a element, contains useful utilities to work with user-defined breakpoints and automatically triggers
+callback when the element's size is equal to a specific breakpoint.
 
 Please refer to the [documentation](https://react-awesome-components.vercel.app/docs/use-breakpoint) for more information.
 
