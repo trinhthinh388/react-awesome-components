@@ -56,7 +56,7 @@ import { useBreakpoint } from '@react-awesome/use-breakpoint'
 const Example = () => {
   const ref = useRef(null)
 
-  const { currentBreakpoint } = useBreakpoint(ref.curent)
+  const { currentBreakpoint } = useBreakpoint(ref.current)
 
   return (
     <div ref={ref}>
@@ -99,7 +99,7 @@ import { useBreakpoint } from '@react-awesome/use-breakpoint'
 const Example = () => {
   const ref = useRef(null)
 
-  const { currentBreakpoint } = useBreakpoint(ref.curent, {
+  const { currentBreakpoint } = useBreakpoint(ref.current, {
     breakpoints: {
       '📱': 320,
       '💻': 480,
@@ -157,7 +157,7 @@ import { useBreakpoint } from '@react-awesome/use-breakpoint'
 const Example = () => {
   const ref = useRef(null)
 
-  const { smaller } = useBreakpoint(ref.curent)
+  const { smaller } = useBreakpoint(ref.current)
 
   return (
     <div ref={setRef}>

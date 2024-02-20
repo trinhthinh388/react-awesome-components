@@ -10,7 +10,7 @@
     "clean": "rimraf .turbo && rimraf node_modules && rimraf .next"
   },
   "dependencies": {
-    "@react-awesome/components": "1.0.11",
+    "@react-awesome/components": "1.0.12",
     "classnames": "^2.5.1",
     "lodash": "^4.17.21",
     "lucide-react": "^0.315.0",

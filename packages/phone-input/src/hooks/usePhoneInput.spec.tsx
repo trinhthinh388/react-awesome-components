@@ -10,21 +10,27 @@ const user = userEvent.setup({
 })
 
 const Comp = ({
-  country,
+  supportedCountries,
   defaultCountry,
   smartCaret,
   value,
+  mode = 'international',
+  country,
 }: {
-  country?: CountryCode[]
+  country?: CountryCode
+  supportedCountries?: CountryCode[]
   defaultCountry?: CountryCode
   smartCaret?: boolean
   value?: string
+  mode?: any
 }) => {
   const { register, selectedCountry, setSelectedCountry } = usePhoneInput({
-    supportedCountries: country,
+    supportedCountries: supportedCountries,
     defaultCountry,
     smartCaret,
     value,
+    mode,
+    country,
   })
 
   return (
@@ -89,7 +95,7 @@ describe('usePhoneInput', () => {
   })
 
   it('Should only allow supported country to be detected', async () => {
-    const { container } = render(<Comp country={['VN']} />)
+    const { container } = render(<Comp supportedCountries={['VN']} />)
 
     const input = container.querySelector('input')
 
@@ -206,5 +212,51 @@ describe('usePhoneInput', () => {
     })
 
     expect(container.querySelector('#FI')).toBeVisible()
+  })
+
+  /**
+   * National format
+   */
+  it('Should format value in national when mode is national', async () => {
+    const { container } = render(<Comp mode="national" country="VN" />)
+
+    const input = container.querySelector('input')
+
+    if (!input) {
+      throw new Error('input is not a valid element.')
+    }
+
+    expect(container.querySelector('#VN')).toBeVisible()
+
+    await act(async () => {
+      input.focus()
+      await user.keyboard('{1},{2},{3}')
+    })
+
+    // Should be treated as VN number +84 123 since country detector has been disabled.
+    expect(input.getAttribute('value')).toBe('123')
+
+    expect(container.querySelector('#VN')).toBeVisible()
+  })
+
+  it('Should only allow national phone number character', async () => {
+    const { container } = render(<Comp mode="national" country="VN" />)
+
+    const input = container.querySelector('input')
+
+    if (!input) {
+      throw new Error('input is not a valid element.')
+    }
+
+    expect(container.querySelector('#VN')).toBeVisible()
+
+    await act(async () => {
+      input.focus()
+      await user.keyboard('{+},{1},{2},{3}')
+    })
+
+    expect(input.getAttribute('value')).toBe('123')
+
+    expect(container.querySelector('#VN')).toBeVisible()
   })
 })
