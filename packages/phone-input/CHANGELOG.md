@@ -1,5 +1,11 @@
 # @react-awesome/phone-input
 
+## 1.1.0
+
+### Minor Changes
+
+- Supports `national` format
+
 ## 1.0.7
 
 ### Patch Changes

@@ -2,3 +2,4 @@ export * from './guessPhoneCountryByIncompleteNumber/guessCountryByIncompleteNum
 export * from './formatInternational/formatInternational'
 export * from './getPossibleCountriesByCallingCode/getPossibleCountriesByCallingCode'
 export * from './checkCountryValidity/checkCountryValidity'
+export * from './formatNational/formatNational'
