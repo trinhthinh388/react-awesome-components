@@ -11,10 +11,12 @@ import { usePreserveInputCaretPosition } from '@react-awesome/use-preserve-input
 import {
   guessCountryByIncompleteNumber,
   formatInternational,
+  formatNational,
   checkCountryValidity,
 } from '../helpers'
 
-const DEFAULT_ALLOW_FORMAT = /^[+0-9][0-9]*$/
+const INTERNATIONAL_FORMAT = /^[+0-9][0-9]*$/
+const LOCAL_FORMAT = /^[0-9][0-9]*$/
 
 export type CountryCode = CCode
 
@@ -53,13 +55,20 @@ export type UsePhoneInput = {
     metadata: PhoneInputChangeMetadata,
   ) => void
   /**
-   * @description Turn on/off guessing country on change.
-   */
-  guessCountryOnChange?: boolean
-  /**
    * @description - use smart caret
    */
   smartCaret?: boolean
+  /**
+   * @description - Phone input mode.
+   * If mode is `local` then the country code won't be included in the phone value and user must follow the country is currently being selected.
+   * @default "international"
+   */
+  mode?: 'international' | 'local'
+  /**
+   * @description - Country code
+   * If `country` is provided, the auto detect country will be disabled.
+   */
+  country?: CountryCode
 }
 
 export const usePhoneInput = ({
@@ -67,8 +76,9 @@ export const usePhoneInput = ({
   supportedCountries,
   defaultCountry,
   onChange: onPhoneChange = () => {},
-  guessCountryOnChange = true,
   smartCaret = true,
+  mode = 'international',
+  country,
 }: UsePhoneInput = {}) => {
   /**
    * Refs
@@ -133,10 +143,11 @@ export const usePhoneInput = ({
    */
   const guessCountry = React.useCallback(
     (value: string) => {
-      if (!guessCountryOnChange) return
+      if (country) return country
+
       return guessCountryByIncompleteNumber(value)
     },
-    [guessCountryOnChange],
+    [country],
   )
   const openCountrySelect = React.useCallback(() => setSelectOpen(true), [])
   const closeCountrySelect = React.useCallback(() => setSelectOpen(false), [])
@@ -156,6 +167,7 @@ export const usePhoneInput = ({
       const country = isSupported
         ? guessedCountry
         : defaultCountry || options[0].iso2
+
       const formattedValue = formatIncompletePhoneNumber(value, country)
 
       return {
@@ -190,10 +202,15 @@ export const usePhoneInput = ({
    */
   const onChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      // format raw value and assign back to the event target
-      e.target.value = formatInternational(e.target.value)
+      const allowFormat =
+        mode === 'international' ? INTERNATIONAL_FORMAT : LOCAL_FORMAT
+      const formatFn =
+        mode === 'international' ? formatInternational : formatNational
 
-      if (DEFAULT_ALLOW_FORMAT.test(e.target.value) || e.target.value === '') {
+      // format raw value and assign back to the event target
+      e.target.value = formatFn(e.target.value)
+
+      if (allowFormat.test(e.target.value) || e.target.value === '') {
         asYouType.current.reset()
         asYouType.current.input(e.target.value)
 
@@ -210,7 +227,7 @@ export const usePhoneInput = ({
         }))
       }
     },
-    [generateMetadata, innerValue.country, onPhoneChange],
+    [generateMetadata, innerValue.country, mode, onPhoneChange],
   )
 
   const register = React.useCallback(
@@ -238,6 +255,15 @@ export const usePhoneInput = ({
   /**
    * Effects
    */
+  React.useEffect(() => {
+    if (country) {
+      setInnerValue((prev) => ({
+        ...prev,
+        country,
+      }))
+    }
+  }, [country])
+
   React.useEffect(() => {
     asYouType.current = new AsYouType(innerValue.country)
   }, [innerValue.country])
