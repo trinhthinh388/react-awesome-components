@@ -210,6 +210,8 @@ export const usePhoneInput = ({
       // format raw value and assign back to the event target
       e.target.value = formatFn(e.target.value)
 
+      if (e.target.value === formatFn(innerValue.phone)) return
+
       if (allowFormat.test(e.target.value) || e.target.value === '') {
         asYouType.current.reset()
         asYouType.current.input(e.target.value)
@@ -227,7 +229,13 @@ export const usePhoneInput = ({
         }))
       }
     },
-    [generateMetadata, innerValue.country, mode, onPhoneChange],
+    [
+      generateMetadata,
+      innerValue.country,
+      innerValue.phone,
+      mode,
+      onPhoneChange,
+    ],
   )
 
   const register = React.useCallback(

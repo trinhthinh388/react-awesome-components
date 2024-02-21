@@ -1,5 +1,11 @@
 # @react-awesome/phone-input
 
+## 1.1.1
+
+### Patch Changes
+
+- Fix usePhoneInput trigger onChange whenever enter invalid character.
+
 ## 1.1.0
 
 ### Minor Changes

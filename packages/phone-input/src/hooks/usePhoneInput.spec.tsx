@@ -16,6 +16,7 @@ const Comp = ({
   value,
   mode = 'international',
   country,
+  onChange = () => {},
 }: {
   country?: CountryCode
   supportedCountries?: CountryCode[]
@@ -23,6 +24,7 @@ const Comp = ({
   smartCaret?: boolean
   value?: string
   mode?: any
+  onChange?: any
 }) => {
   const { register, selectedCountry, setSelectedCountry } = usePhoneInput({
     supportedCountries: supportedCountries,
@@ -31,6 +33,7 @@ const Comp = ({
     value,
     mode,
     country,
+    onChange,
   })
 
   return (
@@ -258,5 +261,33 @@ describe('usePhoneInput', () => {
     expect(input.getAttribute('value')).toBe('123')
 
     expect(container.querySelector('#VN')).toBeVisible()
+  })
+
+  it('Should only trigger change event when value is actually changed', async () => {
+    const onChange = vitest.fn()
+    const { container } = render(<Comp country="VN" onChange={onChange} />)
+    const input = container.querySelector('input')
+
+    if (!input) {
+      throw new Error('input is not a valid element.')
+    }
+
+    expect(container.querySelector('#VN')).toBeVisible()
+
+    await act(async () => {
+      input.focus()
+      await user.keyboard('{+},{1},{2},{3}')
+    })
+
+    expect(input.getAttribute('value')).toBe('+1 23')
+    expect(onChange).toHaveBeenCalledTimes(4) // Since user has typed 4 times
+
+    await act(async () => {
+      input.focus()
+      await user.keyboard('{a}{b}{c}')
+    })
+
+    expect(input.getAttribute('value')).toBe('+1 23')
+    expect(onChange).toHaveBeenCalledTimes(4) // OnChange event shouldn't be triggered since user entered invalid letters.
   })
 })
