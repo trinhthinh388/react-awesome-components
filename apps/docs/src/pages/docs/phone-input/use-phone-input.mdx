@@ -112,11 +112,14 @@ export const LocalExample = () => {
 return (
 
 <div>
-  <input
-    className="w-full border rounded-md px-3 py-2"
-    placeholder="I am a local phone input"
-    {...register('use-phone-input')}
-  />
+  <div className="relative">
+    <div className="absolute left-2 top-1/2 -translate-y-1/2 z-10">+84</div>
+    <input
+      className="w-full border rounded-md pl-10 pr-3 py-2"
+      placeholder="I am a local phone input"
+      {...register('use-phone-input')}
+    />
+  </div>
   <h3 className="mt-3 font-bold text-xl underline underline-offset-4">
     onChange event
   </h3>
