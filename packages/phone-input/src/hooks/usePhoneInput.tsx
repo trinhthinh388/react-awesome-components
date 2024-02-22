@@ -6,6 +6,7 @@ import {
   getCountryCallingCode,
   formatIncompletePhoneNumber,
   AsYouType,
+  parsePhoneNumber,
 } from 'libphonenumber-js'
 import { usePreserveInputCaretPosition } from '@react-awesome/use-preserve-input-caret-position'
 import {
@@ -88,6 +89,7 @@ export const usePhoneInput = ({
   /**
    * States
    */
+  const [isPasted, setPasted] = React.useState<boolean>(false)
   const [inputRef, setInputRef] = React.useState<HTMLInputElement | null>(null)
   const [innerValue, setInnerValue] = React.useState<
     NonNullable<{ phone: string; country: CountryCode }>
@@ -145,9 +147,11 @@ export const usePhoneInput = ({
     (value: string) => {
       if (country) return country
 
+      if (mode === 'national' && innerValue.country) return innerValue.country
+
       return guessCountryByIncompleteNumber(value)
     },
-    [country],
+    [country, innerValue.country, mode],
   )
   const openCountrySelect = React.useCallback(() => setSelectOpen(true), [])
   const closeCountrySelect = React.useCallback(() => setSelectOpen(false), [])
@@ -157,12 +161,16 @@ export const usePhoneInput = ({
   )
   const generateMetadata = React.useCallback(
     (value: string, currentCountry: CountryCode): PhoneInputChangeMetadata => {
+      asYouType.current.reset()
+      asYouType.current.input(value)
+
       const _value = formatInternational(value)
       const guessedCountry = guessCountry(_value) || currentCountry
       const isSupported = checkCountryValidity(
         guessedCountry,
         supportedCountries,
       )
+
       // If country is not supported country then return the defaultCountry or the first country in the option list.
       const country = isSupported
         ? guessedCountry
@@ -173,7 +181,10 @@ export const usePhoneInput = ({
       return {
         isPossible: asYouType.current.isPossible(),
         isValid: asYouType.current.isValid(),
-        e164Value: asYouType.current.getNumber()?.format('E.164') || '',
+        e164Value:
+          asYouType.current.getNumber()?.format('E.164', {
+            fromCountry: country,
+          }) || '',
         country,
         phoneCode:
           asYouType.current.getCallingCode() || getCountryCallingCode(country),
@@ -196,6 +207,31 @@ export const usePhoneInput = ({
     },
     [closeCountrySelect, generateMetadata, onPhoneChange],
   )
+  const handlePastedValue = React.useCallback(
+    (value: string) => {
+      if (isPasted && mode === 'national') {
+        const asYouPaste = new AsYouType()
+        asYouPaste.input(value)
+
+        if (value.startsWith('+')) {
+          const pastedCountry =
+            asYouPaste.getCountry() || guessCountryByIncompleteNumber(value)
+          if (pastedCountry) {
+            asYouType.current = new AsYouType(pastedCountry)
+            innerValue.country = pastedCountry
+            return value.replace(`+${getCountryCallingCode(pastedCountry)}`, '')
+          }
+        } else if (value.startsWith('0')) {
+          return value.slice(0)
+        }
+
+        setPasted(false)
+      }
+
+      return value
+    },
+    [innerValue, isPasted, mode],
+  )
 
   /**
    * Event Handlers
@@ -208,14 +244,11 @@ export const usePhoneInput = ({
         mode === 'international' ? formatInternational : formatNational
 
       // format raw value and assign back to the event target
-      e.target.value = formatFn(e.target.value)
+      e.target.value = formatFn(handlePastedValue(e.target.value))
 
       if (e.target.value === formatFn(innerValue.phone)) return
 
       if (allowFormat.test(e.target.value) || e.target.value === '') {
-        asYouType.current.reset()
-        asYouType.current.input(e.target.value)
-
         const metadata = generateMetadata(e.target.value, innerValue.country)
 
         e.target.value = metadata.formattedValue
@@ -231,12 +264,17 @@ export const usePhoneInput = ({
     },
     [
       generateMetadata,
+      handlePastedValue,
       innerValue.country,
       innerValue.phone,
       mode,
       onPhoneChange,
     ],
   )
+
+  const onPaste = React.useCallback(() => {
+    setPasted(true)
+  }, [])
 
   const register = React.useCallback(
     (
@@ -246,18 +284,25 @@ export const usePhoneInput = ({
         React.InputHTMLAttributes<HTMLInputElement>,
         HTMLInputElement
       >,
-      'ref' | 'name' | 'type' | 'autoComplete' | 'value' | 'onChange'
+      | 'ref'
+      | 'name'
+      | 'type'
+      | 'autoComplete'
+      | 'value'
+      | 'onChange'
+      | 'onPaste'
     > => {
       return {
         ref: setInputRef,
         name,
         value: innerValue.phone,
         onChange,
+        onPaste,
         type: 'tel',
         autoComplete: 'tel',
       }
     },
-    [innerValue.phone, onChange],
+    [innerValue.phone, onChange, onPaste],
   )
 
   /**

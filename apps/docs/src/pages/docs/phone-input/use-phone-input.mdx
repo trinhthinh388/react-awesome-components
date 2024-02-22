@@ -20,6 +20,7 @@ npm i @react-awesome/phone-input
 import { useState } from 'react'
 import { Container } from '../../../components/Container'
 import { usePhoneInput } from '@react-awesome/components'
+import { Callout } from 'nextra/components'
 
 export const Example = () => {
   const [value, setValue] = useState({
@@ -83,13 +84,19 @@ const Example = () => {
 }
 ```
 
-## Local Phone Input
+## Phone Input With National Format
 
 By default **usePhoneInput** has `mode` is set to `international`.
 
 When `mode` is `international` the value will be formatted as `e164`.
 
-When `mode` is `national` the country code and the `+` sign will be ignored. Value is formatted as national format of the current selected country which provided via `country` property.
+When `mode` is `national` the country code and the `+` sign will be ignored. Value is formatted as national format of the current selected country.
+
+<Callout type="info" emoji="ℹ️">
+  Even though the phone number is formatted follow the current selected country
+  but phone input also automatically change the country when user paste a value
+  include a different country code.
+</Callout>
 
 export const LocalExample = () => {
   const [value, setValue] = useState({
@@ -101,21 +108,23 @@ export const LocalExample = () => {
     formattedValue: '',
     isSupported: true,
   });
-  const { register } = usePhoneInput({
+  const { register, phoneCode } = usePhoneInput({
     onChange: (_, m) => {
       setValue(m);
     },
-    mode: 'local',
-    country: value.country
+    mode: 'national',
+    defaultCountry: 'VN'
   });
 
 return (
 
 <div>
   <div className="relative">
-    <div className="absolute left-2 top-1/2 -translate-y-1/2 z-10">+84</div>
+    <div className="absolute left-2 top-1/2 -translate-y-1/2 z-10">
+      +{phoneCode}
+    </div>
     <input
-      className="w-full border rounded-md pl-10 pr-3 py-2"
+      className="w-full border rounded-md pl-12 pr-3 py-2"
       placeholder="I am a local phone input"
       {...register('use-phone-input')}
     />
@@ -149,12 +158,85 @@ import { usePhoneInput } from '@react-awesome/phone-input'
 const Example = () => {
   const { register } = usePhoneInput({
     mode: 'national',
-    country: 'VN',
   })
 
   return (
     <input
       placeholder="I am a local phone input"
+      {...register('use-phone-input')}
+    />
+  )
+}
+```
+
+## Phone Input With Fixed Country
+
+**usePhoneInput** also accepts `country` prop.
+
+When `country` is provided then the enterred value is formatted based on the provided selected country code and the country detection behaviour will be disabled.
+
+export const FixedCountryExample = () => {
+  const [value, setValue] = useState({
+    isPossible: false,
+    isValid: false,
+    e164Value: '',
+    country: 'VN',
+    phoneCode: '84',
+    formattedValue: '',
+    isSupported: true,
+  });
+  const { register, phoneCode } = usePhoneInput({
+    onChange: (_, m) => {
+      setValue(m);
+    },
+    country: 'VN',
+    defaultCountry: 'VN'
+  });
+
+return (
+
+<div>
+  <div className="relative">
+    <input
+      className="w-full border rounded-md pl-3 pr-3 py-2"
+      placeholder="I am a fixed country phone input with international format"
+      {...register('use-phone-input')}
+    />
+  </div>
+  <h3 className="mt-3 font-bold text-xl underline underline-offset-4">
+    onChange event
+  </h3>
+  <ul className="mt-2">
+    {Object.keys(value).map((key) => {
+      const v = value[key]
+      return (
+        <li key={key}>
+          <span className="font-medium">👉 {key}</span>
+          <code className="ml-2 nx-border-black nx-border-opacity-[0.04] nx-bg-opacity-[0.03] nx-bg-black nx-break-words nx-rounded-md nx-border nx-py-0.5 nx-px-[.25em] nx-text-[.9em] dark:nx-border-white/10 dark:nx-bg-white/10">
+            {v.toString()}
+          </code>
+        </li>
+      )
+    })}
+  </ul>
+</div>
+); };
+
+<Container>
+  <FixedCountryExample />
+</Container>
+
+```jsx
+import { usePhoneInput } from '@react-awesome/phone-input'
+
+const Example = () => {
+  const { register } = usePhoneInput({
+    country: 'VN',
+  })
+
+  return (
+    <input
+      placeholder="I am a fixed country phone input"
       {...register('use-phone-input')}
     />
   )
