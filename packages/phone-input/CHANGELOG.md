@@ -1,5 +1,11 @@
 # @react-awesome/phone-input
 
+## 1.1.2
+
+### Patch Changes
+
+- wrong mode value
+
 ## 1.1.1
 
 ### Patch Changes

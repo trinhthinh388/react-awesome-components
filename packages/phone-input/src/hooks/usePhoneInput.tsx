@@ -63,7 +63,7 @@ export type UsePhoneInput = {
    * If mode is `local` then the country code won't be included in the phone value and user must follow the country is currently being selected.
    * @default "international"
    */
-  mode?: 'international' | 'local'
+  mode?: 'international' | 'national'
   /**
    * @description - Country code
    * If `country` is provided, the auto detect country will be disabled.
