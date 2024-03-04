@@ -13,6 +13,7 @@ import {
   guessCountryByIncompleteNumber,
   formatInternational,
   formatNational,
+  formatWithFixedCountry,
   checkCountryValidity,
 } from '../helpers'
 
@@ -143,10 +144,38 @@ export const usePhoneInput = ({
   /**
    * Helpers
    */
+  const normalizeValue = React.useCallback(
+    (phone: string) => {
+      if (country && mode === 'national') {
+        return formatWithFixedCountry(phone, country).replace(
+          '+' + getCountryCallingCode(country),
+          '',
+        )
+      }
+
+      if (country) return formatWithFixedCountry(phone, country)
+
+      switch (mode) {
+        case 'international':
+          return formatInternational(phone)
+        case 'national':
+          return formatNational(phone)
+        default:
+          return phone
+      }
+    },
+    [country, mode],
+  )
   const guessCountry = React.useCallback(
     (value: string) => {
+      /**
+       * When country is passed, the guessCountry is disabled.
+       */
       if (country) return country
 
+      /**
+       * When mode is `national`, country should be parsed based on the current selected country
+       */
       if (mode === 'national' && innerValue.country) return innerValue.country
 
       return guessCountryByIncompleteNumber(value)
@@ -161,11 +190,8 @@ export const usePhoneInput = ({
   )
   const generateMetadata = React.useCallback(
     (value: string, currentCountry: CountryCode): PhoneInputChangeMetadata => {
-      asYouType.current.reset()
-      asYouType.current.input(value)
+      const guessedCountry = guessCountry(value) || currentCountry
 
-      const _value = formatInternational(value)
-      const guessedCountry = guessCountry(_value) || currentCountry
       const isSupported = checkCountryValidity(
         guessedCountry,
         supportedCountries,
@@ -175,6 +201,13 @@ export const usePhoneInput = ({
       const country = isSupported
         ? guessedCountry
         : defaultCountry || options[0].iso2
+
+      /**
+       * Reset asYouType to the latest country and parse from it.
+       */
+      asYouType.current = new AsYouType(country)
+      asYouType.current.reset()
+      asYouType.current.input(value)
 
       const formattedValue = formatIncompletePhoneNumber(value, country)
 
@@ -215,7 +248,9 @@ export const usePhoneInput = ({
 
         if (value.startsWith('+')) {
           const pastedCountry =
-            asYouPaste.getCountry() || guessCountryByIncompleteNumber(value)
+            country ||
+            asYouPaste.getCountry() ||
+            guessCountryByIncompleteNumber(value)
           if (pastedCountry) {
             asYouType.current = new AsYouType(pastedCountry)
             innerValue.country = pastedCountry
@@ -230,7 +265,7 @@ export const usePhoneInput = ({
 
       return value
     },
-    [innerValue, isPasted, mode],
+    [country, innerValue, isPasted, mode],
   )
 
   /**
@@ -240,13 +275,11 @@ export const usePhoneInput = ({
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const allowFormat =
         mode === 'international' ? INTERNATIONAL_FORMAT : LOCAL_FORMAT
-      const formatFn =
-        mode === 'international' ? formatInternational : formatNational
 
       // format raw value and assign back to the event target
-      e.target.value = formatFn(handlePastedValue(e.target.value))
+      e.target.value = normalizeValue(handlePastedValue(e.target.value))
 
-      if (e.target.value === formatFn(innerValue.phone)) return
+      if (e.target.value === normalizeValue(innerValue.phone)) return
 
       if (allowFormat.test(e.target.value) || e.target.value === '') {
         const metadata = generateMetadata(e.target.value, innerValue.country)
@@ -268,6 +301,7 @@ export const usePhoneInput = ({
       innerValue.country,
       innerValue.phone,
       mode,
+      normalizeValue,
       onPhoneChange,
     ],
   )
@@ -317,9 +351,9 @@ export const usePhoneInput = ({
     }
   }, [country])
 
-  React.useEffect(() => {
-    asYouType.current = new AsYouType(innerValue.country)
-  }, [innerValue.country])
+  // React.useEffect(() => {
+  //   asYouType.current = new AsYouType(innerValue.country)
+  // }, [innerValue.country])
 
   React.useEffect(() => {
     if (!value) return
