@@ -1,5 +1,11 @@
 # @react-awesome/phone-input
 
+## 1.1.3
+
+### Patch Changes
+
+- Fix phone number is not in national format
+
 ## 1.1.2
 
 ### Patch Changes
