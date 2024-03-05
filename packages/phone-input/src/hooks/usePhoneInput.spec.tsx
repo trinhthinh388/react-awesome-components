@@ -265,7 +265,9 @@ describe('usePhoneInput', () => {
 
   it('Should only trigger change event when value is actually changed', async () => {
     const onChange = vitest.fn()
-    const { container } = render(<Comp country="VN" onChange={onChange} />)
+    const { container } = render(
+      <Comp defaultCountry="VN" onChange={onChange} />,
+    )
     const input = container.querySelector('input')
 
     if (!input) {
