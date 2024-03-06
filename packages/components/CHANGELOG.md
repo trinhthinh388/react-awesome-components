@@ -1,5 +1,12 @@
 # @react-awesome/components
 
+## 1.0.17
+
+### Patch Changes
+
+- Updated dependencies
+  - @react-awesome/phone-input@1.1.5
+
 ## 1.0.16
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @react-awesome/phone-input
 
+## 1.1.5
+
+### Patch Changes
+
+- infinite loop when set country via setSelectedCountry
+
 ## 1.1.4
 
 ### Patch Changes
