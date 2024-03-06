@@ -6,7 +6,6 @@ import {
   getCountryCallingCode,
   formatIncompletePhoneNumber,
   AsYouType,
-  parsePhoneNumber,
 } from 'libphonenumber-js'
 import { usePreserveInputCaretPosition } from '@react-awesome/use-preserve-input-caret-position'
 import {
@@ -86,16 +85,16 @@ export const usePhoneInput = ({
    * Refs
    */
   const asYouType = React.useRef<AsYouType>(new AsYouType(defaultCountry))
-
+  const isPasted = React.useRef<boolean>(false)
   /**
    * States
    */
-  const [isPasted, setPasted] = React.useState<boolean>(false)
   const [inputRef, setInputRef] = React.useState<HTMLInputElement | null>(null)
-  const [innerValue, setInnerValue] = React.useState<
-    NonNullable<{ phone: string; country: CountryCode }>
-  >(() => {
-    const getInitialCountry = () => {
+  const [isSelectOpen, setSelectOpen] = React.useState<boolean>(false)
+  const [innerValue, setInnerValue] = React.useState<string>('')
+
+  const currentCountryCodeRef = React.useRef<CountryCode>(
+    (() => {
       const countryList = getCountries()
       if (defaultCountry) return defaultCountry
       if (
@@ -107,14 +106,8 @@ export const usePhoneInput = ({
         return supportedCountries[0]
 
       return countryList[0]
-    }
-
-    return {
-      phone: '',
-      country: getInitialCountry(),
-    }
-  })
-  const [isSelectOpen, setSelectOpen] = React.useState<boolean>(false)
+    })(),
+  )
 
   if (smartCaret) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -176,11 +169,12 @@ export const usePhoneInput = ({
       /**
        * When mode is `national`, country should be parsed based on the current selected country
        */
-      if (mode === 'national' && innerValue.country) return innerValue.country
+      if (mode === 'national' && currentCountryCodeRef.current)
+        return currentCountryCodeRef.current
 
       return guessCountryByIncompleteNumber(value)
     },
-    [country, innerValue.country, mode],
+    [country, mode],
   )
   const openCountrySelect = React.useCallback(() => setSelectOpen(true), [])
   const closeCountrySelect = React.useCallback(() => setSelectOpen(false), [])
@@ -189,8 +183,9 @@ export const usePhoneInput = ({
     [],
   )
   const generateMetadata = React.useCallback(
-    (value: string, currentCountry: CountryCode): PhoneInputChangeMetadata => {
-      const guessedCountry = guessCountry(value) || currentCountry
+    (value: string): PhoneInputChangeMetadata => {
+      const guessedCountry =
+        guessCountry(value) || currentCountryCodeRef.current
 
       const isSupported = checkCountryValidity(
         guessedCountry,
@@ -229,43 +224,44 @@ export const usePhoneInput = ({
   )
   const setSelectedCountry = React.useCallback(
     (country: CountryCode) => {
-      const metadata = generateMetadata('', country)
+      const metadata = generateMetadata('')
+      currentCountryCodeRef.current = country
       onPhoneChange(undefined, metadata)
-      setInnerValue((prev) => ({
-        ...prev,
-        country,
-        phone: '',
-      }))
+      setInnerValue('')
       closeCountrySelect()
     },
     [closeCountrySelect, generateMetadata, onPhoneChange],
   )
   const handlePastedValue = React.useCallback(
     (value: string) => {
-      if (isPasted && mode === 'national') {
+      if (isPasted.current && mode === 'national') {
         const asYouPaste = new AsYouType()
         asYouPaste.input(value)
 
         if (value.startsWith('+')) {
           const pastedCountry =
-            country ||
-            asYouPaste.getCountry() ||
-            guessCountryByIncompleteNumber(value)
+            asYouPaste.getCountry() || guessCountryByIncompleteNumber(value)
+
+          /**
+           * If `country` is passed and the pasted country is not equal then return empty string.
+           */
+          if (country && country !== pastedCountry) return value.slice(1)
+
           if (pastedCountry) {
             asYouType.current = new AsYouType(pastedCountry)
-            innerValue.country = pastedCountry
+            currentCountryCodeRef.current = pastedCountry
             return value.replace(`+${getCountryCallingCode(pastedCountry)}`, '')
           }
         } else if (value.startsWith('0')) {
-          return value.slice(0)
+          return value.slice(1)
         }
 
-        setPasted(false)
+        isPasted.current = false
       }
 
       return value
     },
-    [country, innerValue, isPasted, mode],
+    [country, isPasted, mode],
   )
 
   /**
@@ -279,27 +275,23 @@ export const usePhoneInput = ({
       // format raw value and assign back to the event target
       e.target.value = normalizeValue(handlePastedValue(e.target.value))
 
-      if (e.target.value === normalizeValue(innerValue.phone)) return
+      if (e.target.value === normalizeValue(innerValue)) return
 
       if (allowFormat.test(e.target.value) || e.target.value === '') {
-        const metadata = generateMetadata(e.target.value, innerValue.country)
+        const metadata = generateMetadata(e.target.value)
 
         e.target.value = metadata.formattedValue
 
         onPhoneChange(e, metadata)
 
-        setInnerValue((prev) => ({
-          ...prev,
-          country: metadata.country,
-          phone: metadata.formattedValue,
-        }))
+        currentCountryCodeRef.current = metadata.country
+        setInnerValue(metadata.formattedValue)
       }
     },
     [
       generateMetadata,
       handlePastedValue,
-      innerValue.country,
-      innerValue.phone,
+      innerValue,
       mode,
       normalizeValue,
       onPhoneChange,
@@ -307,7 +299,7 @@ export const usePhoneInput = ({
   )
 
   const onPaste = React.useCallback(() => {
-    setPasted(true)
+    isPasted.current = true
   }, [])
 
   const register = React.useCallback(
@@ -329,42 +321,31 @@ export const usePhoneInput = ({
       return {
         ref: setInputRef,
         name,
-        value: innerValue.phone,
+        value: innerValue,
         onChange,
         onPaste,
         type: 'tel',
         autoComplete: 'tel',
       }
     },
-    [innerValue.phone, onChange, onPaste],
+    [innerValue, onChange, onPaste],
   )
 
   /**
    * Effects
    */
   React.useEffect(() => {
-    if (country) {
-      setInnerValue((prev) => ({
-        ...prev,
-        country,
-      }))
+    if (country && country !== currentCountryCodeRef.current) {
+      setSelectedCountry(country)
     }
-  }, [country])
-
-  // React.useEffect(() => {
-  //   asYouType.current = new AsYouType(innerValue.country)
-  // }, [innerValue.country])
+  }, [country, setSelectedCountry])
 
   React.useEffect(() => {
     if (!value) return
-    if (value !== innerValue.phone) {
-      const metadata = generateMetadata(value, innerValue.country)
+    if (value !== innerValue) {
+      const metadata = generateMetadata(value)
       onPhoneChange(undefined, metadata)
-      setInnerValue((prev) => ({
-        ...prev,
-        country: metadata.country,
-        phone: value,
-      }))
+      setInnerValue(value)
     }
   }, [generateMetadata, innerValue, onPhoneChange, value])
 
@@ -376,8 +357,8 @@ export const usePhoneInput = ({
     openCountrySelect,
     closeCountrySelect,
     toggleCountrySelect,
-    selectedCountry: innerValue.country,
-    phoneCode: getCountryCallingCode(innerValue.country),
+    selectedCountry: currentCountryCodeRef.current,
+    phoneCode: getCountryCallingCode(currentCountryCodeRef.current),
     setSelectedCountry,
   }
 }

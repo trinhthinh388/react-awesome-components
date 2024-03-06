@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { act } from 'react-dom/test-utils'
 import '@testing-library/jest-dom'
 import { CountryCode } from 'libphonenumber-js'
+import { useState } from 'react'
 
 const user = userEvent.setup({
   delay: 300,
@@ -26,6 +27,7 @@ const Comp = ({
   mode?: any
   onChange?: any
 }) => {
+  const [, rerender] = useState<boolean>(false)
   const { register, selectedCountry, setSelectedCountry } = usePhoneInput({
     supportedCountries: supportedCountries,
     defaultCountry,
@@ -40,7 +42,14 @@ const Comp = ({
     <div>
       <span id={selectedCountry} />
       <input {...register('phone-input')} />
-      <button onClick={() => setSelectedCountry('FI')}>Set FI</button>
+      <button
+        onClick={() => {
+          setSelectedCountry('FI')
+          rerender((prev) => !prev)
+        }}
+      >
+        Set FI
+      </button>
     </div>
   )
 }
@@ -220,76 +229,278 @@ describe('usePhoneInput', () => {
   /**
    * National format
    */
-  it('Should format value in national when mode is national', async () => {
-    const { container } = render(<Comp mode="national" country="VN" />)
+  describe('National format', () => {
+    it('Should format value in national when mode is national', async () => {
+      const { container } = render(<Comp mode="national" country="VN" />)
 
-    const input = container.querySelector('input')
+      const input = container.querySelector('input')
 
-    if (!input) {
-      throw new Error('input is not a valid element.')
-    }
+      if (!input) {
+        throw new Error('input is not a valid element.')
+      }
 
-    expect(container.querySelector('#VN')).toBeVisible()
+      expect(container.querySelector('#VN')).toBeVisible()
 
-    await act(async () => {
-      input.focus()
-      await user.keyboard('{1},{2},{3}')
+      await act(async () => {
+        input.focus()
+        await user.keyboard('{1},{2},{3}')
+      })
+
+      // Should be treated as VN number +84 123 since country detector has been disabled.
+      expect(input.getAttribute('value')).toBe('123')
+
+      expect(container.querySelector('#VN')).toBeVisible()
     })
 
-    // Should be treated as VN number +84 123 since country detector has been disabled.
-    expect(input.getAttribute('value')).toBe('123')
+    it('Should only allow national phone number character', async () => {
+      const { container } = render(<Comp mode="national" country="VN" />)
 
-    expect(container.querySelector('#VN')).toBeVisible()
+      const input = container.querySelector('input')
+
+      if (!input) {
+        throw new Error('input is not a valid element.')
+      }
+
+      expect(container.querySelector('#VN')).toBeVisible()
+
+      await act(async () => {
+        input.focus()
+        await user.keyboard('{+},{1},{2},{3}')
+      })
+
+      expect(input.getAttribute('value')).toBe('123')
+
+      expect(container.querySelector('#VN')).toBeVisible()
+    })
+
+    it('Should only trigger change event when value is actually changed', async () => {
+      const onChange = vitest.fn()
+      const { container } = render(
+        <Comp defaultCountry="VN" onChange={onChange} />,
+      )
+      const input = container.querySelector('input')
+
+      if (!input) {
+        throw new Error('input is not a valid element.')
+      }
+
+      expect(container.querySelector('#VN')).toBeVisible()
+
+      await act(async () => {
+        input.focus()
+        await user.keyboard('{+},{1},{2},{3}')
+      })
+
+      expect(input.getAttribute('value')).toBe('+1 23')
+      expect(onChange).toHaveBeenCalledTimes(4) // Since user has typed 4 times
+
+      await act(async () => {
+        input.focus()
+        await user.keyboard('{a}{b}{c}')
+      })
+
+      expect(input.getAttribute('value')).toBe('+1 23')
+      expect(onChange).toHaveBeenCalledTimes(4) // OnChange event shouldn't be triggered since user entered invalid letters.
+    })
   })
 
-  it('Should only allow national phone number character', async () => {
-    const { container } = render(<Comp mode="national" country="VN" />)
+  /**
+   * Fixed country
+   */
+  describe('Fixed country code', () => {
+    it('Should disable country detection when country is passed', async () => {
+      const onChange = vitest.fn()
+      const { container } = render(<Comp country="VN" onChange={onChange} />)
+      const input = container.querySelector('input')
 
-    const input = container.querySelector('input')
+      if (!input) {
+        throw new Error('input is not a valid element.')
+      }
 
-    if (!input) {
-      throw new Error('input is not a valid element.')
-    }
+      expect(container.querySelector('#VN')).toBeVisible()
 
-    expect(container.querySelector('#VN')).toBeVisible()
+      await act(async () => {
+        input.focus()
+        await user.keyboard('{+},{1},{2},{3}')
+      })
 
-    await act(async () => {
-      input.focus()
-      await user.keyboard('{+},{1},{2},{3}')
+      expect(input.getAttribute('value')).toBe('+84 123')
+
+      expect(container.querySelector('#VN')).toBeVisible()
     })
 
-    expect(input.getAttribute('value')).toBe('123')
+    it('Should keep passed country and format as national', async () => {
+      const onChange = vitest.fn()
+      const { container } = render(
+        <Comp country="VN" mode="national" onChange={onChange} />,
+      )
+      const input = container.querySelector('input')
 
-    expect(container.querySelector('#VN')).toBeVisible()
+      if (!input) {
+        throw new Error('input is not a valid element.')
+      }
+
+      expect(container.querySelector('#VN')).toBeVisible()
+
+      await act(async () => {
+        input.focus()
+        await user.keyboard('{+},{1},{2},{3}')
+      })
+
+      expect(input.getAttribute('value')).toBe('123')
+
+      expect(container.querySelector('#VN')).toBeVisible()
+    })
   })
 
-  it('Should only trigger change event when value is actually changed', async () => {
-    const onChange = vitest.fn()
-    const { container } = render(
-      <Comp defaultCountry="VN" onChange={onChange} />,
-    )
-    const input = container.querySelector('input')
+  /**
+   * Paste event
+   */
+  describe('Paste event', () => {
+    it('Should parse value on paste', async () => {
+      const onChange = vitest.fn()
+      const { container } = render(<Comp onChange={onChange} />)
+      const input = container.querySelector('input')
 
-    if (!input) {
-      throw new Error('input is not a valid element.')
-    }
+      if (!input) {
+        throw new Error('input is not a valid element.')
+      }
 
-    expect(container.querySelector('#VN')).toBeVisible()
+      await act(async () => {
+        input.focus()
+        await user.paste('+84522369680')
+      })
 
-    await act(async () => {
-      input.focus()
-      await user.keyboard('{+},{1},{2},{3}')
+      expect(input.getAttribute('value')).toBe('+84 522 369 680')
+
+      expect(container.querySelector('#VN')).toBeVisible()
+
+      expect(onChange.mock.calls[0][1]).toEqual({
+        country: 'VN',
+        e164Value: '+84522369680',
+        formattedValue: '+84 522 369 680',
+        isPossible: true,
+        isSupported: true,
+        isValid: true,
+        phoneCode: '84',
+      })
     })
 
-    expect(input.getAttribute('value')).toBe('+1 23')
-    expect(onChange).toHaveBeenCalledTimes(4) // Since user has typed 4 times
+    it('Should parse value on paste - national format', async () => {
+      const onChange = vitest.fn()
+      const { container } = render(<Comp mode="national" onChange={onChange} />)
+      const input = container.querySelector('input')
 
-    await act(async () => {
-      input.focus()
-      await user.keyboard('{a}{b}{c}')
+      if (!input) {
+        throw new Error('input is not a valid element.')
+      }
+
+      await act(async () => {
+        input.focus()
+        await user.paste('+1 472 248 2233')
+      })
+
+      expect(input.getAttribute('value')).toBe('(472) 248-2233')
+
+      expect(container.querySelector('#US')).toBeVisible()
+
+      expect(onChange.mock.calls[0][1]).toEqual({
+        country: 'US',
+        e164Value: '+14722482233',
+        formattedValue: '(472) 248-2233',
+        isPossible: true,
+        isSupported: true,
+        isValid: true,
+        phoneCode: '1',
+      })
     })
 
-    expect(input.getAttribute('value')).toBe('+1 23')
-    expect(onChange).toHaveBeenCalledTimes(4) // OnChange event shouldn't be triggered since user entered invalid letters.
+    it('Should detect country', async () => {
+      const onChange = vitest.fn()
+      const { container } = render(<Comp onChange={onChange} />)
+      const input = container.querySelector('input')
+
+      if (!input) {
+        throw new Error('input is not a valid element.')
+      }
+
+      await act(async () => {
+        input.focus()
+        await user.paste('+84522369680')
+      })
+
+      expect(input.getAttribute('value')).toBe('+84 522 369 680')
+
+      expect(container.querySelector('#VN')).toBeVisible()
+
+      await act(async () => {
+        input.focus()
+        await user.keyboard('{Control>}A{/Control}{Backspace}')
+      })
+
+      expect(input.getAttribute('value')).toBe('')
+      expect(container.querySelector('#VN')).toBeVisible()
+
+      await act(async () => {
+        input.focus()
+        await user.paste('+15052269363')
+      })
+
+      expect(input.getAttribute('value')).toBe('+1 505 226 9363')
+      expect(container.querySelector('#US')).toBeVisible()
+      expect(onChange.mock.calls[2][1]).toEqual({
+        country: 'US',
+        e164Value: '+15052269363',
+        formattedValue: '+1 505 226 9363',
+        isPossible: true,
+        isSupported: true,
+        isValid: true,
+        phoneCode: '1',
+      })
+    })
+
+    it('Should detect country and parse in national format', async () => {
+      const onChange = vitest.fn()
+      const { container } = render(<Comp mode="national" onChange={onChange} />)
+      const input = container.querySelector('input')
+
+      if (!input) {
+        throw new Error('input is not a valid element.')
+      }
+
+      await act(async () => {
+        input.focus()
+        await user.paste('+84522369680')
+      })
+
+      expect(input.getAttribute('value')).toBe('522 369 680')
+
+      expect(container.querySelector('#VN')).toBeVisible()
+
+      await act(async () => {
+        input.focus()
+        await user.keyboard('{Control>}A{/Control}{Backspace}')
+      })
+
+      expect(input.getAttribute('value')).toBe('')
+      expect(container.querySelector('#VN')).toBeVisible()
+
+      await act(async () => {
+        input.focus()
+        await user.paste('+15052269363')
+      })
+
+      expect(input.getAttribute('value')).toBe('(505) 226-9363')
+      expect(container.querySelector('#US')).toBeVisible()
+      expect(onChange.mock.calls[2][1]).toEqual({
+        country: 'US',
+        e164Value: '+15052269363',
+        formattedValue: '(505) 226-9363',
+        isPossible: true,
+        isSupported: true,
+        isValid: true,
+        phoneCode: '1',
+      })
+    })
   })
 })
