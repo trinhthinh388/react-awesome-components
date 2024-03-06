@@ -1,5 +1,11 @@
 # @react-awesome/phone-input
 
+## 1.1.4
+
+### Patch Changes
+
+- usePhoneInput doesn't switch country on paste when in national mode
+
 ## 1.1.3
 
 ### Patch Changes
