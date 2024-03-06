@@ -292,4 +292,51 @@ describe('usePhoneInput', () => {
     expect(input.getAttribute('value')).toBe('+1 23')
     expect(onChange).toHaveBeenCalledTimes(4) // OnChange event shouldn't be triggered since user entered invalid letters.
   })
+
+  /**
+   * Fixed country
+   */
+  it('Should disable country detection when country is passed', async () => {
+    const onChange = vitest.fn()
+    const { container } = render(<Comp country="VN" onChange={onChange} />)
+    const input = container.querySelector('input')
+
+    if (!input) {
+      throw new Error('input is not a valid element.')
+    }
+
+    expect(container.querySelector('#VN')).toBeVisible()
+
+    await act(async () => {
+      input.focus()
+      await user.keyboard('{+},{1},{2},{3}')
+    })
+
+    expect(input.getAttribute('value')).toBe('+84 123')
+
+    expect(container.querySelector('#VN')).toBeVisible()
+  })
+
+  it('Should keep passed country and format as national', async () => {
+    const onChange = vitest.fn()
+    const { container } = render(
+      <Comp country="VN" mode="national" onChange={onChange} />,
+    )
+    const input = container.querySelector('input')
+
+    if (!input) {
+      throw new Error('input is not a valid element.')
+    }
+
+    expect(container.querySelector('#VN')).toBeVisible()
+
+    await act(async () => {
+      input.focus()
+      await user.keyboard('{+},{1},{2},{3}')
+    })
+
+    expect(input.getAttribute('value')).toBe('123')
+
+    expect(container.querySelector('#VN')).toBeVisible()
+  })
 })
