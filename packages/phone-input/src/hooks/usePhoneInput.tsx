@@ -224,8 +224,8 @@ export const usePhoneInput = ({
   )
   const setSelectedCountry = React.useCallback(
     (country: CountryCode) => {
-      const metadata = generateMetadata('')
       currentCountryCodeRef.current = country
+      const metadata = generateMetadata('')
       onPhoneChange(undefined, metadata)
       setInnerValue('')
       closeCountrySelect()
