@@ -60,20 +60,22 @@ export type UseBreakpointOpts<
   callbacks?: Partial<UseBreakpointCallbacks<B>>
   fallbackValue?: keyof B
   useResizeObserver?: boolean
+  containerEl?: HTMLElement | null
 }
 
 export function useBreakpoint<B extends Record<string, number>>(
-  containerEl: HTMLElement | null,
   opts: UseBreakpointOpts<B> = {},
 ): { currentBreakpoint?: keyof B } & UseBreakpointUtils<B> {
   const {
     breakpoints: BPS = DEFAULT_BREAKPOINTS,
     callbacks,
     fallbackValue,
+    containerEl,
   } = opts
   const [currentBreakpoint, setCurrentBreakpoint] = useState<
     keyof typeof BPS | undefined
   >(fallbackValue as keyof typeof BPS)
+  const [el, setEl] = useState<HTMLElement | null>(null)
 
   const BPS_VALUES_ARR = useMemo(
     () => Object.values(BPS).sort((a, b) => a - b),
@@ -117,7 +119,12 @@ export function useBreakpoint<B extends Record<string, number>>(
   )
 
   useEffect(() => {
-    if (!containerEl) return
+    if (typeof containerEl === 'undefined') setEl(window.document.body)
+    else if (containerEl !== el) setEl(containerEl)
+  }, [containerEl, el])
+
+  useEffect(() => {
+    if (!el) return
 
     const callback = (entries: ResizeObserverEntry[]) => {
       const [entry] = entries
@@ -132,20 +139,20 @@ export function useBreakpoint<B extends Record<string, number>>(
 
     const resizeObserver = new ResizeObserver(callback)
 
-    resizeObserver.observe(containerEl)
+    resizeObserver.observe(el)
 
     return () => {
       resizeObserver.disconnect()
     }
-  }, [callbacks, containerEl, determineCurrentBreakpoint])
+  }, [callbacks, determineCurrentBreakpoint, el])
 
   // @ts-expect-error
   return {
     currentBreakpoint,
-    smaller: smaller(BPS, containerEl),
-    smallerOrEqual: smallerOrEqual(BPS, containerEl),
-    greater: greater(BPS, containerEl),
-    greaterOrEqual: greaterOrEqual(BPS, containerEl),
-    between: between(BPS, containerEl),
+    smaller: smaller(BPS, el),
+    smallerOrEqual: smallerOrEqual(BPS, el),
+    greater: greater(BPS, el),
+    greaterOrEqual: greaterOrEqual(BPS, el),
+    between: between(BPS, el),
   }
 }
