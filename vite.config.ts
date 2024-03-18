@@ -36,6 +36,7 @@ export default defineConfig({
         '@react-awesome/phone-input',
         '@react-awesome/use-toggle',
         '@react-awesome/use-breakpoint',
+        '@react-awesome/animated-text',
       ],
       output: [
         {

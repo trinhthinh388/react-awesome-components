@@ -5,6 +5,7 @@ export type AnimatedTextProps<Tag extends keyof JSX.IntrinsicElements = 'p'> = {
    * @requires false
    */
   as?: Tag
+
   children?: React.ReactNode
   type?: 'typewriter'
 } & Omit<JSX.IntrinsicElements[Tag], 'type'>
