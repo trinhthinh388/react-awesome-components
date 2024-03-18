@@ -24,13 +24,21 @@ describe('useBreakpoint', () => {
   })
 
   it('Should do nothing when element is null', async () => {
-    const { unmount } = renderHook(() => useBreakpoint(null))
+    const { unmount } = renderHook(() =>
+      useBreakpoint({
+        containerEl: null,
+      }),
+    )
 
     expect(MockObserverInstance.observe).not.toHaveBeenCalled()
   })
 
   it('Should observe resize event on passed element', async () => {
-    const { unmount } = renderHook(() => useBreakpoint(mockEl))
+    const { unmount } = renderHook(() =>
+      useBreakpoint({
+        containerEl: mockEl,
+      }),
+    )
 
     expect(MockObserverInstance.observe).toHaveBeenCalled()
 
@@ -43,7 +51,8 @@ describe('useBreakpoint', () => {
     try {
       console.error = vitest.fn()
       renderHook(() =>
-        useBreakpoint(mockEl, {
+        useBreakpoint({
+          containerEl: mockEl,
           breakpoints: {
             sm: 1,
             md: 1,
@@ -74,7 +83,8 @@ describe('useBreakpoint', () => {
     })
 
     renderHook(() =>
-      useBreakpoint(mockEl, {
+      useBreakpoint({
+        containerEl: mockEl,
         callbacks: {
           sm: mockCallback,
         },
@@ -99,7 +109,8 @@ describe('useBreakpoint', () => {
     })
 
     renderHook(() =>
-      useBreakpoint(mockEl, {
+      useBreakpoint({
+        containerEl: mockEl,
         callbacks: {
           lg: mockCallback,
         },
@@ -124,7 +135,8 @@ describe('useBreakpoint', () => {
     })
 
     renderHook(() =>
-      useBreakpoint(mockEl, {
+      useBreakpoint({
+        containerEl: mockEl,
         callbacks: {
           '2xl': mockCallback,
         },
