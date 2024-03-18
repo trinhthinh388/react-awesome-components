@@ -7,6 +7,9 @@
   "phone-input": {
     "title": "PhoneInput"
   },
+  "animated-text": {
+    "title": "AnimatedText"
+  },
   "-- Hooks": {
     "type": "separator",
     "title": "Hooks"
