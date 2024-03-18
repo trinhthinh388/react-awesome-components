@@ -25,7 +25,8 @@ import { useBreakpoint } from '@react-awesome/components'
 export const Example = () => {
   const [ref, setRef] = useState(null)
 
-const { currentBreakpoint } = useBreakpoint(ref, {
+const { currentBreakpoint } = useBreakpoint({
+containerEl: ref,
 breakpoints: {
 sm: 320,
 md: 480,
@@ -56,7 +57,9 @@ import { useBreakpoint } from '@react-awesome/use-breakpoint'
 const Example = () => {
   const ref = useRef(null)
 
-  const { currentBreakpoint } = useBreakpoint(ref.current)
+  const { currentBreakpoint } = useBreakpoint({
+    containerEl: ref.current,
+  })
 
   return (
     <div ref={ref}>
@@ -71,7 +74,8 @@ const Example = () => {
 export const ExampleWithCustomConfig = () => {
   const [ref, setRef] = useState(null)
 
-const { currentBreakpoint } = useBreakpoint(ref, {
+const { currentBreakpoint } = useBreakpoint({
+containerEl: ref,
 breakpoints: {
 "📱": 320,
 "💻": 480,
@@ -99,7 +103,8 @@ import { useBreakpoint } from '@react-awesome/use-breakpoint'
 const Example = () => {
   const ref = useRef(null)
 
-  const { currentBreakpoint } = useBreakpoint(ref.current, {
+  const { currentBreakpoint } = useBreakpoint({
+    containerEl: ref.current,
     breakpoints: {
       '📱': 320,
       '💻': 480,
@@ -128,7 +133,8 @@ const Example = () => {
 export const ExampleUseUtilities = () => {
   const [ref, setRef] = useState(null)
 
-const { smaller } = useBreakpoint(ref, {
+const { smaller } = useBreakpoint({
+containerEl: ref,
 breakpoints: {
 sm: 320,
 md: 480,
@@ -157,7 +163,9 @@ import { useBreakpoint } from '@react-awesome/use-breakpoint'
 const Example = () => {
   const ref = useRef(null)
 
-  const { smaller } = useBreakpoint(ref.current)
+  const { smaller } = useBreakpoint({
+    containerEl: ref.current,
+  })
 
   return (
     <div ref={setRef}>
@@ -176,7 +184,8 @@ export const ExampleWithCallback = () => {
   const [ref, setRef] = useState(null)
   const [background, setBg] = useState('red')
 
-useBreakpoint(ref, {
+useBreakpoint({
+containerEl: ref,
 breakpoints: {
 sm: 320,
 md: 480,
@@ -215,7 +224,8 @@ const Example = () => {
   const ref = useRef(null)
   const [background, setBg] = useState('red')
 
-  useBreakpoint(ref, {
+  useBreakpoint({
+    containerEl: ref,
     breakpoints: {
       sm: 320,
       md: 480,
@@ -230,7 +240,7 @@ const Example = () => {
 
   return (
     <>
-      <div ref={setRef}>
+      <div ref={ref}>
         <p> The background will change when container's size is changed</p>
       </div>
       <div
@@ -247,15 +257,16 @@ const Example = () => {
 
 The `useBreakpoint` takes the following parameters:
 
-#### `containerEl`
-
-- Type: `HTMLElement`
-
 #### `Options`
 
 - Type: `UseBreakpointOpts`
 
 ## API
+
+#### `containerEl`
+
+- Type: `HTMLElement`
+- Default: `window.document.body`
 
 #### `currentBreakpoint`
 
