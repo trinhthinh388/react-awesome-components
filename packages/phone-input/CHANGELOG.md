@@ -1,5 +1,11 @@
 # @react-awesome/phone-input
 
+## 1.1.6
+
+### Patch Changes
+
+- Fix usePhoneInput national format doesn't format the value.
+
 ## 1.1.5
 
 ### Patch Changes
