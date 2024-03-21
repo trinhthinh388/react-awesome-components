@@ -204,7 +204,20 @@ export const usePhoneInput = ({
       asYouType.current.reset()
       asYouType.current.input(value)
 
-      const formattedValue = formatIncompletePhoneNumber(value, country)
+      const phoneCode =
+        asYouType.current.getCallingCode() || getCountryCallingCode(country)
+      let formattedValue = formatIncompletePhoneNumber(value, country)
+
+      /**
+       * Since input value in national format won't include the country code so we have to manually append it.
+       */
+      if (mode === 'national') {
+        formattedValue = formatIncompletePhoneNumber(
+          `${phoneCode}${value}`,
+          country,
+        )
+        formattedValue = formattedValue.replace(phoneCode, '').trim()
+      }
 
       return {
         isPossible: asYouType.current.isPossible(),
@@ -214,13 +227,12 @@ export const usePhoneInput = ({
             fromCountry: country,
           }) || '',
         country,
-        phoneCode:
-          asYouType.current.getCallingCode() || getCountryCallingCode(country),
+        phoneCode,
         formattedValue,
         isSupported,
       }
     },
-    [defaultCountry, guessCountry, options, supportedCountries],
+    [defaultCountry, guessCountry, mode, options, supportedCountries],
   )
   const setSelectedCountry = React.useCallback(
     (country: CountryCode) => {
