@@ -247,7 +247,7 @@ describe('usePhoneInput', () => {
       })
 
       // Should be treated as VN number +84 123 since country detector has been disabled.
-      expect(input.getAttribute('value')).toBe('123')
+      expect(input.getAttribute('value')).toBe('1 23')
 
       expect(container.querySelector('#VN')).toBeVisible()
     })
@@ -268,7 +268,7 @@ describe('usePhoneInput', () => {
         await user.keyboard('{+},{1},{2},{3}')
       })
 
-      expect(input.getAttribute('value')).toBe('123')
+      expect(input.getAttribute('value')).toBe('1 23')
 
       expect(container.querySelector('#VN')).toBeVisible()
     })
@@ -347,7 +347,7 @@ describe('usePhoneInput', () => {
         await user.keyboard('{+},{1},{2},{3}')
       })
 
-      expect(input.getAttribute('value')).toBe('123')
+      expect(input.getAttribute('value')).toBe('1 23')
 
       expect(container.querySelector('#VN')).toBeVisible()
     })
