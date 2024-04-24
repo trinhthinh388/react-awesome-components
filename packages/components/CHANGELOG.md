@@ -1,5 +1,12 @@
 # @react-awesome/components
 
+## 1.0.20
+
+### Patch Changes
+
+- Updated dependencies
+  - @react-awesome/use-toggle@1.0.0
+
 ## 1.0.19
 
 ### Patch Changes

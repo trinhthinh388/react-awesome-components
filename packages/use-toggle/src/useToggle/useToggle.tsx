@@ -1,6 +1,8 @@
-import React, { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
-export const useToggle = (initialValue: boolean) => {
+export const useToggle = (
+  initialValue: boolean,
+): [boolean, (value?: boolean) => void] => {
   const [value, setValue] = useState(initialValue)
 
   const toggle = useCallback(
@@ -9,8 +11,5 @@ export const useToggle = (initialValue: boolean) => {
     [],
   )
 
-  return {
-    toggle,
-    isOn: value,
-  }
+  return useMemo(() => [value, toggle], [toggle, value])
 }
