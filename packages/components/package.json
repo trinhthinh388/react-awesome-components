@@ -1,6 +1,6 @@
 {
   "name": "@react-awesome/components",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -44,7 +44,7 @@
     "@react-awesome/use-preserve-input-caret-position": "0.0.3",
     "@react-awesome/use-selection-range": "0.0.3",
     "@react-awesome/use-previous": "0.0.3",
-    "@react-awesome/use-toggle": "0.0.1",
+    "@react-awesome/use-toggle": "1.0.0",
     "@react-awesome/use-breakpoint": "1.0.0"
   }
 }
