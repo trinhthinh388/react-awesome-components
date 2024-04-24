@@ -22,7 +22,7 @@ import { Container } from '../../components/Container'
 import { useToggle } from '@react-awesome/components'
 
 export const Example = () => {
-  const { toggle, isOn } = useToggle(true)
+  const [isOn, toggle] = useToggle(true)
 return (
 
 <>
@@ -47,7 +47,7 @@ return (
     </div>
     <label
       htmlFor="switch"
-      class="mt-px mb-0 ml-3 font-light cursor-pointer select-none"
+      className="mt-px mb-0 ml-3 font-light cursor-pointer select-none"
     >
       Click to toggle
     </label>
@@ -63,7 +63,7 @@ return (
 import { useToggle } from '@react-awesome/use-toggle'
 
 const Example = () => {
-  const { toggle, isOn } = useToggle(state)
+  const [isOn, toggle] = useToggle(state)
 
   return <input checked={isOn} type="checkbox" onClick={toggle} />
 }

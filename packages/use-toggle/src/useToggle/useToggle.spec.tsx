@@ -3,22 +3,22 @@ import { useToggle } from './useToggle'
 
 describe('useToggle', () => {
   it('Should toggle the value', () => {
-    const { result, rerender } = renderHook(() => useToggle(true))
+    const { result } = renderHook(() => useToggle(true))
 
-    expect(result.current.isOn).toBe(true)
+    expect(result.current[1]).toBeInstanceOf(Function)
 
-    act(() => {
-      result.current.toggle()
-      rerender()
-    })
-
-    expect(result.current.isOn).toBe(false)
+    expect(result.current[0]).toBe(true)
 
     act(() => {
-      result.current.toggle(true)
-      rerender()
+      result.current[1]()
     })
 
-    expect(result.current.isOn).toBe(true)
+    expect(result.current[0]).toBe(false)
+
+    act(() => {
+      result.current[1](true)
+    })
+
+    expect(result.current[0]).toBe(true)
   })
 })
