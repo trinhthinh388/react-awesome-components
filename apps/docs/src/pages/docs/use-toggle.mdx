@@ -63,7 +63,7 @@ return (
 import { useToggle } from '@react-awesome/use-toggle'
 
 const Example = () => {
-  const [isOn, toggle] = useToggle(state)
+  const { isOn, toggle } = useToggle(state)
 
   return <input checked={isOn} type="checkbox" onClick={toggle} />
 }
