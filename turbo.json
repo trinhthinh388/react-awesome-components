@@ -14,7 +14,8 @@
         "@react-awesome/use-selection-range#build",
         "@react-awesome/use-preserve-input-caret-position#build",
         "@react-awesome/use-click-outside#build",
-        "@react-awesome/phone-input#build"
+        "@react-awesome/phone-input#build",
+        "@react-awesome/autosizer#build"
       ]
     },
     "test": {
