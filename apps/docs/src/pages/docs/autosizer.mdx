@@ -1,0 +1,60 @@
+---
+title: Autosizer
+---
+
+# Autosizer
+
+**Autosizer** keeps tracking of the parent size and reports it to the children.
+
+## Install
+
+To start using **Autosizer** component, you can install the `@react-awesome/autosizer` library or you can import it directly from `@react-awesome/components` if you have installed it before. In your project directory, run
+the following command to install the dependencies:
+
+```sh npm2yarn
+npm i @react-awesome/autosizer
+```
+
+import { Container } from '../../components/Container'
+import { AutosizerExample } from '../../components/examples'
+
+```jsx
+import { Autosizer } from '@react-awesome/components'
+
+const Example = () => {
+  return (
+    <div>
+      <Autosizer>
+        {({ width, height }) => (
+          <div>
+            <div className="flex">Width: {width}px</div>
+            <div className="flex">Height: {height}px</div>
+          </div>
+        )}
+      </Autosizer>
+    </div>
+  )
+}
+```
+
+<Container showSizeHandler>
+  <AutosizerExample />
+</Container>
+
+## API
+
+**Autosizer** accepts the following props:
+
+#### `children` (optional)
+
+Children of `Autosizer` is rendered as render props.
+
+- Type: `(size : { width: number, height: number }) => React.ReactNode`
+- Default: `undefined`
+
+#### `initialSize` (optional)
+
+Initial size of the parent component.
+
+- Type: `{ width: number, height: number }`
+- Default: `undefined`
