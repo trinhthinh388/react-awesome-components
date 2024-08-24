@@ -7,6 +7,9 @@
   "phone-input": {
     "title": "PhoneInput"
   },
+  "autosizer": {
+    "title": "Autosizer"
+  },
   "-- Hooks": {
     "type": "separator",
     "title": "Hooks"
