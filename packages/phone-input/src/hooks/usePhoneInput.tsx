@@ -6,6 +6,7 @@ import {
   getCountryCallingCode,
   formatIncompletePhoneNumber,
   AsYouType,
+  isSupportedCountry,
 } from 'libphonenumber-js'
 import { usePreserveInputCaretPosition } from '@react-awesome/use-preserve-input-caret-position'
 import {
@@ -18,6 +19,8 @@ import {
 
 const INTERNATIONAL_FORMAT = /^[+0-9][0-9]*$/
 const LOCAL_FORMAT = /^[0-9][0-9]*$/
+
+type NonEmptyArray<T> = [T, ...T[]]
 
 export type CountryCode = CCode
 
@@ -42,7 +45,7 @@ export type UsePhoneInput = {
   /**
    * @description Supported countries
    */
-  supportedCountries?: CountryCode[]
+  supportedCountries?: NonEmptyArray<CountryCode>
   /**
    * @description Default selected country
    */
@@ -139,14 +142,15 @@ export const usePhoneInput = ({
    */
   const normalizeValue = React.useCallback(
     (phone: string) => {
-      if (country && mode === 'national') {
+      if (country && isSupportedCountry(country) && mode === 'national') {
         return formatWithFixedCountry(phone, country).replace(
           '+' + getCountryCallingCode(country),
           '',
         )
       }
 
-      if (country) return formatWithFixedCountry(phone, country)
+      if (country && isSupportedCountry(country))
+        return formatWithFixedCountry(phone, country)
 
       switch (mode) {
         case 'international':
@@ -186,6 +190,23 @@ export const usePhoneInput = ({
     (value: string): PhoneInputChangeMetadata => {
       const guessedCountry =
         guessCountry(value) || currentCountryCodeRef.current
+
+      /**
+       * If guessedCountry is not supported by the libPhoneNumberJS
+       * then return the empty metadata
+       */
+      if (!isSupportedCountry(guessedCountry)) {
+        console.warn(`usePhoneInput - ${guessedCountry} is not supported.`)
+        return {
+          isPossible: false,
+          isValid: false,
+          e164Value: '',
+          country: guessedCountry,
+          phoneCode: '',
+          formattedValue: '',
+          isSupported: false,
+        }
+      }
 
       const isSupported = checkCountryValidity(
         guessedCountry,
@@ -370,7 +391,9 @@ export const usePhoneInput = ({
     closeCountrySelect,
     toggleCountrySelect,
     selectedCountry: currentCountryCodeRef.current,
-    phoneCode: getCountryCallingCode(currentCountryCodeRef.current),
+    phoneCode: isSupportedCountry(currentCountryCodeRef.current)
+      ? getCountryCallingCode(currentCountryCodeRef.current)
+      : '',
     setSelectedCountry,
   }
 }

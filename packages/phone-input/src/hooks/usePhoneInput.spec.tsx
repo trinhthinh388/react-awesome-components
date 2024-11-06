@@ -1,4 +1,4 @@
-import { usePhoneInput } from './usePhoneInput'
+import { usePhoneInput, UsePhoneInput } from './usePhoneInput'
 import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { act } from 'react-dom/test-utils'
@@ -20,7 +20,7 @@ const Comp = ({
   onChange = () => {},
 }: {
   country?: CountryCode
-  supportedCountries?: CountryCode[]
+  supportedCountries?: UsePhoneInput['supportedCountries']
   defaultCountry?: CountryCode
   smartCaret?: boolean
   value?: string
@@ -500,6 +500,73 @@ describe('usePhoneInput', () => {
         isSupported: true,
         isValid: true,
         phoneCode: '1',
+      })
+    })
+  })
+
+  /**
+   * Unsupported country is being used
+   */
+  describe('Should not throw error when encounters unsupported country is being used as default country', () => {
+    it('Should not throw error when encounters unsupported country is being used as default country', async () => {
+      const onChange = vitest.fn()
+
+      const { container } = render(
+        <Comp
+          onChange={onChange}
+          // @ts-expect-error unsupported country
+          defaultCountry="AQ"
+        />,
+      )
+      const input = container.querySelector('input')
+      if (!input) {
+        throw new Error('input is not a valid element.')
+      }
+
+      await act(async () => {
+        input.focus()
+        await user.paste('+84522369680')
+      })
+
+      expect(onChange.mock.calls[0][1]).toEqual({
+        country: 'VN',
+        e164Value: '+84522369680',
+        formattedValue: '+84 522 369 680',
+        isPossible: true,
+        isSupported: true,
+        isValid: true,
+        phoneCode: '84',
+      })
+    })
+
+    it('Should not throw error when encounters unsupported country is being used as default country and supportedCountries is an empty list', async () => {
+      const onChange = vitest.fn()
+
+      const { container } = render(
+        <Comp
+          onChange={onChange}
+          // @ts-expect-error unsupported country
+          country="AQ"
+        />,
+      )
+      const input = container.querySelector('input')
+      if (!input) {
+        throw new Error('input is not a valid element.')
+      }
+
+      await act(async () => {
+        input.focus()
+        await user.paste('+84522369680')
+      })
+
+      expect(onChange.mock.calls[0][1]).toEqual({
+        country: 'AQ',
+        e164Value: '',
+        formattedValue: '',
+        isPossible: false,
+        isSupported: false,
+        isValid: false,
+        phoneCode: '',
       })
     })
   })
