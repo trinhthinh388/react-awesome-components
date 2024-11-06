@@ -1,5 +1,11 @@
 # @react-awesome/phone-input
 
+## 1.1.7
+
+### Patch Changes
+
+- Fixed bug throws error when encountering a country is not supported
+
 ## 1.1.6
 
 ### Patch Changes
