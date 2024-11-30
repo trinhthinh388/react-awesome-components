@@ -1,5 +1,11 @@
 # @react-awesome/components
 
+## 1.0.24
+
+### Patch Changes
+
+- export useDebounce
+
 ## 1.0.23
 
 ### Patch Changes
