@@ -1,6 +1,6 @@
 {
   "name": "@react-awesome/components",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -46,6 +46,7 @@
     "@react-awesome/use-previous": "0.0.3",
     "@react-awesome/use-toggle": "1.0.0",
     "@react-awesome/use-breakpoint": "1.0.0",
+    "@react-awesome/use-debounce": "1.0.0",
     "@react-awesome/autosizer": "0.0.0"
   }
 }
