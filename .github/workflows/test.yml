@@ -92,3 +92,10 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: Autosizer
           files: ./packages/autosizer/coverage/coverage-final.json
+
+      - name: Upload `useDebounce` coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: useDebounce
+          files: ./packages/use-debounce/coverage/coverage-final.json
