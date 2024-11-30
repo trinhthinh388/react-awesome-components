@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react'
 
-export function useDebounce<T>(state: T, timeout: number = 3_00) : T {
+export function useDebounce<T>(state: T, timeout: number = 3_00): T {
   const [debounced, setDebounced] = useState<T>()
   const timeoutId = useRef<number>()
 
