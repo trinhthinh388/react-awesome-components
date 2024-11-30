@@ -1,5 +1,12 @@
 # @react-awesome/components
 
+## 1.0.23
+
+### Patch Changes
+
+- Updated dependencies
+  - @react-awesome/use-debounce@1.0.0
+
 ## 1.0.22
 
 ### Patch Changes
